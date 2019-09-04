@@ -32,8 +32,8 @@ public class iniMapa {
 	
 	void procesarLinea(String cadena,int fila){
 		String arr[] = cadena.split(",");
-		char c;
-		int col=0;
+//		char c;
+//		int col=0;
 		for (int i=0;i<	arr.length;i++){
 			obstaculos[fila][i] = arr[i];
 		}
