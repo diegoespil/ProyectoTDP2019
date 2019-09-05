@@ -1957,117 +1957,6 @@
 								},
 								{
 									"_type": "UMLSeqMessageView",
-									"_id": "AAAAAAFs2d6IG5wCQYk=",
-									"_parent": {
-										"$ref": "AAAAAAFs2dfpB5sInTI="
-									},
-									"model": {
-										"$ref": "AAAAAAFs2d6IG5wBpyE="
-									},
-									"subViews": [
-										{
-											"_type": "EdgeLabelView",
-											"_id": "AAAAAAFs2d6IG5wD6+U=",
-											"_parent": {
-												"$ref": "AAAAAAFs2d6IG5wCQYk="
-											},
-											"model": {
-												"$ref": "AAAAAAFs2d6IG5wBpyE="
-											},
-											"font": "Arial;13;0",
-											"left": 345,
-											"top": 131,
-											"width": 78.04443359375,
-											"height": 13,
-											"alpha": 1.5707963267948966,
-											"distance": 10,
-											"hostEdge": {
-												"$ref": "AAAAAAFs2d6IG5wCQYk="
-											},
-											"edgePosition": 1,
-											"text": "1 : Message1"
-										},
-										{
-											"_type": "EdgeLabelView",
-											"_id": "AAAAAAFs2d6IG5wEc00=",
-											"_parent": {
-												"$ref": "AAAAAAFs2d6IG5wCQYk="
-											},
-											"model": {
-												"$ref": "AAAAAAFs2d6IG5wBpyE="
-											},
-											"visible": false,
-											"font": "Arial;13;0",
-											"left": 399,
-											"top": 131,
-											"height": 13,
-											"alpha": 1.5707963267948966,
-											"distance": 25,
-											"hostEdge": {
-												"$ref": "AAAAAAFs2d6IG5wCQYk="
-											},
-											"edgePosition": 1
-										},
-										{
-											"_type": "EdgeLabelView",
-											"_id": "AAAAAAFs2d6IG5wFBE0=",
-											"_parent": {
-												"$ref": "AAAAAAFs2d6IG5wCQYk="
-											},
-											"model": {
-												"$ref": "AAAAAAFs2d6IG5wBpyE="
-											},
-											"visible": false,
-											"font": "Arial;13;0",
-											"left": 365,
-											"top": 132,
-											"height": 13,
-											"alpha": -1.5707963267948966,
-											"distance": 10,
-											"hostEdge": {
-												"$ref": "AAAAAAFs2d6IG5wCQYk="
-											},
-											"edgePosition": 1
-										},
-										{
-											"_type": "UMLActivationView",
-											"_id": "AAAAAAFs2d6IG5wGn7w=",
-											"_parent": {
-												"$ref": "AAAAAAFs2d6IG5wCQYk="
-											},
-											"model": {
-												"$ref": "AAAAAAFs2d6IG5wBpyE="
-											},
-											"font": "Arial;13;0",
-											"left": 338,
-											"top": 148,
-											"width": 14,
-											"height": 29
-										}
-									],
-									"font": "Arial;13;0",
-									"head": {
-										"$ref": "AAAAAAFs2dmaWZtehZQ="
-									},
-									"tail": {
-										"$ref": "AAAAAAFs2dmaWZtehZQ="
-									},
-									"points": "345:128;375:128;375:148;351:148",
-									"nameLabel": {
-										"$ref": "AAAAAAFs2d6IG5wD6+U="
-									},
-									"stereotypeLabel": {
-										"$ref": "AAAAAAFs2d6IG5wEc00="
-									},
-									"propertyLabel": {
-										"$ref": "AAAAAAFs2d6IG5wFBE0="
-									},
-									"activation": {
-										"$ref": "AAAAAAFs2d6IG5wGn7w="
-									}
-								},
-								{
-									"_type": "UMLSeqMessageView",
 									"_id": "AAAAAAFs2dsssJu9B2w=",
 									"_parent": {
 										"$ref": "AAAAAAFs2dfpB5sInTI="
@@ -2096,7 +1985,7 @@
 												"$ref": "AAAAAAFs2dsssJu9B2w="
 											},
 											"edgePosition": 1,
-											"text": "2 : destruir"
+											"text": "1 : destruir"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -2207,7 +2096,7 @@
 												"$ref": "AAAAAAFs2dvpzZvTelM="
 											},
 											"edgePosition": 1,
-											"text": "3 : liberarCelda"
+											"text": "2 : liberarCelda"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -2318,7 +2207,7 @@
 												"$ref": "AAAAAAFs2dwxXJvp0tQ="
 											},
 											"edgePosition": 1,
-											"text": "4 : "
+											"text": "3 : "
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -2430,7 +2319,7 @@
 												"$ref": "AAAAAAFs2d+B3pweMy0="
 											},
 											"edgePosition": 1,
-											"text": "5 : atacar"
+											"text": "4 : atacar"
 										},
 										{
 											"_type": "EdgeLabelView",
@@ -2515,20 +2404,6 @@
 						}
 					],
 					"messages": [
-						{
-							"_type": "UMLMessage",
-							"_id": "AAAAAAFs2d6IG5wBpyE=",
-							"_parent": {
-								"$ref": "AAAAAAFs2dfpB5sHPw4="
-							},
-							"name": "Message1",
-							"source": {
-								"$ref": "AAAAAAFs2dmaWZtXSHw="
-							},
-							"target": {
-								"$ref": "AAAAAAFs2dmaWZtXSHw="
-							}
-						},
 						{
 							"_type": "UMLMessage",
 							"_id": "AAAAAAFs2dsssJu8fQI=",

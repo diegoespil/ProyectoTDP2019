@@ -44,7 +44,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFs2cKFPibqpgw="
 							},
-							"name": "SequenceDiagram1",
+							"name": "Avanzar",
 							"ownedViews": [
 								{
 									"_type": "UMLFrameView",
@@ -65,9 +65,9 @@
 											"font": "Arial;13;0",
 											"left": 70.97900390625,
 											"top": 5,
-											"width": 115.9052734375,
+											"width": 48.455078125,
 											"height": 13,
-											"text": "SequenceDiagram1"
+											"text": "Avanzar"
 										},
 										{
 											"_type": "LabelView",
