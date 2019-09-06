@@ -43,11 +43,19 @@ public class miVentanaJuego extends JFrame {
 		menu = new JPanel();
 		menu.setBackground(Color.WHITE);
 		menu.setLayout(null);
-		setBounds(100, 100, 800, 640);
+		setBounds(300, 50, 800, 640);
+		setResizable(false);
 		setContentPane(menu);
-		grilla = new JLabel[10][20];
+
+		grilla = new JLabel[8][10];
 		inicializarGrilla();
 		crearGrilla();
+		JLabel fondo = new JLabel();
+		fondo.setBounds(0, 50, 800, 640);
+		ImageIcon iconFondo = new ImageIcon("Imagenes\\Fondo.jpg");
+		fondo.setIcon(new ImageIcon(iconFondo.getImage().getScaledInstance(800, 500, Image.SCALE_SMOOTH)));
+		menu.add(fondo);
+
 	}
 
 	protected void crearGrilla() {
@@ -67,7 +75,12 @@ public class miVentanaJuego extends JFrame {
 							ImageIcon asfalto = new ImageIcon("Imagenes\\asfalto.png");
 							grilla[i][j].setIcon(
 									new ImageIcon(asfalto.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+						} else {
+							if (palabra.equals("vacio")) {
+								grilla[i][j].setVisible(false);
+							}
 						}
+
 					}
 				}
 		} catch (Exception e) {
@@ -83,5 +96,4 @@ public class miVentanaJuego extends JFrame {
 				menu.add(grilla[i][j]);
 			}
 	}
-
 }

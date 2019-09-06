@@ -43,7 +43,8 @@ public class miVentanaMenu extends JFrame {
 		JPanel menu = new JPanel();
 		menu.setBackground(Color.BLACK);
 		menu.setLayout(null);
-		setBounds(100, 100, 1024, 600);
+		setBounds(100, 100, 800, 600);
+		setResizable(false);
 		setContentPane(menu);
 
 		JButton btnIniciar = new JButton("iniciar");
