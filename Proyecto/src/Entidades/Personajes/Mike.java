@@ -1,4 +1,4 @@
-package Entidades.Personaje;
+package Entidades.Personajes;
 
 import javax.swing.JLabel;
 
