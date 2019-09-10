@@ -3,8 +3,11 @@ package Gui;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -41,21 +44,38 @@ public class miVentanaJuego extends JFrame {
 	public miVentanaJuego() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menu = new JPanel();
+		menu.setOpaque(false);
 		menu.setBackground(Color.WHITE);
 		menu.setLayout(null);
-		setBounds(300, 50, 800, 640);
+		setBounds(300, 50, 800, 500);
 		setResizable(false);
 		setContentPane(menu);
-
+		ImageIcon once = new ImageIcon("Imagenes\\once.png");
 		grilla = new JLabel[8][10];
 		inicializarGrilla();
 		crearGrilla();
 		JLabel fondo = new JLabel();
-		fondo.setBounds(0, 50, 800, 640);
+		fondo.setEnabled(false);
+		fondo.setBounds(0, 58, 800, 402);
 		ImageIcon iconFondo = new ImageIcon("Imagenes\\Fondo.jpg");
-		fondo.setIcon(new ImageIcon(iconFondo.getImage().getScaledInstance(800, 500, Image.SCALE_SMOOTH)));
+		JButton btnNewButton = new JButton("Once");
+		btnNewButton.setFocusable(false);
+		btnNewButton.setIcon(new ImageIcon(once.getImage().getScaledInstance(54, 54, Image.SCALE_DEFAULT)));
+		btnNewButton.setBounds(29, 11, 132, 54);
+		menu.add(btnNewButton);
+		fondo.setIcon(new ImageIcon(iconFondo.getImage().getScaledInstance(800, 342, Image.SCALE_SMOOTH)));
 		menu.add(fondo);
+		cargarPersonaje(btnNewButton, once);
 
+	}
+
+	protected void cargarPersonaje(JButton bt, ImageIcon image) {
+		bt.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				grilla[4][0].setIcon(new ImageIcon(image.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+				grilla[4][0].setVisible(true);
+			}
+		});
 	}
 
 	protected void crearGrilla() {
@@ -66,18 +86,36 @@ public class miVentanaJuego extends JFrame {
 			for (int i = 0; i < obstaculo.length; i++)
 				for (int j = 0; j < obstaculo[i].length; j++) {
 					palabra = obstaculo[i][j];
-					if (palabra.equals("adoquin")) {
-						ImageIcon adoquin = new ImageIcon("Imagenes\\adoquin.png");
-						grilla[i][j].setIcon(
-								new ImageIcon(adoquin.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+					if (palabra.equals("auto")) {
+						ImageIcon auto = new ImageIcon("Imagenes\\auto.png");
+						grilla[i][j]
+								.setIcon(new ImageIcon(auto.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
 					} else {
-						if (palabra.equals("asfalto")) {
-							ImageIcon asfalto = new ImageIcon("Imagenes\\asfalto.png");
+						if (palabra.equals("auto2")) {
+							ImageIcon auto2 = new ImageIcon("Imagenes\\auto 2.png");
 							grilla[i][j].setIcon(
-									new ImageIcon(asfalto.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+									new ImageIcon(auto2.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
 						} else {
 							if (palabra.equals("vacio")) {
 								grilla[i][j].setVisible(false);
+							} else {
+								if (palabra.equals("auto3")) {
+									ImageIcon auto3 = new ImageIcon("Imagenes\\auto 3.png");
+									grilla[i][j].setIcon(new ImageIcon(
+											auto3.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+								} else {
+									if (palabra.equals("fuego")) {
+										ImageIcon fuego = new ImageIcon("Imagenes\\fuego.png");
+										grilla[i][j].setIcon(new ImageIcon(
+												fuego.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+									} else {
+										if (palabra.equals("once")) {
+											ImageIcon once = new ImageIcon("Imagenes\\once.png");
+											grilla[i][j].setIcon(new ImageIcon(
+													once.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+										}
+									}
+								}
 							}
 						}
 
