@@ -10,7 +10,7 @@ public class iniMapa {
 	private String[][] obstaculos;
 
 	public iniMapa() {
-		obstaculos = new String[8][10];
+		obstaculos = new String[8][13];
 
 	}
 

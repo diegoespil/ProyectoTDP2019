@@ -1,8 +1,8 @@
-vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio
-vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio
-vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio
-vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio
-vacio,auto,vacio,vacio,vacio,auto2,vacio,vacio,vacio,vacio
-vacio,vacio,vacio,vacio,vacio,auto3,vacio,fuego,vacio,vacio
-vacio,vacio,vacio,vacio,vacio,vacio,vacio,fuego,vacio,vacio
-vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio
+vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio
+vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio
+vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio
+vacio,vacio,auto,vacio,vacio,vacio,vacio,vacio,auto,vacio,vacio,vacio,vacio
+vacio,vacio,vacio,vacio,vacio,auto2,vacio,vacio,vacio,vacio,vacio,vacio,vacio
+vacio,vacio,vacio,vacio,vacio,auto3,vacio,vacio,vacio,vacio,vacio,vacio,vacio
+vacio,vacio,vacio,vacio,vacio,vacio,vacio,auto,vacio,vacio,vacio,vacio,vacio
+vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio,vacio
