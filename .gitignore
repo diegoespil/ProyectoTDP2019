@@ -12,7 +12,7 @@ factoryConfiguration.json
 ### Java ###
 # Compiled class file
 *.class
-
+*.metadata
 # Log file
 *.log
 
