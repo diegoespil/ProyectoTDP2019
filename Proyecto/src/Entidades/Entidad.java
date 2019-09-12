@@ -8,21 +8,15 @@ public abstract class Entidad {
 
 	protected int life;
 	protected JLabel image;
-	protected int speed;
 	protected Point position;
 	
-	public Entidad(int speed, int x, int y) {
+	public Entidad(int life, int x, int y) {
 		this.position = new Point(x,y);
-		this.speed = speed;
-		this.life = 100;
+		this.life = life;
 	}
 	
 	public int getLife() {
 		return this.life;
-	}
-	
-	public int getSpeed() {
-		return this.speed;
 	}
 	
 	public Point getPosition() {
@@ -37,9 +31,6 @@ public abstract class Entidad {
 	
 	public abstract void setImage(JLabel image);
 	
-	public abstract void atacar(Entidad entidad);
 	
-	public void mover(int x, int y) {
-		
-	}
+
 }
