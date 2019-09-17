@@ -5,7 +5,13 @@ import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -58,6 +64,16 @@ public class miVentanaJuego extends JFrame {
 		ImageIcon hoppe = new ImageIcon("Imagenes\\hoppe.png");
 		ImageIcon malo1 = new ImageIcon("Imagenes\\malo1.png");
 		ImageIcon malo2 = new ImageIcon("Imagenes\\malo2.png");
+		Clip sonido;
+		try {
+			sonido = AudioSystem.getClip();
+			File a = new File("Imagenes\\music.wav");
+			sonido.open(AudioSystem.getAudioInputStream(a));
+			sonido.start();
+		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		grilla = new JLabel[8][13];
 		inicializarGrilla();
 		crearGrilla();
