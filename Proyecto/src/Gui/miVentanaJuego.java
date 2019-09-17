@@ -57,17 +57,17 @@ public class miVentanaJuego extends JFrame {
 		setBounds(300, 50, 800, 500);
 		setResizable(false);
 		setContentPane(menu);
-		ImageIcon once = new ImageIcon("Imagenes\\once.png");
-		ImageIcon dustin = new ImageIcon("Imagenes\\dustin.png");
-		ImageIcon micke = new ImageIcon("Imagenes\\micke.png");
-		ImageIcon lucas = new ImageIcon("Imagenes\\lucas.png");
-		ImageIcon hoppe = new ImageIcon("Imagenes\\hoppe.png");
-		ImageIcon malo1 = new ImageIcon("Imagenes\\malo1.png");
-		ImageIcon malo2 = new ImageIcon("Imagenes\\malo2.png");
+		ImageIcon once = new ImageIcon("Imagenes//once.png");
+		ImageIcon dustin = new ImageIcon("Imagenes//dustin.png");
+		ImageIcon micke = new ImageIcon("Imagenes//micke.png");
+		ImageIcon lucas = new ImageIcon("Imagenes//lucas.png");
+		ImageIcon hoppe = new ImageIcon("Imagenes//hoppe.png");
+		ImageIcon malo1 = new ImageIcon("Imagenes//malo1.png");
+		ImageIcon malo2 = new ImageIcon("Imagenes//malo2.png");
 		Clip sonido;
 		try {
 			sonido = AudioSystem.getClip();
-			File a = new File("Imagenes\\music.wav");
+			File a = new File("Imagenes//music.wav");
 			sonido.open(AudioSystem.getAudioInputStream(a));
 			sonido.start();
 		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
@@ -80,7 +80,7 @@ public class miVentanaJuego extends JFrame {
 		JLabel fondo = new JLabel();
 		fondo.setEnabled(false);
 		fondo.setBounds(0, 65, 800, 360);
-		ImageIcon iconFondo = new ImageIcon("Imagenes\\Fondo.jpg");
+		ImageIcon iconFondo = new ImageIcon("Imagenes//Fondo.jpg");
 		JButton btnNewButton = new JButton("Once");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -97,7 +97,7 @@ public class miVentanaJuego extends JFrame {
 		menu.add(fondo);
 
 		JLabel lblNewLabel = new JLabel("New label");
-		ImageIcon cielo = new ImageIcon("Imagenes\\cielo.jpg");
+		ImageIcon cielo = new ImageIcon("Imagenes//cielo.jpg");
 		lblNewLabel.setIcon(new ImageIcon(cielo.getImage().getScaledInstance(800, 102, Image.SCALE_SMOOTH)));
 		lblNewLabel.setBounds(0, 0, 800, 102);
 		menu.add(lblNewLabel);
@@ -178,12 +178,12 @@ public class miVentanaJuego extends JFrame {
 				for (int j = 0; j < obstaculo[i].length; j++) {
 					palabra = obstaculo[i][j];
 					if (palabra.equals("auto")) {
-						ImageIcon auto = new ImageIcon("Imagenes\\auto-fuego1.png");
+						ImageIcon auto = new ImageIcon("Imagenes//auto-fuego1.png");
 						grilla[i][j]
 								.setIcon(new ImageIcon(auto.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
 					} else {
 						if (palabra.equals("auto2")) {
-							ImageIcon auto2 = new ImageIcon("Imagenes\\auto-fuego2.png");
+							ImageIcon auto2 = new ImageIcon("Imagenes//auto-fuego2.png");
 							grilla[i][j].setIcon(
 									new ImageIcon(auto2.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
 						} else {
@@ -191,17 +191,17 @@ public class miVentanaJuego extends JFrame {
 								grilla[i][j].setVisible(false);
 							} else {
 								if (palabra.equals("auto3")) {
-									ImageIcon auto3 = new ImageIcon("Imagenes\\auto-fuego3.png");
+									ImageIcon auto3 = new ImageIcon("Imagenes//auto-fuego3.png");
 									grilla[i][j].setIcon(new ImageIcon(
 											auto3.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
 								} else {
 									if (palabra.equals("fuego")) {
-										ImageIcon fuego = new ImageIcon("Imagenes\\fuego.png");
+										ImageIcon fuego = new ImageIcon("Imagenes//fuego.png");
 										grilla[i][j].setIcon(new ImageIcon(
 												fuego.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT)));
 									} else {
 										if (palabra.equals("once")) {
-											ImageIcon once = new ImageIcon("Imagenes\\once.png");
+											ImageIcon once = new ImageIcon("Imagenes//once.png");
 											grilla[i][j].setIcon(new ImageIcon(
 													once.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
 										}
