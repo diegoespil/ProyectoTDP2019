@@ -33,4 +33,8 @@ public abstract class Personaje extends Integrantes {
 		return precio;
 	}
 
+	public Personaje(int x, int y) {
+		super(x,y);
+	}
+
 }
