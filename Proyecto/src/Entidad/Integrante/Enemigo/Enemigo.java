@@ -1,20 +1,24 @@
-package Entidad.Integrantes.Enemigo;
+package Entidad.Integrante.Enemigo;
 
-import Entidad.Integrantes.Integrantes;
+import Entidad.Integrante.Integrante;
 
-public abstract class Enemigo extends Integrantes {
+public abstract class Enemigo extends Integrante {
 
-	protected int velocidad;
+	protected int velocidad,puntaje;
 	
-	public Enemigo(int x, int y, int velocidad) {
+	public Enemigo(int x, int y, int velocidad, int puntaje) {
 		super(x,y);
 		this.velocidad = velocidad;
+		this.puntaje = puntaje;
 	}
 	
 	public int getVelocidad() {
 		return velocidad;
 	}
 	
+	public int getPuntaje() {
+		return puntaje;
+	}
 	public void mover(int dir){	
 		switch (dir) {
 			case 0 : //Arriba

@@ -1,4 +1,4 @@
-package Entidad.Integrantes.Personaje;
+package Entidad.Integrante.Personaje;
 
 public class Lucas extends Personaje {
 

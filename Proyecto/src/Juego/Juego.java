@@ -2,10 +2,10 @@ package Juego;
 
 import java.util.Random;
 
-import Entidad.Integrantes.Enemigo.Enemigo;
-import Entidad.Integrantes.Enemigo.Poseido;
-import Entidad.Integrantes.Personaje.Micke;
-import Entidad.Integrantes.Personaje.Personaje;
+import Entidad.Integrante.Enemigo.Enemigo;
+import Entidad.Integrante.Enemigo.Poseido;
+import Entidad.Integrante.Personaje.Mike;
+import Entidad.Integrante.Personaje.Personaje;
 import Gui.miVentanaJuego;
 
 public class Juego {
@@ -13,10 +13,15 @@ public class Juego {
 	private Personaje personaje;
 	
 	public Juego(miVentanaJuego gui) {
-		enemigo = new Poseido(13,6,10);
+		/* modifiqué el constructor de Enemigo para que incluya el parámetro puntaje,
+		 * por eso esta declaración de new Poseido tiene un parámetro extra.
+		 * Ese cero al final corresponde al puntaje.
+		 * -Bernardo
+		 */
+		enemigo = new Poseido(13,6,10,0); 
 		gui.add(enemigo.getGrafico());
 		
 		
-		personaje = new Micke(1,6);
+		personaje = new Mike(1,6);
 	}
 }
