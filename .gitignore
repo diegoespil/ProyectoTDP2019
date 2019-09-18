@@ -13,6 +13,7 @@ factoryConfiguration.json
 # Compiled class file
 *.class
 *.metadata
+*.recommenders
 # Log file
 *.log
 
