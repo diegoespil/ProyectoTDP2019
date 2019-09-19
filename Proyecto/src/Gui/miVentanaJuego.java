@@ -5,9 +5,10 @@ import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
-
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
@@ -19,6 +20,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Mapa.iniMapa;
+import javax.swing.JComboBox;
+import javax.swing.JCheckBox;
 
 @SuppressWarnings("serial")
 public class miVentanaJuego extends JFrame {
@@ -54,7 +57,7 @@ public class miVentanaJuego extends JFrame {
 		menu.setOpaque(false);
 		menu.setBackground(Color.WHITE);
 		menu.setLayout(null);
-		setBounds(300, 50, 800, 500);
+		setBounds(300, 50, 800, 630);
 		setResizable(false);
 		setContentPane(menu);
 		ImageIcon once = new ImageIcon("Imagenes//once.png");
@@ -64,6 +67,8 @@ public class miVentanaJuego extends JFrame {
 		ImageIcon hoppe = new ImageIcon("Imagenes//hoppe.png");
 		ImageIcon malo1 = new ImageIcon("Imagenes//malo1.png");
 		ImageIcon malo2 = new ImageIcon("Imagenes//malo2.png");
+		ImageIcon iconFondo = new ImageIcon("Imagenes//Fondo.jpg");
+		
 		Clip sonido;
 		try {
 			sonido = AudioSystem.getClip();
@@ -79,8 +84,46 @@ public class miVentanaJuego extends JFrame {
 		crearGrilla();
 		JLabel fondo = new JLabel();
 		fondo.setEnabled(false);
-		fondo.setBounds(0, 65, 800, 360);
-		ImageIcon iconFondo = new ImageIcon("Imagenes//Fondo.jpg");
+		fondo.setBounds(0, 65, 800, 420);
+		fondo.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+				int x,y;
+				x = e.getX()/60;
+				y = (e.getY()/60)+1;
+				System.out.println("Estoy en "+x+" de X y "+y+" de Y");
+				if(grilla[y][x].getIcon() == null) { 
+					System.out.println("esta vacio");
+					grilla[y][x].setIcon(new ImageIcon(micke.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+					grilla[y][x].setVisible(true);
+					menu.repaint();
+				}
+				else
+					System.out.println("tenia etiqueta");
+				
+			}
+			public void mouseEntered(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			public void mouseExited(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			public void mousePressed(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			public void mouseReleased(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		
+		
+		
+		
 		JButton btnNewButton = new JButton("Once");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -91,9 +134,9 @@ public class miVentanaJuego extends JFrame {
 		});
 		btnNewButton.setFocusable(false);
 		btnNewButton.setIcon(new ImageIcon(once.getImage().getScaledInstance(54, 54, Image.SCALE_DEFAULT)));
-		btnNewButton.setBounds(0, 417, 132, 54);
+		btnNewButton.setBounds(391, 496, 132, 54);
 		menu.add(btnNewButton);
-		fondo.setIcon(new ImageIcon(iconFondo.getImage().getScaledInstance(800, 342, Image.SCALE_SMOOTH)));
+		fondo.setIcon(new ImageIcon(iconFondo.getImage().getScaledInstance(800, 420, Image.SCALE_SMOOTH)));
 		menu.add(fondo);
 
 		JLabel lblNewLabel = new JLabel("New label");
@@ -111,7 +154,7 @@ public class miVentanaJuego extends JFrame {
 			}
 		});
 		btnDustin.setFocusable(false);
-		btnDustin.setBounds(131, 417, 132, 54);
+		btnDustin.setBounds(391, 547, 132, 54);
 		btnDustin.setIcon(new ImageIcon(dustin.getImage().getScaledInstance(54, 54, Image.SCALE_DEFAULT)));
 		menu.add(btnDustin);
 
@@ -124,7 +167,7 @@ public class miVentanaJuego extends JFrame {
 			}
 		});
 		btnMicke.setFocusable(false);
-		btnMicke.setBounds(263, 417, 132, 54);
+		btnMicke.setBounds(522, 496, 132, 54);
 		btnMicke.setIcon(new ImageIcon(micke.getImage().getScaledInstance(54, 54, Image.SCALE_DEFAULT)));
 		menu.add(btnMicke);
 
@@ -137,7 +180,7 @@ public class miVentanaJuego extends JFrame {
 			}
 		});
 		btnLucas.setFocusable(false);
-		btnLucas.setBounds(393, 417, 132, 54);
+		btnLucas.setBounds(522, 547, 132, 54);
 		btnLucas.setIcon(new ImageIcon(lucas.getImage().getScaledInstance(54, 54, Image.SCALE_DEFAULT)));
 		menu.add(btnLucas);
 
@@ -150,7 +193,7 @@ public class miVentanaJuego extends JFrame {
 			}
 		});
 		btnHoppe.setFocusable(false);
-		btnHoppe.setBounds(524, 417, 132, 54);
+		btnHoppe.setBounds(652, 496, 132, 54);
 		btnHoppe.setIcon(new ImageIcon(hoppe.getImage().getScaledInstance(54, 54, Image.SCALE_DEFAULT)));
 		menu.add(btnHoppe);
 
@@ -164,8 +207,16 @@ public class miVentanaJuego extends JFrame {
 			}
 		});
 		button.setFocusable(false);
-		button.setBounds(652, 417, 132, 54);
+		button.setBounds(652, 547, 132, 54);
 		menu.add(button);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(104, 461, 289, 140);
+		menu.add(comboBox);
+		
+		JCheckBox chckbxDustin = new JCheckBox("Dustin");
+		chckbxDustin.setBounds(123, 495, 97, 23);
+		menu.add(chckbxDustin);
 
 	}
 
