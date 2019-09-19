@@ -4,35 +4,43 @@ import Entidad.Integrante.Integrante;
 
 public abstract class Enemigo extends Integrante {
 
-	protected int velocidad,puntaje;
+	protected int velocidad,puntaje, monedas;
 	
-	public Enemigo(int x, int y, int velocidad, int puntaje) {
-		super(x,y);
+	public Enemigo(int x, int y, int velocidad, int danio, int alcance, int puntaje, int monedas) {
+		super(x,y,danio,alcance);
 		this.velocidad = velocidad;
 		this.puntaje = puntaje;
+		this.monedas = monedas;
 	}
 	
 	public int getVelocidad() {
 		return velocidad;
 	}
 	
-	public int getPuntaje() {
-		return puntaje;
-	}
+	public abstract int getPuntaje();
+	
+	public abstract int getMonedas();
+	
 	public void mover(int dir){	
+		System.out.println("Posicion: "+pos.x+" "+pos.y);
+		System.out.println("Enemigo mover");
 		switch (dir) {
 			case 0 : //Arriba
-				pos.setLocation(pos.x, pos.y - velocidad);
-				break;
-			case 1 : //Abajo
-				pos.setLocation(pos.x, pos.y + velocidad);
-				break;
-			case 2 : //Izquierda
-				pos.setLocation(pos.x - velocidad, pos.y);
-				break;
-			case 3 : //Derecha
-				pos.setLocation(pos.x + velocidad, pos.y);
-				break;
+			{	System.out.println("Arriba");
+				setPosicion(pos.x,pos.y - velocidad);
+				break;}
+			case 1 :{ //Abajo
+				System.out.println("Abajo");
+				setPosicion(pos.x,pos.y + velocidad);
+				break;}
+			case 2 :{ //Izquierda
+				System.out.println("Izquierda");
+				setPosicion(pos.x  - velocidad,pos.y);
+				break;}
+			case 3 :{ //Derecha
+				System.out.println("Derecha");
+				setPosicion(pos.x  + velocidad,pos.y);
+				break;}
 		}
 		cambiarGrafico(dir);
 	}

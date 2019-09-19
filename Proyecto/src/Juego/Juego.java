@@ -11,17 +11,27 @@ import Gui.miVentanaJuego;
 public class Juego {
 	private Enemigo enemigo;
 	private Personaje personaje;
+	private miVentanaJuego gui;
 	
 	public Juego(miVentanaJuego gui) {
-		/* modifiqué el constructor de Enemigo para que incluya el parámetro puntaje,
-		 * por eso esta declaración de new Poseido tiene un parámetro extra.
+		/* modifiquï¿½ el constructor de Enemigo para que incluya el parï¿½metro puntaje,
+		 * por eso esta declaraciï¿½n de new Poseido tiene un parï¿½metro extra.
 		 * Ese cero al final corresponde al puntaje.
 		 * -Bernardo
 		 */
-		enemigo = new Poseido(13,6,10,0); 
-		gui.add(enemigo.getGrafico());
+		this.gui = gui;
+		enemigo = new Poseido(6,12,10,5,2,20,30); //(x,y,velocidad,danio,alcance,puntaje,monedas) 
+		gui.setGrilla(6, 12, enemigo.getGrafico());
 		
 		
-		personaje = new Mike(1,6);
+		personaje = new Mike(1,6, 5, 6, 10);
+	}
+	
+	public void mover(){
+		System.out.println("mover");
+			Random r = new Random();			
+			int dir = r.nextInt(4);			
+			enemigo.mover(dir);
+			gui.setGrilla((int)enemigo.getPos().getY(), (int)enemigo.getPos().getX(), enemigo.getGrafico());
 	}
 }

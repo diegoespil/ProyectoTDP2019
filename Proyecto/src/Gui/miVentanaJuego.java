@@ -19,6 +19,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Juego.Juego;
+import Juego.ThreadEnemigos;
 import Mapa.iniMapa;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
@@ -30,6 +32,8 @@ public class miVentanaJuego extends JFrame {
 	private JLabel[][] grilla;
 	private String[][] obstaculo;
 	JPanel menu;
+	private Juego juego;
+	private ThreadEnemigos threadEnemigos;
 
 	/**
 	 * Launch the application.
@@ -217,6 +221,10 @@ public class miVentanaJuego extends JFrame {
 		JCheckBox chckbxDustin = new JCheckBox("Dustin");
 		chckbxDustin.setBounds(123, 495, 97, 23);
 		menu.add(chckbxDustin);
+		
+		juego = new Juego(this);
+		threadEnemigos = new ThreadEnemigos(juego);
+		threadEnemigos.start();
 
 	}
 
@@ -269,11 +277,18 @@ public class miVentanaJuego extends JFrame {
 	}
 
 	protected void inicializarGrilla() {
+
 		for (int i = 0; i < grilla.length; i++)
 			for (int j = 0; j < grilla[i].length; j++) {
 				grilla[i][j] = new JLabel();
 				grilla[i][j].setBounds(j * 60, i * 60, 60, 60);
 				menu.add(grilla[i][j]);
 			}
+	}
+	
+	public void setGrilla(int y, int x, ImageIcon image){
+		grilla[y][x].setIcon(new ImageIcon(image.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+		grilla[y][x].setVisible(true);
+		menu.repaint();
 	}
 }
