@@ -3,6 +3,7 @@ package Gui;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -286,9 +287,13 @@ public class miVentanaJuego extends JFrame {
 			}
 	}
 	
-	public void setGrilla(int y, int x, ImageIcon image){
-		grilla[y][x].setIcon(new ImageIcon(image.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-		grilla[y][x].setVisible(true);
+	public void setGrilla(Point pos, ImageIcon image){
+		grilla[pos.y][pos.x].setIcon(new ImageIcon(image.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+		grilla[pos.y][pos.x].setVisible(true);
 		menu.repaint();
+	}
+	
+	public JLabel[][] getGrilla(){
+		return grilla;
 	}
 }

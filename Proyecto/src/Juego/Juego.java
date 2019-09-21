@@ -1,6 +1,9 @@
 package Juego;
 
+import java.awt.Point;
 import java.util.Random;
+
+import javax.swing.JLabel;
 
 import Entidad.Integrante.Enemigo.Enemigo;
 import Entidad.Integrante.Enemigo.Poseido;
@@ -20,18 +23,36 @@ public class Juego {
 		 * -Bernardo
 		 */
 		this.gui = gui;
-		enemigo = new Poseido(6,12,10,5,2,20,30); //(x,y,velocidad,danio,alcance,puntaje,monedas) 
-		gui.setGrilla(6, 12, enemigo.getGrafico());
+		enemigo = new Poseido(12,6,10,5,2,20,30); //(x,y,velocidad,danio,alcance,puntaje,monedas) 
+		gui.setGrilla(enemigo.getPos(), enemigo.getGrafico());
 		
 		
 		personaje = new Mike(1,6, 5, 6, 10);
 	}
 	
-	public void mover(){
-		System.out.println("mover");
-			Random r = new Random();			
-			int dir = r.nextInt(4);			
+	public void mover(int dir){
+		System.out.println("mover");			
 			enemigo.mover(dir);
-			gui.setGrilla((int)enemigo.getPos().getY(), (int)enemigo.getPos().getX(), enemigo.getGrafico());
+			gui.setGrilla(enemigo.getPos(), enemigo.getGrafico());
+	}
+	
+	public boolean canMove(Enemigo e, int dir) {
+		boolean can = false;
+		Point pos = e.getPos();
+		JLabel grilla [][] = gui.getGrilla();
+		System.out.println("Direccion: "+dir);
+		System.out.println("Posicion x: "+pos.x+" pos y: "+pos.y);
+		switch (dir) {
+			case 0: {if ((pos.y != 0) && (grilla[pos.y-1][pos.x].getIcon() == null)) {System.out.println("Can to "+dir);can = true;break;}}
+			case 1: {if ((pos.y != 7) && (grilla[pos.y+1][pos.x].getIcon() == null)) {System.out.println("Can to "+dir);can=true; break;}}
+			case 2: {if ((pos.x != 0) && (grilla[pos.y][pos.x-1].getIcon() == null)) {System.out.println("Can to "+dir);can=true; break;}}
+			case 3: {if ((pos.x != 12) && (grilla[pos.y][pos.x+1].getIcon() == null)) {System.out.println("Can to "+dir);can=true; break;}}
+		}
+		return can;
+	}
+
+
+	public Enemigo getEnemigo() {
+		return this.enemigo;
 	}
 }
