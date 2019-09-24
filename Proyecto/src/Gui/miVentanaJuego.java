@@ -3,6 +3,7 @@ package Gui;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -18,7 +19,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
+import Juego.Juego;
+import Juego.ThreadEnemigos;
 import Mapa.iniMapa;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
@@ -35,6 +37,8 @@ public class miVentanaJuego extends JFrame {
 	private JLabel[][] grilla;
 	private String[][] obstaculo;
 	JPanel menu;
+	private Juego juego;
+	private ThreadEnemigos threadEnemigos;
 
 	/**
 	 * Launch the application.
@@ -164,8 +168,14 @@ public class miVentanaJuego extends JFrame {
 		btnNewButton.setBounds(282, 547, 212, 54);
 		menu.add(btnNewButton);
 		
-		
-	}
+		JCheckBox chckbxDustin = new JCheckBox("Dustin");
+		chckbxDustin.setBounds(123, 495, 97, 23);
+		menu.add(chckbxDustin);
+	
+		juego = new Juego(this);
+		threadEnemigos = new ThreadEnemigos(juego);
+		threadEnemigos.start();
+
 	
 	//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -221,11 +231,22 @@ public class miVentanaJuego extends JFrame {
 
 	//Metodo para incializar la grilla
 	protected void inicializarGrilla() {
+
 		for (int i = 0; i < grilla.length; i++)
 			for (int j = 0; j < grilla[i].length; j++) {
 				grilla[i][j] = new JLabel();
 				grilla[i][j].setBounds(j * 60, i * 60, 60, 60);
 				menu.add(grilla[i][j]);
 			}
+	}
+	
+	public void setGrilla(Point pos, ImageIcon image){
+		grilla[pos.y][pos.x].setIcon(new ImageIcon(image.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+		grilla[pos.y][pos.x].setVisible(true);
+		menu.repaint();
+	}
+	
+	public JLabel[][] getGrilla(){
+		return grilla;
 	}
 }

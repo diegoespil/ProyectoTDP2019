@@ -1,6 +1,9 @@
 package Juego;
 
+import java.awt.Point;
 import java.util.Random;
+
+import javax.swing.JLabel;
 
 import Entidad.Integrante.Enemigo.Enemigo;
 import Entidad.Integrante.Enemigo.Poseido;
@@ -11,17 +14,46 @@ import Gui.miVentanaJuego;
 public class Juego {
 	private Enemigo enemigo;
 	private Personaje personaje;
+	private miVentanaJuego gui;
 	
 	public Juego(miVentanaJuego gui) {
-		/* modifiqué el constructor de Enemigo para que incluya el parámetro puntaje,
-		 * por eso esta declaración de new Poseido tiene un parámetro extra.
+		/* modifiquï¿½ el constructor de Enemigo para que incluya el parï¿½metro puntaje,
+		 * por eso esta declaraciï¿½n de new Poseido tiene un parï¿½metro extra.
 		 * Ese cero al final corresponde al puntaje.
 		 * -Bernardo
 		 */
-		enemigo = new Poseido(13,6,10,0); 
-		gui.add(enemigo.getGrafico());
+		this.gui = gui;
+		enemigo = new Poseido(12,6,10,5,2,20,30); //(x,y,velocidad,danio,alcance,puntaje,monedas) 
+		gui.setGrilla(enemigo.getPos(), enemigo.getGrafico());
 		
 		
-		personaje = new Mike(1,6);
+		personaje = new Mike(1,6, 5, 6, 10);
+	}
+	
+	public void mover(int dir){
+		System.out.println("mover");			
+			enemigo.mover(dir);
+			gui.setGrilla(enemigo.getPos(), enemigo.getGrafico());
+	}
+	
+	public boolean canMove(Enemigo e, int dir) {
+		boolean can = false;
+		Point pos = e.getPos();
+		JLabel grilla [][] = gui.getGrilla();
+		System.out.println("Direccion: "+dir);
+		System.out.println("Posicion x: "+pos.x+" pos y: "+pos.y);
+		switch (dir) {
+			case 0: {if ((pos.y != 0) && (grilla[pos.y-1][pos.x].getIcon() == null)) {System.out.println("Can to "+dir);can = true;break;}}
+			case 1: {if ((pos.y != 7) && (grilla[pos.y+1][pos.x].getIcon() == null)) {System.out.println("Can to "+dir);can=true; break;}}
+			case 2: {if ((pos.x != 0) && (grilla[pos.y][pos.x-1].getIcon() == null)) {System.out.println("Can to "+dir);can=true; break;}}
+			case 3: {if ((pos.x != 12) && (grilla[pos.y][pos.x+1].getIcon() == null)) {System.out.println("Can to "+dir);can=true; break;}}
+		}
+		return can;
+	}
+
+
+	public Enemigo getEnemigo() {
+		return this.enemigo;
 	}
 }
+
