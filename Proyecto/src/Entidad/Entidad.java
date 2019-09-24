@@ -10,7 +10,7 @@ public abstract class Entidad {
 	
 	protected String nombre;
 	protected int vida;
-	protected JLabel grafico;
+	protected ImageIcon grafico;
 	protected ImageIcon image [];
 	protected Point pos;
 	protected final int width = 60;
@@ -20,6 +20,7 @@ public abstract class Entidad {
 		this.pos = new Point(x,y);
 		
 		image = new ImageIcon[4];
+		
 	}
 
 	public Point getPos() {
@@ -33,14 +34,12 @@ public abstract class Entidad {
 	
 	protected void cambiarGrafico(int dir){
 		if(this.grafico != null){
-			this.grafico.setIcon(this.image[dir]);
-			this.grafico.setBounds(this.pos.x, this.pos.y, width, height);
+			this.grafico.setImage(this.image[dir].getImage());
 		}
 	}
 
 	
-	public ImageIcon getGrafico() {
-		
-		return image[0];
+	public ImageIcon getGrafico() {		
+		return this.image[0];
 	}
 }

@@ -288,9 +288,13 @@ public class miVentanaJuego extends JFrame {
 	}
 	
 	public void setGrilla(Point pos, ImageIcon image){
-		grilla[pos.y][pos.x].setIcon(new ImageIcon(image.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+		grilla[pos.y][pos.x].setIcon(image);
 		grilla[pos.y][pos.x].setVisible(true);
 		menu.repaint();
+	}
+	
+	public void celdaVacia(Point pos) {
+		grilla[pos.y][pos.x].setIcon(null);
 	}
 	
 	public JLabel[][] getGrilla(){
