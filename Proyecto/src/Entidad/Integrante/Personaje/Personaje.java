@@ -11,8 +11,8 @@ public abstract class Personaje extends Integrante {
 	}
 	public Personaje(int x, int y, int dmg, int alc, int pre){
 		super(x,y);
-		daño = dmg;
-		alcance = alc;
+		//dato = dmg;
+		//alcance = alc;
 		precio = pre;
 	}
 	

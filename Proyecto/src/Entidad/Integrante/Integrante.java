@@ -4,7 +4,7 @@ import Entidad.Entidad;
 
 public abstract class Integrante extends Entidad{
 
-	protected int daño, alcance;
+	protected int dato, alcance;
 	
 	public Integrante(int x, int y) {
 		super(x, y);
@@ -12,14 +12,14 @@ public abstract class Integrante extends Entidad{
 	}
 	public Integrante(int x, int y, int d, int a) {
 		super(x,y);
-		daño=d;
+		dato=d;
 		alcance=a;
 	}
-	public int getDaño() {
-		return daño;
+	public int getDato() {
+		return dato;
 	}
-	public void setDaño(int daño) {
-		this.daño = daño;
+	public void setDato(int dato) {
+		this.dato = dato;
 	}
 	public int getAlcance() {
 		return alcance;

@@ -43,11 +43,13 @@ public class miVentanaMenu extends JFrame {
 		JPanel menu = new JPanel();
 		menu.setBackground(Color.BLACK);
 		menu.setLayout(null);
-		setBounds(100, 100, 800, 600);
+		setBounds(250, 100, 800, 600);
 		setResizable(false);
 		setContentPane(menu);
+		ImageIcon fondo = new ImageIcon("Imagenes//Stranger-Things-Logo-PNG-Clipart.png");
+		
 
-		JButton btnIniciar = new JButton("iniciar");
+		JButton btnIniciar = new JButton("");
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				miVentanaJuego juego = new miVentanaJuego();
@@ -58,21 +60,21 @@ public class miVentanaMenu extends JFrame {
 		btnIniciar.setContentAreaFilled(false);
 		btnIniciar.setBorder(null);
 		btnIniciar.setBorderPainted(false);
-		btnIniciar.setBounds(383, 311, 270, 50);
-		ImageIcon iniciar = new ImageIcon("Imagenes\\iniciar.png");
+		btnIniciar.setBounds(281, 310, 270, 50);
+		ImageIcon iniciar = new ImageIcon("Imagenes//iniciar.png");
 		btnIniciar.setIcon(new ImageIcon(iniciar.getImage().getScaledInstance(260, 50, Image.SCALE_DEFAULT)));
 		menu.add(btnIniciar);
 
-		JButton btnOpciones = new JButton("Opciones");
+		JButton btnOpciones = new JButton("");
 		btnOpciones.setContentAreaFilled(false);
 		btnOpciones.setBorder(null);
 		btnOpciones.setBorderPainted(false);
-		btnOpciones.setBounds(383, 386, 270, 50);
-		ImageIcon opciones = new ImageIcon("Imagenes\\opciones.png");
+		btnOpciones.setBounds(281, 385, 270, 50);
+		ImageIcon opciones = new ImageIcon("Imagenes//opciones.png");
 		btnOpciones.setIcon(new ImageIcon(opciones.getImage().getScaledInstance(260, 50, Image.SCALE_DEFAULT)));
 		menu.add(btnOpciones);
 
-		JButton btnSalir = new JButton("Salir");
+		JButton btnSalir = new JButton("");
 		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -81,14 +83,14 @@ public class miVentanaMenu extends JFrame {
 		btnSalir.setContentAreaFilled(false);
 		btnSalir.setBorder(null);
 		btnSalir.setBorderPainted(false);
-		btnSalir.setBounds(383, 466, 270, 50);
-		ImageIcon salir = new ImageIcon("Imagenes\\salir.png");
+		btnSalir.setBounds(281, 465, 270, 50);
+		ImageIcon salir = new ImageIcon("Imagenes//salir.png");
 		btnSalir.setIcon(new ImageIcon(salir.getImage().getScaledInstance(260, 50, Image.SCALE_DEFAULT)));
 		menu.add(btnSalir);
 
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon("Imagenes\\Stranger-Things-Logo-PNG-Clipart.png"));
-		label.setBounds(186, 11, 679, 271);
+		label.setBounds(84, 11, 679, 271);
+		label.setIcon(new ImageIcon(fondo.getImage().getScaledInstance(679, 271, Image.SCALE_SMOOTH)));
 		menu.add(label);
 	}
 }
