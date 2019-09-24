@@ -45,6 +45,7 @@ public abstract class Enemigo extends Integrante {
 			case 2 :{ //Izquierda
 				System.out.println("Izquierda");
 				setPosicion(pos.x  - 1,pos.y);
+				//pos.setLocation(pos.x-1, pos.y);
 				break;}
 			case 3 :{ //Derecha
 				System.out.println("Derecha");
@@ -52,6 +53,7 @@ public abstract class Enemigo extends Integrante {
 				break;}
 		}
 		cambiarGrafico(dir);
+		System.out.println("Posicion: x:"+pos.x+" y:"+pos.y);
 	}
 }
 

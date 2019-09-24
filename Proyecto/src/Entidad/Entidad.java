@@ -20,6 +20,7 @@ public abstract class Entidad {
 		this.pos = new Point(x,y);
 		
 		image = new ImageIcon[4];
+		
 	}
 
 	public Point getPos() {
@@ -37,9 +38,8 @@ public abstract class Entidad {
 		}
 	}
 	
-	public ImageIcon getGrafico() {
-		
-		return image[0];
+	public ImageIcon getGrafico() {		
+		return this.image[0];
 	}
 }
 

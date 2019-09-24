@@ -23,17 +23,19 @@ public class Juego {
 		 * -Bernardo
 		 */
 		this.gui = gui;
-		enemigo = new Poseido(12,6,10,5,2,20,30); //(x,y,velocidad,danio,alcance,puntaje,monedas) 
+		enemigo = new Poseido(12,5,10,5,2,20,30); //(x,y,velocidad,danio,alcance,puntaje,monedas) 
 		gui.setGrilla(enemigo.getPos(), enemigo.getGrafico());
+		
 		
 		
 		personaje = new Mike(1,6, 5, 6, 10);
 	}
 	
 	public void mover(int dir){
-		System.out.println("mover");			
-			enemigo.mover(dir);
-			gui.setGrilla(enemigo.getPos(), enemigo.getGrafico());
+		System.out.println("mover");
+		gui.celdaVacia(enemigo.getPos());
+		enemigo.mover(dir);
+		gui.setGrilla(enemigo.getPos(), enemigo.getGrafico());
 	}
 	
 	public boolean canMove(Enemigo e, int dir) {
