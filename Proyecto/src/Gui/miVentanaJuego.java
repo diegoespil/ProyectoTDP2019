@@ -39,6 +39,10 @@ public class miVentanaJuego extends JFrame {
 	JPanel menu;
 	private Juego juego;
 	private ThreadEnemigos threadEnemigos;
+	private ImageIcon barricada_1 = new ImageIcon("Imagenes//barricada1.png");
+	private ImageIcon barricada_2 = new ImageIcon("Imagenes//barricada2.png");
+	private ImageIcon gas = new ImageIcon("Imagenes//gas.png");
+	private ImageIcon portal_trampa = new ImageIcon("Imagenes//portal.png");
 
 	/**
 	 * Launch the application.
@@ -66,7 +70,7 @@ public class miVentanaJuego extends JFrame {
 		menu.setOpaque(false);
 		menu.setBackground(Color.WHITE);
 		menu.setLayout(null);
-		setBounds(300, 50, 800, 630);
+		setBounds(300, 50, 800, 692);
 		setResizable(false);
 		setContentPane(menu);
 		ImageIcon once = new ImageIcon("Imagenes//once.png");
@@ -79,27 +83,17 @@ public class miVentanaJuego extends JFrame {
 		ImageIcon iconFondo = new ImageIcon("Imagenes//Fondo.jpg");
 		ImageIcon cielo = new ImageIcon("Imagenes//cielo.jpg");
 		
-		Clip sonido;
-		try {
-			sonido = AudioSystem.getClip();
-			File a = new File("Imagenes//music.wav");
-			sonido.open(AudioSystem.getAudioInputStream(a));
-			sonido.start();
-		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		grilla = new JLabel[8][13];
 		inicializarGrilla();
 		crearGrilla();
 		JLabel fondo = new JLabel();
-		fondo.setEnabled(false);
-		fondo.setBounds(0, 127, 800, 420);
+		/*fondo.setEnabled(false);
+		fondo.setBounds(0, 127, 800, 540);
 		fondo.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
 				int x,y;
 				x = e.getX()/60;
-				y = (e.getY()/60)+1;
+				y = (e.getY()/60);
 				System.out.println("Estoy en "+x+" de X y "+y+" de Y");
 				if(grilla[y][x].getIcon() == null) { 
 					System.out.println("esta vacio");
@@ -120,12 +114,14 @@ public class miVentanaJuego extends JFrame {
 			public void mouseReleased(MouseEvent arg0) {}
 
 		});
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 10, 10);
+		*/
+		imagenfondo panel = new imagenfondo();
+		panel.setBounds(0, 128, 800, 480);
+		panel.setBackground("Imagenes//Fondo.jpg");
+		panel.setEnabled(false);
 		menu.add(panel);
-		fondo.setIcon(new ImageIcon(iconFondo.getImage().getScaledInstance(800, 420, Image.SCALE_SMOOTH)));
-		menu.add(fondo);
+		//fondo.setIcon(new ImageIcon(iconFondo.getImage().getScaledInstance(800, 420, Image.SCALE_SMOOTH)));
+		//menu.add(fondo);
 
 		//Establece el fondo de la ciudad dde fondo.
 		JLabel fondoCiudad = new JLabel("");
@@ -138,13 +134,13 @@ public class miVentanaJuego extends JFrame {
 		JButton button = new JButton("Tienda");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				miVentanaTienda tienda = new miVentanaTienda();
+				miVentanaTienda tienda = new miVentanaTienda(juego);
 				tienda.setVisible(true);
 				//setVisible(false);
 			}
 		});
 		button.setFocusable(false);
-		button.setBounds(668, 547, 132, 54);
+		button.setBounds(668, 609, 132, 54);
 		menu.add(button);
 		
 		//Boton para volver al menu principal.
@@ -156,7 +152,7 @@ public class miVentanaJuego extends JFrame {
 				setVisible(false);
 			}
 		});
-		btnVolver.setBounds(0, 547, 132, 54);
+		btnVolver.setBounds(0, 609, 132, 54);
 		menu.add(btnVolver);
 		
 		//Boton para eliminar enemigo Sprint 3.
@@ -164,22 +160,18 @@ public class miVentanaJuego extends JFrame {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
+			
 		});
-		btnNewButton.setBounds(282, 547, 212, 54);
+		btnNewButton.setBounds(282, 609, 212, 54);
 		menu.add(btnNewButton);
-		
-		JCheckBox chckbxDustin = new JCheckBox("Dustin");
-		chckbxDustin.setBounds(123, 495, 97, 23);
-		menu.add(chckbxDustin);
-	
+
 		juego = new Juego(this);
 		threadEnemigos = new ThreadEnemigos(juego);
 		threadEnemigos.start();
-
+	}
 	
 	//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-	
 	//aMetodo para crear la grilla de JLabel
 	protected void crearGrilla() {
 		iniMapa matriz = new iniMapa();
@@ -235,13 +227,14 @@ public class miVentanaJuego extends JFrame {
 		for (int i = 0; i < grilla.length; i++)
 			for (int j = 0; j < grilla[i].length; j++) {
 				grilla[i][j] = new JLabel();
-				grilla[i][j].setBounds(j * 60, i * 60, 60, 60);
+				grilla[i][j].setBounds(j * 60, (i+2) * 60, 60, 60);
 				menu.add(grilla[i][j]);
 			}
 	}
 	
+	
 	public void setGrilla(Point pos, ImageIcon image){
-		grilla[pos.y][pos.x].setIcon(image);
+		grilla[pos.y][pos.x].setIcon(new ImageIcon(image.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
 		grilla[pos.y][pos.x].setVisible(true);
 		menu.repaint();
 	}

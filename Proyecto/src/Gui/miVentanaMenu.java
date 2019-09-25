@@ -5,7 +5,12 @@ import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.File;
+import java.io.IOException;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,11 +19,8 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class miVentanaMenu extends JFrame {
-
-	// private JPanel contentPane;
-
 	/**
-	 * Launch the application.
+	 * Lanza la ventana.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -34,9 +36,12 @@ public class miVentanaMenu extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Crea una nueva ventana.
 	 */
 	public miVentanaMenu() {
+		/*
+		 * Se crea un nuevo panel y se lo configura. 
+		 */
 		setUndecorated(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -47,7 +52,15 @@ public class miVentanaMenu extends JFrame {
 		setResizable(false);
 		setContentPane(menu);
 		ImageIcon fondo = new ImageIcon("Imagenes//Stranger-Things-Logo-PNG-Clipart.png");
-		
+		Clip sonido;
+		try {
+			sonido = AudioSystem.getClip();
+			File a = new File("Imagenes//music.wav");
+			sonido.open(AudioSystem.getAudioInputStream(a));
+			sonido.start();
+		} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e1) {
+			e1.printStackTrace();
+		}
 
 		JButton btnIniciar = new JButton("");
 		btnIniciar.addActionListener(new ActionListener() {

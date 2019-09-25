@@ -3,10 +3,10 @@ package Creadores.CreadorPersonaje;
 import Entidad.Integrante.Personaje.Dustin;
 import Entidad.Integrante.Personaje.Personaje;
 
-public class CreadorDustin {
+public class CreadorDustin extends CreadorPersonaje{
 
 	public Personaje crearPersonaje(){
-		Personaje pje = new Dustin(0,0,0,0,0); //temporalmente parámetros en 0
+		Personaje pje = new Dustin(0,0,0,0,0); //temporalmente parï¿½metros en 0
 		return pje;
 	}
 }

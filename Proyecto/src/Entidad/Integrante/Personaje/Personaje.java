@@ -4,7 +4,7 @@ import Entidad.Integrante.Integrante;
 
 public abstract class Personaje extends Integrante {
 	
-	protected int precio;
+	protected static int precio;
 	
 	
 	public Personaje(int x, int y, int dmg, int alc, int pre){
@@ -12,7 +12,10 @@ public abstract class Personaje extends Integrante {
 		precio = pre;
 	}
 	
-	public abstract int getPrecio();
+	protected static int getPrecio() {
+		return 0;
+	}
+	
 	
 	public abstract int getDanio();
 	

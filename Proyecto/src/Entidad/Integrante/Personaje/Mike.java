@@ -6,7 +6,7 @@ public class Mike extends Personaje {
 		super(x,y,danio,alcance,precio);
 	}
 	
-	public int getPrecio() {
+	public static int getPrecio() {
 		return precio;
 	}
 	

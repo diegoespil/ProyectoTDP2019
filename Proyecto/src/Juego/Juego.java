@@ -24,7 +24,7 @@ public class Juego {
 		 */
 		this.gui = gui;
 		enemigo = new Poseido(12,5,10,5,2,20,30); //(x,y,velocidad,danio,alcance,puntaje,monedas) 
-		gui.setGrilla(enemigo.getPos(), enemigo.getGrafico());
+		gui.setGrilla(enemigo.getPos(), enemigo.getGrafico(enemigo.getDireccion()));
 		
 		
 		
@@ -35,7 +35,7 @@ public class Juego {
 		System.out.println("mover");
 		gui.celdaVacia(enemigo.getPos());
 		enemigo.mover(dir);
-		gui.setGrilla(enemigo.getPos(), enemigo.getGrafico());
+		gui.setGrilla(enemigo.getPos(), enemigo.getGrafico(dir));
 	}
 	
 	public boolean canMove(Enemigo e, int dir) {

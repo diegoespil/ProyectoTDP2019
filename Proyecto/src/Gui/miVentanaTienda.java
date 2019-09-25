@@ -6,7 +6,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
-
 import javax.swing.JCheckBox;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -15,8 +14,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+
+import Creadores.Creadores.*;
+import Creadores.CreadorPersonaje.CreadorMike;
+import Creadores.CreadorPersonaje.CreadorPersonaje;
+import Entidad.Integrante.Personaje.Mike;
+import Juego.Juego;
+import Tienda.Tienda;
+
 import javax.swing.JRadioButton;
 
+@SuppressWarnings("serial")
 public class miVentanaTienda extends JFrame {
 
 	private imagenfondo contentPane;
@@ -29,28 +37,29 @@ public class miVentanaTienda extends JFrame {
 	private ImageIcon barricada_2 = new ImageIcon("Imagenes//barricada2.png");
 	private ImageIcon gas = new ImageIcon("Imagenes//gas.png");
 	private ImageIcon portal_trampa = new ImageIcon("Imagenes//portal.png");
+	private Tienda shop;
+	private static Juego juego;
 
-
-	/**
-	 * Launch the application.
-	 */
+/*
+	/
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					miVentanaTienda frame = new miVentanaTienda();
+					miVentanaTienda frame = new miVentanaTienda(juego);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
-	public miVentanaTienda() {
+	public miVentanaTienda(Juego j) {
+		juego = j;
 		setResizable(false);
 		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -59,9 +68,13 @@ public class miVentanaTienda extends JFrame {
 		contentPane.setBorder(null);
 		contentPane.setLayout(null);
 		contentPane.setBackground("Imagenes//fondoTienda.png");
-		
+		shop  = new Tienda(juego);
 		
 		setContentPane(contentPane);
+		
+		/*
+		 * Declaración de los JRadioButton para la compra de objetos y personajes.
+		 */
 		
 		JLabel lblPersonajes = new JLabel("Personajes");
 		lblPersonajes.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -135,15 +148,9 @@ public class miVentanaTienda extends JFrame {
 		botones_tienda.add(rbBarricada2);
 		botones_tienda.add(rbPortal);
 		
-		
-		JButton btnBuy = new JButton("Buy");
-		btnBuy.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				setVisible(false);
-			}
-		});
-		btnBuy.setBounds(485, 397, 89, 23);
-		contentPane.add(btnBuy);
+		/*
+		 * Se declaran las imagenes y etiquetas de los personaje y objetos a comparar.
+		 */
 		
 		JLabel Lucas = new JLabel("");
 		Lucas.setHorizontalAlignment(SwingConstants.CENTER);
@@ -225,6 +232,32 @@ public class miVentanaTienda extends JFrame {
 		portal.setIcon(new ImageIcon(portal_trampa.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
 		portal.setBounds(358, 277, 60, 60);
 		contentPane.add(portal);
+		
+		/*
+		 * Boton de compra.
+		 */
+		
+		JButton btnBuy = new JButton("Buy");
+		btnBuy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(rbMicke.isSelected()== true) {
+					shop.crearPersonaje(new CreadorMike(),Mike.getPrecio());
+				}
+			/*	if(rbDustin.isSelected()== true) {
+					shop.crearPersonaje(new CreadorDustin());
+				}
+				if(rbDustin.isSelected()== true) {
+					shop.crearPersonaje(new CreadorDustin());
+				}
+				if(rbDustin.isSelected()== true) {
+					shop.crearPersonaje(new CreadorDustin());
+				}*/
+				setVisible(false);
+				
+			}
+		});
+		btnBuy.setBounds(485, 397, 89, 23);
+		contentPane.add(btnBuy);
 	}
+	
 }
-
