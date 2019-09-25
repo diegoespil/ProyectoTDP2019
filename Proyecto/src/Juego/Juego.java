@@ -11,10 +11,12 @@ import Entidad.Integrante.Personaje.Mike;
 import Entidad.Integrante.Personaje.Personaje;
 import Gui.miVentanaJuego;
 
-public class Juego {
+public class Juego extends Thread{
 	private Enemigo enemigo;
 	private Personaje personaje;
 	private miVentanaJuego gui;
+	private int puntaje;
+	private int monedas;
 	
 	public Juego(miVentanaJuego gui) {
 		/* modifiqu� el constructor de Enemigo para que incluya el par�metro puntaje,
@@ -22,13 +24,31 @@ public class Juego {
 		 * Ese cero al final corresponde al puntaje.
 		 * -Bernardo
 		 */
+		this.monedas = 200;
 		this.gui = gui;
 		enemigo = new Poseido(12,5,10,5,2,20,30); //(x,y,velocidad,danio,alcance,puntaje,monedas) 
 		gui.setGrilla(enemigo.getPos(), enemigo.getGrafico(enemigo.getDireccion()));
-		
-		
-		
+	
 		personaje = new Mike(1,6, 5, 6, 10);
+		this.puntaje = 0;
+	}
+	
+	public void run() {
+		while(true){
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			if (enemigo.estaMuerto()) {
+				gui.quitarIntegrante(enemigo);
+				enemigo = null;
+			}
+			if (personaje.estaMuerto()) {
+				gui.quitarIntegrante(personaje);
+				personaje = null;
+			}
+		}
 	}
 	
 	public void mover(int dir){
@@ -56,6 +76,20 @@ public class Juego {
 
 	public Enemigo getEnemigo() {
 		return this.enemigo;
+	}
+	
+	public void eliminarEnemigo(Enemigo e) {
+		this.puntaje +=e.getPuntaje();
+		gui.actualizarPuntaje(puntaje);
+		e.setMuerto();
+	}
+	
+	public int getMoneda() {
+		return this.monedas;
+	}
+	
+	public void setMonedas(int monedas) {
+		this.monedas += monedas;
 	}
 }
 

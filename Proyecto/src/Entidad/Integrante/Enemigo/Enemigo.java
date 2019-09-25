@@ -9,11 +9,13 @@ public abstract class Enemigo extends Integrante {
 
 	protected int velocidad,puntaje, monedas;
 	
+	
 	public Enemigo(int x, int y, int velocidad, int danio, int alcance, int puntaje, int monedas) {
 		super(x,y,danio,alcance);
 		this.velocidad = velocidad;
 		this.puntaje = puntaje;
 		this.monedas = monedas;
+		
 	}
 	
 	public int getVelocidad() {
@@ -55,5 +57,7 @@ public abstract class Enemigo extends Integrante {
 		cambiarGrafico(dir);
 		System.out.println("Posicion: x:"+pos.x+" y:"+pos.y);
 	}
+	
+	
 }
 
