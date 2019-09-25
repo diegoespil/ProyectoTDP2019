@@ -5,11 +5,13 @@ import Entidad.Entidad;
 public abstract class Integrante extends Entidad{
 
 	protected int danio, alcance;
+	protected boolean muerto;
 	
 	public Integrante(int x, int y, int d, int a) {
 		super(x,y);
 		danio=d;
 		alcance=a;
+		this.muerto =false;
 	}
 	
 	public int getDanio() {
@@ -24,7 +26,13 @@ public abstract class Integrante extends Entidad{
 		return alcance;
 	}
 
-
+	public boolean estaMuerto(){
+		return this.muerto;
+	}
+	
+	public void setMuerto() {
+		this.muerto = true;
+	}
 	
 
 

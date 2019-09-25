@@ -32,14 +32,15 @@ public abstract class Entidad {
 		this.pos.y = y;
 	}
 	
-	protected void cambiarGrafico(int dir){
+	protected ImageIcon cambiarGrafico(int dir){
 		if(this.grafico != null){
 			this.grafico.setImage(this.image[dir].getImage());
 		}
+		return this.grafico;
 	}
 
 	
-	public ImageIcon getGrafico() {		
-		return this.image[0];
+	public ImageIcon getGrafico(int dir) {		
+		return this.image[dir];
 	}
 }
