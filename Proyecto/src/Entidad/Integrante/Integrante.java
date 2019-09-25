@@ -34,6 +34,10 @@ public abstract class Integrante extends Entidad{
 	public void setMuerto() {
 		this.muerto = true;
 	}
+<<<<<<< HEAD
 
 }
 
+=======
+}
+>>>>>>> 955fe1835417d987ba7ab704e9d0907d8b68e2d5

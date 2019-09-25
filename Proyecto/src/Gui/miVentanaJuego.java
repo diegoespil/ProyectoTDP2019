@@ -30,6 +30,9 @@ import javax.swing.JDesktopPane;
 import java.awt.Font;
 import javax.swing.SwingConstants;
 
+import Entidad.Integrante.Integrante;
+import Entidad.Integrante.Enemigo.Enemigo;
+
 @SuppressWarnings("serial")
 public class miVentanaJuego extends JFrame {
 
@@ -43,6 +46,7 @@ public class miVentanaJuego extends JFrame {
 	private ImageIcon barricada_2 = new ImageIcon("Imagenes//barricada2.png");
 	private ImageIcon gas = new ImageIcon("Imagenes//gas.png");
 	private ImageIcon portal_trampa = new ImageIcon("Imagenes//portal.png");
+	private int puntaje;
 
 	/**
 	 * Launch the application.
@@ -158,7 +162,11 @@ public class miVentanaJuego extends JFrame {
 		//Boton para eliminar enemigo Sprint 3.
 		JButton btnNewButton = new JButton("Eliminar");
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {				
+				Enemigo enemigo = juego.getEnemigo();
+				Point pos = enemigo.getPos();
+				juego.eliminarEnemigo(juego.getEnemigo());
+				grilla[pos.y][pos.x].setIcon(null);				
 			}
 			
 		});
@@ -245,5 +253,16 @@ public class miVentanaJuego extends JFrame {
 	
 	public JLabel[][] getGrilla(){
 		return grilla;
+	}
+
+	public void actualizarPuntaje(int puntaje) {
+		this.puntaje +=puntaje;
+		
+	}
+
+	public void quitarIntegrante(Integrante enemigo) {
+		Point pos = enemigo.getPos();
+		grilla[pos.y][pos.x].setIcon(null);
+		
 	}
 }
