@@ -94,3 +94,4 @@ public class Juego extends Thread{
 		this.monedas += monedas;
 	}
 }
+

@@ -25,6 +25,7 @@ public abstract class Integrante extends Entidad{
 	public int getAlcance() {
 		return alcance;
 	}
+<<<<<<< HEAD
 
 	public boolean estaMuerto(){
 		return this.muerto;
@@ -37,3 +38,6 @@ public abstract class Integrante extends Entidad{
 
 
 }
+=======
+}
+>>>>>>> 06dd412c5a3c52956380cad2c362d473be028979

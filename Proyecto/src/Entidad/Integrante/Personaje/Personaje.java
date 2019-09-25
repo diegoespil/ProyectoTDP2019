@@ -19,3 +19,4 @@ public abstract class Personaje extends Integrante {
 	public abstract int getAlcance();
 
 }
+

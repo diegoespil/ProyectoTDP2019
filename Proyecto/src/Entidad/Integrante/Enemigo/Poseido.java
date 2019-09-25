@@ -20,3 +20,4 @@ public class Poseido extends Enemigo {
 		return this.monedas;
 	}
 }
+

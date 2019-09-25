@@ -38,9 +38,9 @@ public abstract class Entidad {
 		}
 		return this.grafico;
 	}
-
 	
 	public ImageIcon getGrafico(int dir) {		
 		return this.image[dir];
 	}
 }
+

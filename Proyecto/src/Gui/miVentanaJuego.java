@@ -19,12 +19,16 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import Juego.Juego;
 import Juego.ThreadEnemigos;
 import Mapa.iniMapa;
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JDesktopPane;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class miVentanaJuego extends JFrame {
@@ -73,6 +77,7 @@ public class miVentanaJuego extends JFrame {
 		ImageIcon malo1 = new ImageIcon("Imagenes//malo1.png");
 		ImageIcon malo2 = new ImageIcon("Imagenes//malo2.png");
 		ImageIcon iconFondo = new ImageIcon("Imagenes//Fondo.jpg");
+		ImageIcon cielo = new ImageIcon("Imagenes//cielo.jpg");
 		
 		Clip sonido;
 		try {
@@ -89,7 +94,7 @@ public class miVentanaJuego extends JFrame {
 		crearGrilla();
 		JLabel fondo = new JLabel();
 		fondo.setEnabled(false);
-		fondo.setBounds(0, 65, 800, 420);
+		fondo.setBounds(0, 127, 800, 420);
 		fondo.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
 				int x,y;
@@ -106,129 +111,76 @@ public class miVentanaJuego extends JFrame {
 					System.out.println("tenia etiqueta");
 				
 			}
-			public void mouseEntered(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			public void mouseExited(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void mouseEntered(MouseEvent arg0) {}
 
-			public void mousePressed(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			public void mouseReleased(MouseEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
+			public void mouseExited(MouseEvent arg0) {}
+			
+			public void mousePressed(MouseEvent arg0) {}
+
+			public void mouseReleased(MouseEvent arg0) {}
+
 		});
 		
-		
-		
-		
-		
-		JButton btnNewButton = new JButton("Once");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				grilla[4][0].setIcon(new ImageIcon(once.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-				grilla[4][0].setVisible(true);
-				menu.repaint();
-			}
-		});
-		btnNewButton.setFocusable(false);
-		btnNewButton.setIcon(new ImageIcon(once.getImage().getScaledInstance(54, 54, Image.SCALE_DEFAULT)));
-		btnNewButton.setBounds(391, 496, 132, 54);
-		menu.add(btnNewButton);
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 10, 10);
+		menu.add(panel);
 		fondo.setIcon(new ImageIcon(iconFondo.getImage().getScaledInstance(800, 420, Image.SCALE_SMOOTH)));
 		menu.add(fondo);
 
-		JLabel lblNewLabel = new JLabel("New label");
-		ImageIcon cielo = new ImageIcon("Imagenes//cielo.jpg");
-		lblNewLabel.setIcon(new ImageIcon(cielo.getImage().getScaledInstance(800, 102, Image.SCALE_SMOOTH)));
-		lblNewLabel.setBounds(0, 0, 800, 102);
-		menu.add(lblNewLabel);
+		//Establece el fondo de la ciudad dde fondo.
+		JLabel fondoCiudad = new JLabel("");
+		
+		fondoCiudad.setIcon(new ImageIcon(cielo.getImage().getScaledInstance(800, 127, Image.SCALE_SMOOTH)));
+		fondoCiudad.setBounds(0, 0, 800, 127);
+		menu.add(fondoCiudad);
 
-		JButton btnDustin = new JButton("Dustin");
-		btnDustin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				grilla[3][0].setIcon(new ImageIcon(dustin.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-				grilla[3][0].setVisible(true);
-				menu.repaint();
-			}
-		});
-		btnDustin.setFocusable(false);
-		btnDustin.setBounds(391, 547, 132, 54);
-		btnDustin.setIcon(new ImageIcon(dustin.getImage().getScaledInstance(54, 54, Image.SCALE_DEFAULT)));
-		menu.add(btnDustin);
-
-		JButton btnMicke = new JButton("Micke");
-		btnMicke.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				grilla[5][0].setIcon(new ImageIcon(micke.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-				grilla[5][0].setVisible(true);
-				menu.repaint();
-			}
-		});
-		btnMicke.setFocusable(false);
-		btnMicke.setBounds(522, 496, 132, 54);
-		btnMicke.setIcon(new ImageIcon(micke.getImage().getScaledInstance(54, 54, Image.SCALE_DEFAULT)));
-		menu.add(btnMicke);
-
-		JButton btnLucas = new JButton("Lucas");
-		btnLucas.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				grilla[6][0].setIcon(new ImageIcon(lucas.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-				grilla[6][0].setVisible(true);
-				menu.repaint();
-			}
-		});
-		btnLucas.setFocusable(false);
-		btnLucas.setBounds(522, 547, 132, 54);
-		btnLucas.setIcon(new ImageIcon(lucas.getImage().getScaledInstance(54, 54, Image.SCALE_DEFAULT)));
-		menu.add(btnLucas);
-
-		JButton btnHoppe = new JButton("Hoppe");
-		btnHoppe.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				grilla[2][0].setIcon(new ImageIcon(hoppe.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-				grilla[2][0].setVisible(true);
-				menu.repaint();
-			}
-		});
-		btnHoppe.setFocusable(false);
-		btnHoppe.setBounds(652, 496, 132, 54);
-		btnHoppe.setIcon(new ImageIcon(hoppe.getImage().getScaledInstance(54, 54, Image.SCALE_DEFAULT)));
-		menu.add(btnHoppe);
-
-		JButton button = new JButton("Malos");
+		//Boton tienda abre la ventana de la tienda.
+		JButton button = new JButton("Tienda");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				grilla[2][12].setIcon(new ImageIcon(malo2.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-				grilla[2][12].setVisible(true);
-				grilla[4][12].setIcon(new ImageIcon(malo1.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-				grilla[4][12].setVisible(true);
+				miVentanaTienda tienda = new miVentanaTienda();
+				tienda.setVisible(true);
+				//setVisible(false);
 			}
 		});
 		button.setFocusable(false);
-		button.setBounds(652, 547, 132, 54);
+		button.setBounds(668, 547, 132, 54);
 		menu.add(button);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(104, 461, 289, 140);
-		menu.add(comboBox);
+		//Boton para volver al menu principal.
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				miVentanaMenu menu = new miVentanaMenu();
+				menu.setVisible(true);
+				setVisible(false);
+			}
+		});
+		btnVolver.setBounds(0, 547, 132, 54);
+		menu.add(btnVolver);
+		
+		//Boton para eliminar enemigo Sprint 3.
+		JButton btnNewButton = new JButton("Eliminar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton.setBounds(282, 547, 212, 54);
+		menu.add(btnNewButton);
 		
 		JCheckBox chckbxDustin = new JCheckBox("Dustin");
 		chckbxDustin.setBounds(123, 495, 97, 23);
 		menu.add(chckbxDustin);
-		
+	
 		juego = new Juego(this);
 		threadEnemigos = new ThreadEnemigos(juego);
 		threadEnemigos.start();
 
-	}
+	
+	//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+	
+	//aMetodo para crear la grilla de JLabel
 	protected void crearGrilla() {
 		iniMapa matriz = new iniMapa();
 		String palabra;
@@ -277,6 +229,7 @@ public class miVentanaJuego extends JFrame {
 		}
 	}
 
+	//Metodo para incializar la grilla
 	protected void inicializarGrilla() {
 
 		for (int i = 0; i < grilla.length; i++)

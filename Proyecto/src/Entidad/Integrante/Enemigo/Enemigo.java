@@ -1,3 +1,4 @@
+
 package Entidad.Integrante.Enemigo;
 
 import java.util.Random;
@@ -59,3 +60,4 @@ public abstract class Enemigo extends Integrante {
 	
 	
 }
+
