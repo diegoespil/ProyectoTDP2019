@@ -2,15 +2,15 @@ package Entidad.Objeto.Temporal;
 
 import Entidad.Objeto.Objeto;
 
-public abstract class Temporal extends Objeto {
+public abstract class ObjetoTemporal extends Objeto {
 
 	protected int tiempo; //segundos que dura
 	
-	public Temporal(int x, int y) {
+	public ObjetoTemporal(int x, int y) {
 		super(x, y);
 		// TODO Auto-generated constructor stub
 	}
-	public Temporal(int x, int y, int t){
+	public ObjetoTemporal(int x, int y, int t){
 		super(x,y);
 		tiempo = t;
 	}

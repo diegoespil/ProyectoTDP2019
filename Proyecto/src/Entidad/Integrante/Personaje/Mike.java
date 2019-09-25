@@ -2,8 +2,10 @@ package Entidad.Integrante.Personaje;
 
 public class Mike extends Personaje {
 
-	public Mike(int x, int y,int danio, int alcance, int precio) {
-		super(x,y,danio,alcance,precio);
+	protected final static int precio = 70;
+	
+	public Mike(int x, int y,int danio, int alcance, int vida) {
+		super(x,y,danio,alcance,vida);
 	}
 	
 	public static int getPrecio() {
@@ -16,6 +18,10 @@ public class Mike extends Personaje {
 	
 	public int getAlcance() {
 		return alcance;
+	}
+	
+	public int getVida() {
+		return vida;
 	}
 	
 }

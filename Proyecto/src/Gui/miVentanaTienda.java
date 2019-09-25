@@ -15,9 +15,15 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 
-import Creadores.Creadores.*;
+import Creadores.CreadorConVidaComprable.CreadorBarricadaDoble;
+import Creadores.CreadorConVidaComprable.CreadorBarricadaSimple;
+import Creadores.CreadorPersonaje.CreadorDustin;
+import Creadores.CreadorPersonaje.CreadorHopper;
+import Creadores.CreadorPersonaje.CreadorLucas;
 import Creadores.CreadorPersonaje.CreadorMike;
-import Creadores.CreadorPersonaje.CreadorPersonaje;
+import Entidad.Integrante.Personaje.Dustin;
+import Entidad.Integrante.Personaje.Hopper;
+import Entidad.Integrante.Personaje.Lucas;
 import Entidad.Integrante.Personaje.Mike;
 import Juego.Juego;
 import Tienda.Tienda;
@@ -102,10 +108,10 @@ public class miVentanaTienda extends JFrame {
 		rbMicke.setBounds(212, 205, 25, 25);
 		contentPane.add(rbMicke);
 		
-		JRadioButton rbHoppe = new JRadioButton ("");
-		rbHoppe.setBackground(Color.BLACK);
-		rbHoppe.setBounds(364, 205, 25, 25);
-		contentPane.add(rbHoppe);
+		JRadioButton rbHopper = new JRadioButton ("");
+		rbHopper.setBackground(Color.BLACK);
+		rbHopper.setBounds(364, 205, 25, 25);
+		contentPane.add(rbHopper);
 		
 		JRadioButton  rbOnce = new JRadioButton ("");
 		rbOnce.setBackground(Color.BLACK);
@@ -141,7 +147,7 @@ public class miVentanaTienda extends JFrame {
 		botones_tienda.add(rbDustin);
 		botones_tienda.add(rbLucas);
 		botones_tienda.add(rbMicke);
-		botones_tienda.add(rbHoppe);
+		botones_tienda.add(rbHopper);
 		botones_tienda.add(rbOnce);
 		botones_tienda.add(rbBarricada1);
 		botones_tienda.add(rbGasVenenoso);
@@ -152,33 +158,33 @@ public class miVentanaTienda extends JFrame {
 		 * Se declaran las imagenes y etiquetas de los personaje y objetos a comparar.
 		 */
 		
-		JLabel Lucas = new JLabel("");
-		Lucas.setHorizontalAlignment(SwingConstants.CENTER);
-		Lucas.setBackground(Color.LIGHT_GRAY);
-		Lucas.setIcon(new ImageIcon(lucas.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-		Lucas.setBounds(44, 120, 60, 60);
-		contentPane.add(Lucas);
+		JLabel jlLucas = new JLabel("");
+		jlLucas.setHorizontalAlignment(SwingConstants.CENTER);
+		jlLucas.setBackground(Color.LIGHT_GRAY);
+		jlLucas.setIcon(new ImageIcon(lucas.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+		jlLucas.setBounds(44, 120, 60, 60);
+		contentPane.add(jlLucas);
 		
-		JLabel Dustin = new JLabel("");
-		Dustin.setIcon(new ImageIcon(dustin.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-		Dustin.setBounds(119, 120, 60, 60);
-		contentPane.add(Dustin);
+		JLabel jlDustin = new JLabel("");
+		jlDustin.setIcon(new ImageIcon(dustin.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+		jlDustin.setBounds(119, 120, 60, 60);
+		contentPane.add(jlDustin);
 		
-		JLabel Micke = new JLabel("");
-		Micke.setIcon(new ImageIcon(micke.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-		Micke.setBounds(194, 120, 60, 60);
-		contentPane.add(Micke);
+		JLabel jlMike = new JLabel("");
+		jlMike.setIcon(new ImageIcon(micke.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+		jlMike.setBounds(194, 120, 60, 60);
+		contentPane.add(jlMike);
 		
 		JLabel Once = new JLabel("");
 		Once.setIcon(new ImageIcon(once.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
 		Once.setBounds(269, 120, 60, 60);
 		contentPane.add(Once);
 		
-		JLabel Hopper = new JLabel("");
-		Hopper.setIcon(new ImageIcon(hopper.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-		Hopper.setEnabled(true);
-		Hopper.setBounds(344, 120, 60, 60);
-		contentPane.add(Hopper);
+		JLabel jlHopper = new JLabel("");
+		jlHopper.setIcon(new ImageIcon(hopper.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+		jlHopper.setEnabled(true);
+		jlHopper.setBounds(344, 120, 60, 60);
+		contentPane.add(jlHopper);
 		
 		JLabel lblLucas = new JLabel("Lucas");
 		lblLucas.setForeground(Color.WHITE);
@@ -243,15 +249,27 @@ public class miVentanaTienda extends JFrame {
 				if(rbMicke.isSelected()== true) {
 					shop.crearPersonaje(new CreadorMike(),Mike.getPrecio());
 				}
-			/*	if(rbDustin.isSelected()== true) {
-					shop.crearPersonaje(new CreadorDustin());
-				}
 				if(rbDustin.isSelected()== true) {
-					shop.crearPersonaje(new CreadorDustin());
+					shop.crearPersonaje(new CreadorDustin(),Dustin.getPrecio());
 				}
-				if(rbDustin.isSelected()== true) {
-					shop.crearPersonaje(new CreadorDustin());
-				}*/
+				if(rbLucas.isSelected()== true) {
+					shop.crearPersonaje(new CreadorLucas(),Lucas.getPrecio());
+				}
+				if(rbHopper.isSelected()== true) {
+					shop.crearPersonaje(new CreadorHopper(),Hopper.getPrecio());
+				}
+				if(rbBarricada1.isSelected()== true) {
+					shop.crearConVidaComprable(new CreadorBarricadaSimple(),BarricadaSimple.getPrecio());
+				}
+				if(rbBarricada2.isSelected()== true) {
+					shop.crearConVidaComprable(new CreadorBarricadaDoble(),BarricadaDoble.getPrecio());
+				}
+				if(rbBarricada1.isSelected()== true) {
+					shop.crearTemporal(new CreadorGas(),Gas.getPrecio());
+				}
+				if(rbBarricada1.isSelected()== true) {
+					shop.crearTemporal(new CreadorPortal(),Portal.getPrecio());
+				}
 				setVisible(false);
 				
 			}

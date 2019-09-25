@@ -4,22 +4,18 @@ import Entidad.Integrante.Integrante;
 
 public abstract class Personaje extends Integrante {
 	
-	protected static int precio;
+	protected int vida;
 	
-	
-	public Personaje(int x, int y, int dmg, int alc, int pre){
+	public Personaje(int x, int y, int dmg, int alc,int vida){
 		super(x,y,dmg,alc);
-		precio = pre;
+		this.vida = vida;
 	}
-	
-	protected static int getPrecio() {
-		return 0;
-	}
-	
 	
 	public abstract int getDanio();
 	
 	public abstract int getAlcance();
+	
+	public abstract int getVida();
 
 }
 

@@ -1,12 +1,10 @@
 package Creadores.CreadorConVidaComprable;
 
-import Entidad.Objeto.ConVida.ConVidaComprable;
+import Entidad.Objeto.ConVida.ObjetoConVida;
 
-public class CreadorBarricadaSimple extends CreadorConVidaComprable {
+public class CreadorBarricadaSimple extends CreadorObjetoConVida {
 
-	@Override
-	public ConVidaComprable crearConVidaComprable() {
-		// TODO Auto-generated method stub
+	public ObjetoConVida crearObjetoConVida() {
 		return null;
 	}
 

@@ -1,11 +1,13 @@
 package Tienda;
 
+import java.time.temporal.Temporal;
+
 import javax.swing.JOptionPane;
 import Creadores.CreadorConVidaComprable.CreadorConVidaComprable;
 import Creadores.CreadorPersonaje.*;
+import Creadores.CreadorTemporal.CreadorTemporal;
 import Entidad.Entidad;
 import Entidad.Integrante.Personaje.Personaje;
-import Entidad.Objeto.ConVida.ConVidaComprable;
 import Juego.Juego;
 
 
@@ -26,7 +28,14 @@ public class Tienda {
 	
 	public void crearConVida(CreadorConVidaComprable creador, int precio){
 		if (alcanza(precio) ){
-			ConVidaComprable nuevo = creador.crearConVidaComprable();
+			ObjetoConVidaComprable nuevo = creador.crearObjetoConVida();
+			//Juego.insertar(nuevo);
+		}
+	}
+	
+	public void crearTemporal(CreadorTemporal creador, int precio){
+		if (alcanza(precio) ){
+			ObjetoTemporal nuevo = creador.crearTemporal();
 			//Juego.insertar(nuevo);
 		}
 	}

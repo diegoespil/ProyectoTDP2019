@@ -7,6 +7,7 @@ public abstract class Integrante extends Entidad{
 	protected int danio, alcance;
 	protected boolean muerto;
 	
+	
 	public Integrante(int x, int y, int d, int a) {
 		super(x,y);
 		danio=d;
@@ -25,7 +26,6 @@ public abstract class Integrante extends Entidad{
 	public int getAlcance() {
 		return alcance;
 	}
-<<<<<<< HEAD
 
 	public boolean estaMuerto(){
 		return this.muerto;
@@ -34,10 +34,6 @@ public abstract class Integrante extends Entidad{
 	public void setMuerto() {
 		this.muerto = true;
 	}
-	
-
 
 }
-=======
-}
->>>>>>> 06dd412c5a3c52956380cad2c362d473be028979
+
