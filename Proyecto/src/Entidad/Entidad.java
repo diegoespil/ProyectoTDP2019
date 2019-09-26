@@ -2,14 +2,11 @@ package Entidad;
 
 import java.awt.Point;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 public abstract class Entidad {
 	
 	protected String nombre;
-	protected int vida;
 	protected ImageIcon grafico;
 	protected ImageIcon image [];
 	protected Point pos;

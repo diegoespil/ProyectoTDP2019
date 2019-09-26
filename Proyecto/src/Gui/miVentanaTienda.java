@@ -21,10 +21,16 @@ import Creadores.CreadorPersonaje.CreadorDustin;
 import Creadores.CreadorPersonaje.CreadorHopper;
 import Creadores.CreadorPersonaje.CreadorLucas;
 import Creadores.CreadorPersonaje.CreadorMike;
+import Creadores.CreadorTemporal.CreadorGas;
+import Creadores.CreadorTemporal.CreadorPortal;
 import Entidad.Integrante.Personaje.Dustin;
 import Entidad.Integrante.Personaje.Hopper;
 import Entidad.Integrante.Personaje.Lucas;
 import Entidad.Integrante.Personaje.Mike;
+import Entidad.Objeto.ConVida.BarricadaDoble;
+import Entidad.Objeto.ConVida.BarricadaSimple;
+import Entidad.Objeto.Temporal.GasVenenoso;
+import Entidad.Objeto.Temporal.Portal;
 import Juego.Juego;
 import Tienda.Tienda;
 
@@ -197,7 +203,7 @@ public class miVentanaTienda extends JFrame {
 		contentPane.add(lblDustin);
 		
 		JLabel lblMicke = new JLabel("Micke");
-		lblMicke.setForeground(Color.WHITE);
+		lblMicke.setForeground(Color.WHITE);// TODO Auto-generated constructor stub
 		lblMicke.setBounds(205, 185, 45, 14);
 		contentPane.add(lblMicke);
 		
@@ -259,16 +265,16 @@ public class miVentanaTienda extends JFrame {
 					shop.crearPersonaje(new CreadorHopper(),Hopper.getPrecio());
 				}
 				if(rbBarricada1.isSelected()== true) {
-					shop.crearConVidaComprable(new CreadorBarricadaSimple(),BarricadaSimple.getPrecio());
+					shop.crearObjetoConVida(new CreadorBarricadaSimple(),BarricadaSimple.getPrecio());
 				}
 				if(rbBarricada2.isSelected()== true) {
-					shop.crearConVidaComprable(new CreadorBarricadaDoble(),BarricadaDoble.getPrecio());
+					shop.crearObjetoConVida(new CreadorBarricadaDoble(),BarricadaDoble.getPrecio());
 				}
-				if(rbBarricada1.isSelected()== true) {
-					shop.crearTemporal(new CreadorGas(),Gas.getPrecio());
+				if(rbGasVenenoso.isSelected()== true) {
+					shop.crearObjetoTemporal(new CreadorGas(),GasVenenoso.getPrecio());
 				}
-				if(rbBarricada1.isSelected()== true) {
-					shop.crearTemporal(new CreadorPortal(),Portal.getPrecio());
+				if(rbPortal.isSelected()== true) {
+					shop.crearObjetoTemporal(new CreadorPortal(),Portal.getPrecio());
 				}
 				setVisible(false);
 				

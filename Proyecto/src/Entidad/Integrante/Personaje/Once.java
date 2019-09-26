@@ -4,8 +4,8 @@ public class Once extends Personaje {
 
 	protected final static int precio = 150;
 	
-	public Once(int x, int y, int dmg, int alc, int vida) {
-		super(x, y, dmg, alc, vida);
+	public Once(int x, int y, int dmg, int alc) {
+		super(x, y, dmg, alc);
 	}
 	
 	public static int getPrecio() {

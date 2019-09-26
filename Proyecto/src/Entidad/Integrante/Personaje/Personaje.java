@@ -6,9 +6,9 @@ public abstract class Personaje extends Integrante {
 	
 	protected int vida;
 	
-	public Personaje(int x, int y, int dmg, int alc,int vida){
+	public Personaje(int x, int y, int dmg, int alc){
 		super(x,y,dmg,alc);
-		this.vida = vida;
+		vida = 100;
 	}
 	
 	public abstract int getDanio();

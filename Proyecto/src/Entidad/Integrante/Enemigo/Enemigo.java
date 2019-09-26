@@ -7,7 +7,7 @@ import Entidad.Integrante.Integrante;
 
 public abstract class Enemigo extends Integrante {
 
-	protected int velocidad,puntaje, monedas;
+	protected int velocidad,puntaje, monedas,vida;
 	
 	
 	public Enemigo(int x, int y, int velocidad, int danio, int alcance, int puntaje, int monedas) {
@@ -15,7 +15,7 @@ public abstract class Enemigo extends Integrante {
 		this.velocidad = velocidad;
 		this.puntaje = puntaje;
 		this.monedas = monedas;
-		
+		vida = 100;
 	}
 	
 	public int getVelocidad() {

@@ -1,9 +1,13 @@
 package Creadores.CreadorConVidaComprable;
 
-public class CreadorBarricadaDoble extends CreadorObjetoConVidaComprable{
+//import Entidad.Objeto.ConVida.BarricadaDoble;
+import Entidad.Objeto.ConVida.ObjetoConVida;
 
-	public ObjetoConVida crearObjetoConVidaComprable() {
-		return null;
+public class CreadorBarricadaDoble extends CreadorObjetoConVida{
+
+	public ObjetoConVida crearObjetoConVida() {
+		//BarricadaDoble nuevo = new BarricadaDoble();
+		return null;//nuevo;
 	}
 
 }

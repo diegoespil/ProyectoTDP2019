@@ -4,8 +4,8 @@ public class Lucas extends Personaje {
 
 	protected final static int precio = 70;
 	
-	public Lucas(int x, int y, int dmg, int alc, int vida) {
-		super(x, y, dmg, alc, vida);
+	public Lucas(int x, int y, int dmg, int alc) {
+		super(x, y, dmg, alc);
 	}
 	
 	public static int getPrecio() {

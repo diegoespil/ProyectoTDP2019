@@ -39,7 +39,8 @@ public class miVentanaJuego extends JFrame {
 	// private JPanel contentPane;
 	private JLabel[][] grilla;
 	private String[][] obstaculo;
-	JPanel menu;
+	private JPanel menu;
+	private imagenfondo panel;
 	private Juego juego;
 	private ThreadEnemigos threadEnemigos;
 	private ImageIcon barricada_1 = new ImageIcon("Imagenes//barricada1.png");
@@ -77,16 +78,20 @@ public class miVentanaJuego extends JFrame {
 		setBounds(300, 50, 800, 692);
 		setResizable(false);
 		setContentPane(menu);
-		ImageIcon once = new ImageIcon("Imagenes//once.png");
+		//ImageIcon once = new ImageIcon("Imagenes//once.png");
 		ImageIcon dustin = new ImageIcon("Imagenes//dustin.png");
 		ImageIcon micke = new ImageIcon("Imagenes//micke.png");
 		ImageIcon lucas = new ImageIcon("Imagenes//lucas.png");
 		ImageIcon hoppe = new ImageIcon("Imagenes//hoppe.png");
 		ImageIcon malo1 = new ImageIcon("Imagenes//malo1.png");
 		ImageIcon malo2 = new ImageIcon("Imagenes//malo2.png");
-		ImageIcon iconFondo = new ImageIcon("Imagenes//Fondo.jpg");
+		ImageIcon iconFondo = new ImageIcon("Imagenes//Fondo.png");
 		ImageIcon cielo = new ImageIcon("Imagenes//cielo.jpg");
-		
+		panel = new imagenfondo();
+		panel.setBounds(0, 128, 800, 480);
+		panel.setBackground("Imagenes//Fondo.png");
+		menu.add(panel);
+		panel.setLayout(null);
 		grilla = new JLabel[8][13];
 		inicializarGrilla();
 		crearGrilla();
@@ -119,11 +124,7 @@ public class miVentanaJuego extends JFrame {
 
 		});
 		*/
-		imagenfondo panel = new imagenfondo();
-		panel.setBounds(0, 128, 800, 480);
-		panel.setBackground("Imagenes//Fondo.jpg");
-		panel.setEnabled(false);
-		menu.add(panel);
+	
 		//fondo.setIcon(new ImageIcon(iconFondo.getImage().getScaledInstance(800, 420, Image.SCALE_SMOOTH)));
 		//menu.add(fondo);
 
@@ -162,7 +163,8 @@ public class miVentanaJuego extends JFrame {
 		//Boton para eliminar enemigo Sprint 3.
 		JButton btnNewButton = new JButton("Eliminar");
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
+			public void actionPerformed(ActionEvent e) { 
+				System.out.println("eliminar enemigo");				
 				Enemigo enemigo = juego.getEnemigo();
 				Point pos = enemigo.getPos();
 				juego.eliminarEnemigo(juego.getEnemigo());
@@ -176,6 +178,7 @@ public class miVentanaJuego extends JFrame {
 		juego = new Juego(this);
 		threadEnemigos = new ThreadEnemigos(juego);
 		threadEnemigos.start();
+		
 	}
 	
 	//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -206,19 +209,7 @@ public class miVentanaJuego extends JFrame {
 									ImageIcon auto3 = new ImageIcon("Imagenes//auto-fuego3.png");
 									grilla[i][j].setIcon(new ImageIcon(
 											auto3.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-								} else {
-									if (palabra.equals("fuego")) {
-										ImageIcon fuego = new ImageIcon("Imagenes//fuego.png");
-										grilla[i][j].setIcon(new ImageIcon(
-												fuego.getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT)));
-									} else {
-										if (palabra.equals("once")) {
-											ImageIcon once = new ImageIcon("Imagenes//once.png");
-											grilla[i][j].setIcon(new ImageIcon(
-													once.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-										}
-									}
-								}
+								} 
 							}
 						}
 
@@ -235,8 +226,8 @@ public class miVentanaJuego extends JFrame {
 		for (int i = 0; i < grilla.length; i++)
 			for (int j = 0; j < grilla[i].length; j++) {
 				grilla[i][j] = new JLabel();
-				grilla[i][j].setBounds(j * 60, (i+2) * 60, 60, 60);
-				menu.add(grilla[i][j]);
+				grilla[i][j].setBounds(j * 60, i * 60, 60, 60);
+				panel.add(grilla[i][j]);
 			}
 	}
 	
@@ -244,7 +235,7 @@ public class miVentanaJuego extends JFrame {
 	public void setGrilla(Point pos, ImageIcon image){
 		grilla[pos.y][pos.x].setIcon(new ImageIcon(image.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
 		grilla[pos.y][pos.x].setVisible(true);
-		menu.repaint();
+		panel.repaint();
 	}
 	
 	public void celdaVacia(Point pos) {

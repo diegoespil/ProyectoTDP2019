@@ -6,7 +6,11 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
@@ -19,6 +23,9 @@ import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
 public class miVentanaMenu extends JFrame {
+	
+	private InputStream isActivo;
+	private Properties archivo;
 	/**
 	 * Lanza la ventana.
 	 */
@@ -42,6 +49,13 @@ public class miVentanaMenu extends JFrame {
 		/*
 		 * Se crea un nuevo panel y se lo configura. 
 		 */
+		try {
+			archivo = new Properties();
+			isActivo = new FileInputStream("archivo.properties");
+			archivo.load(isActivo);
+		}catch(IOException e) {
+			e.getMessage();
+		}
 		setUndecorated(true);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -5,8 +5,8 @@ public class Hopper extends Personaje {
 
 	protected final static int precio = 100;
 	
-	public Hopper(int x, int y, int dmg, int alc, int vida) {
-		super(x, y, dmg, alc, vida);
+	public Hopper(int x, int y, int dmg, int alc) {
+		super(x, y, dmg, alc);
 	}
 	
 	public static int getPrecio() {

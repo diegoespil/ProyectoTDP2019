@@ -29,11 +29,11 @@ public class Juego extends Thread{
 		enemigo = new Poseido(12,5,10,5,2,20,30); //(x,y,velocidad,danio,alcance,puntaje,monedas) 
 		gui.setGrilla(enemigo.getPos(), enemigo.getGrafico(enemigo.getDireccion()));
 	
-		personaje = new Mike(1,6, 5, 6, 10);
+	//	personaje = new Mike(1,6, 5, 6);
 		this.puntaje = 0;
 	}
 	
-	public void run() {
+	/*public void run() {
 		while(true){
 			try {
 				Thread.sleep(500);
@@ -49,7 +49,7 @@ public class Juego extends Thread{
 				personaje = null;
 			}
 		}
-	}
+	}*/
 	
 	public void mover(int dir){
 		System.out.println("mover");
@@ -65,10 +65,34 @@ public class Juego extends Thread{
 		System.out.println("Direccion: "+dir);
 		System.out.println("Posicion x: "+pos.x+" pos y: "+pos.y);
 		switch (dir) {
-			case 0: {if ((pos.y != 0) && (grilla[pos.y-1][pos.x].getIcon() == null)) {System.out.println("Can to "+dir);can = true;break;}}
-			case 1: {if ((pos.y != 7) && (grilla[pos.y+1][pos.x].getIcon() == null)) {System.out.println("Can to "+dir);can=true; break;}}
-			case 2: {if ((pos.x != 0) && (grilla[pos.y][pos.x-1].getIcon() == null)) {System.out.println("Can to "+dir);can=true; break;}}
-			case 3: {if ((pos.x != 12) && (grilla[pos.y][pos.x+1].getIcon() == null)) {System.out.println("Can to "+dir);can=true; break;}}
+			case 0: {
+				if ((pos.y != 0)&&(grilla[pos.y-1][pos.x].getIcon() == null)) {
+						System.out.println("Can to "+dir+"(up)");
+						can = true;
+						break;
+					}
+			}
+			case 1: {
+				if ((pos.y != 7)&&(grilla[pos.y+1][pos.x].getIcon() == null)) {
+						System.out.println("Can to "+dir+"(down)" );
+						can=true; 
+						break;
+					}
+				}
+			case 2: {
+				if ((pos.x != 0)&&(grilla[pos.y][pos.x-1].getIcon() == null)){
+						System.out.println("Can to "+dir+"(left)");
+						can=true;
+						break;
+					}
+				}
+			case 3: {
+				if ((pos.x != 12)&&(grilla[pos.y][pos.x+1].getIcon() == null)){
+						System.out.println("Can to "+dir+"(right)");
+						can=true; 
+						break;
+					}
+				}
 		}
 		return can;
 	}
@@ -79,9 +103,10 @@ public class Juego extends Thread{
 	}
 	
 	public void eliminarEnemigo(Enemigo e) {
+		e.setMuerto();
 		this.puntaje +=e.getPuntaje();
 		gui.actualizarPuntaje(puntaje);
-		e.setMuerto();
+		
 	}
 	
 	public int getMoneda() {
