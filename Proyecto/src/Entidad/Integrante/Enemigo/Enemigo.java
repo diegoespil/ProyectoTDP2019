@@ -4,18 +4,18 @@ package Entidad.Integrante.Enemigo;
 import java.util.Random;
 
 import Entidad.Integrante.Integrante;
+import Visitador.Visitor;
 
 public abstract class Enemigo extends Integrante {
 
-	protected int velocidad,puntaje, monedas,vida;
+	protected int velocidad,puntaje, monedas;
 	
 	
 	public Enemigo(int x, int y, int velocidad, int danio, int alcance, int puntaje, int monedas) {
-		super(x,y,danio,alcance);
+		super(x,y,danio,alcance,100);
 		this.velocidad = velocidad;
 		this.puntaje = puntaje;
 		this.monedas = monedas;
-		vida = 100;
 	}
 	
 	public int getVelocidad() {
@@ -28,7 +28,7 @@ public abstract class Enemigo extends Integrante {
 	
 	public int getDireccion() {
 		Random r = new Random();			
-		int dir = r.nextInt(4);
+		int dir = r.nextInt(3);
 		return dir;
 	}
 	
@@ -49,15 +49,15 @@ public abstract class Enemigo extends Integrante {
 				setPosicion(pos.x  - 1,pos.y);
 				//pos.setLocation(pos.x-1, pos.y);
 				break;}
-			case 3 :{ //Derecha
-				System.out.println("Derecha");
-				setPosicion(pos.x  + 1,pos.y);
-				break;}
 		}
 		cambiarGrafico(dir);
 		System.out.println("Posicion: x:"+pos.x+" y:"+pos.y);
 	}
 	
+	public void accept(Visitor v) {
+		v.visitEnemigo(this);
+	}
 	
+
 }
 

@@ -4,6 +4,8 @@ import java.awt.Point;
 
 import javax.swing.ImageIcon;
 
+import Visitador.Visitor;
+
 public abstract class Entidad {
 	
 	protected String nombre;
@@ -12,10 +14,14 @@ public abstract class Entidad {
 	protected Point pos;
 	protected final int width = 60;
 	protected final int height = 60;
+	protected Visitor miVisitor;
+	protected int vida;
 	
-	public Entidad(int x, int y) {
+	public Entidad(int x, int y, int vida){
 		this.pos = new Point(x,y);
 		image = new ImageIcon[4];
+		miVisitor = null;
+		this.vida = vida; 
 	}
 
 	public Point getPos() {
@@ -36,6 +42,20 @@ public abstract class Entidad {
 	
 	public ImageIcon getGrafico(int dir) {		
 		return this.image[dir];
+	}
+	
+	public abstract void accept(Visitor v);
+	
+	public abstract void atacar(Entidad e);
+	
+	public abstract void afectar(Entidad e);
+	
+	public int getVida() {
+		return vida;
+	}
+	 
+	public void setVida(int v) {
+		vida = v;
 	}
 }
 

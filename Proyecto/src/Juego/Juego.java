@@ -1,55 +1,25 @@
 package Juego;
 
 import java.awt.Point;
-import java.util.Random;
-
 import javax.swing.JLabel;
-
 import Entidad.Integrante.Enemigo.Enemigo;
 import Entidad.Integrante.Enemigo.Poseido;
-import Entidad.Integrante.Personaje.Mike;
-import Entidad.Integrante.Personaje.Personaje;
 import Gui.miVentanaJuego;
+import Visitador.VisitorEnemigo;
 
 public class Juego extends Thread{
 	private Enemigo enemigo;
-	private Personaje personaje;
 	private miVentanaJuego gui;
 	private int puntaje;
 	private int monedas;
 	
 	public Juego(miVentanaJuego gui) {
-		/* modifiqu� el constructor de Enemigo para que incluya el par�metro puntaje,
-		 * por eso esta declaraci�n de new Poseido tiene un par�metro extra.
-		 * Ese cero al final corresponde al puntaje.
-		 * -Bernardo
-		 */
 		this.monedas = 200;
 		this.gui = gui;
 		enemigo = new Poseido(12,5,10,5,2,20,30); //(x,y,velocidad,danio,alcance,puntaje,monedas) 
 		gui.setGrilla(enemigo.getPos(), enemigo.getGrafico(enemigo.getDireccion()));
-	
-	//	personaje = new Mike(1,6, 5, 6);
 		this.puntaje = 0;
 	}
-	
-	/*public void run() {
-		while(true){
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			if (enemigo.estaMuerto()) {
-				gui.quitarIntegrante(enemigo);
-				enemigo = null;
-			}
-			if (personaje.estaMuerto()) {
-				gui.quitarIntegrante(personaje);
-				personaje = null;
-			}
-		}
-	}*/
 	
 	public void mover(int dir){
 		System.out.println("mover");
@@ -71,6 +41,10 @@ public class Juego extends Thread{
 						can = true;
 						break;
 					}
+				else {
+					//visitor de la entidad contraria a la colision
+					e.accept(new VisitorEnemigo());
+				}
 			}
 			case 1: {
 				if ((pos.y != 7)&&(grilla[pos.y+1][pos.x].getIcon() == null)) {
@@ -86,17 +60,9 @@ public class Juego extends Thread{
 						break;
 					}
 				}
-			case 3: {
-				if ((pos.x != 12)&&(grilla[pos.y][pos.x+1].getIcon() == null)){
-						System.out.println("Can to "+dir+"(right)");
-						can=true; 
-						break;
-					}
-				}
 		}
 		return can;
 	}
-
 
 	public Enemigo getEnemigo() {
 		return this.enemigo;
@@ -105,8 +71,7 @@ public class Juego extends Thread{
 	public void eliminarEnemigo(Enemigo e) {
 		e.setMuerto();
 		this.puntaje +=e.getPuntaje();
-		gui.actualizarPuntaje(puntaje);
-		
+		gui.actualizarPuntaje(puntaje);	
 	}
 	
 	public int getMoneda() {

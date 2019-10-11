@@ -8,8 +8,8 @@ public abstract class Integrante extends Entidad{
 	protected boolean muerto;
 	
 	
-	public Integrante(int x, int y, int d, int a) {
-		super(x,y);
+	public Integrante(int x, int y, int d, int a, int vida) {
+		super(x,y,vida);
 		danio=d;
 		alcance=a;
 		this.muerto =false;
@@ -34,4 +34,11 @@ public abstract class Integrante extends Entidad{
 	public void setMuerto() {
 		this.muerto = true;
 	}
+
+	public void afectar(Entidad e) {}
+	
+	public void atacar(Entidad e) {
+		e.setVida(e.getVida()-danio);
+	}
+	
 }

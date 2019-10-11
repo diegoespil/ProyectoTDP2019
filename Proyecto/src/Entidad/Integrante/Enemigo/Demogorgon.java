@@ -1,6 +1,5 @@
 package Entidad.Integrante.Enemigo;
 
-
 public class Demogorgon extends Enemigo {
 
 	public Demogorgon(int x, int y, int velocidad, int danio, int alcance, int puntaje, int monedas) {
@@ -14,4 +13,5 @@ public class Demogorgon extends Enemigo {
 	public int getMonedas() {
 		return this.monedas;
 	}
+
 }

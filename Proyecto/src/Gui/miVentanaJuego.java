@@ -6,14 +6,6 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.IOException;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,13 +14,6 @@ import javax.swing.JPanel;
 import Juego.Juego;
 import Juego.ThreadEnemigos;
 import Mapa.iniMapa;
-import javax.swing.JComboBox;
-import javax.swing.JCheckBox;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JDesktopPane;
-import java.awt.Font;
-import javax.swing.SwingConstants;
 
 import Entidad.Integrante.Integrante;
 import Entidad.Integrante.Enemigo.Enemigo;
@@ -43,10 +28,6 @@ public class miVentanaJuego extends JFrame {
 	private imagenfondo panel;
 	private Juego juego;
 	private ThreadEnemigos threadEnemigos;
-	private ImageIcon barricada_1 = new ImageIcon("Imagenes//barricada1.png");
-	private ImageIcon barricada_2 = new ImageIcon("Imagenes//barricada2.png");
-	private ImageIcon gas = new ImageIcon("Imagenes//gas.png");
-	private ImageIcon portal_trampa = new ImageIcon("Imagenes//portal.png");
 	private int puntaje;
 
 	/**
@@ -78,14 +59,6 @@ public class miVentanaJuego extends JFrame {
 		setBounds(300, 50, 800, 692);
 		setResizable(false);
 		setContentPane(menu);
-		//ImageIcon once = new ImageIcon("Imagenes//once.png");
-		ImageIcon dustin = new ImageIcon("Imagenes//dustin.png");
-		ImageIcon micke = new ImageIcon("Imagenes//micke.png");
-		ImageIcon lucas = new ImageIcon("Imagenes//lucas.png");
-		ImageIcon hoppe = new ImageIcon("Imagenes//hoppe.png");
-		ImageIcon malo1 = new ImageIcon("Imagenes//malo1.png");
-		ImageIcon malo2 = new ImageIcon("Imagenes//malo2.png");
-		ImageIcon iconFondo = new ImageIcon("Imagenes//Fondo.png");
 		ImageIcon cielo = new ImageIcon("Imagenes//cielo.jpg");
 		panel = new imagenfondo();
 		panel.setBounds(0, 128, 800, 480);
@@ -95,7 +68,6 @@ public class miVentanaJuego extends JFrame {
 		grilla = new JLabel[8][13];
 		inicializarGrilla();
 		crearGrilla();
-		JLabel fondo = new JLabel();
 		/*fondo.setEnabled(false);
 		fondo.setBounds(0, 127, 800, 540);
 		fondo.addMouseListener(new MouseListener() {
@@ -230,7 +202,6 @@ public class miVentanaJuego extends JFrame {
 				panel.add(grilla[i][j]);
 			}
 	}
-	
 	
 	public void setGrilla(Point pos, ImageIcon image){
 		grilla[pos.y][pos.x].setIcon(new ImageIcon(image.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
