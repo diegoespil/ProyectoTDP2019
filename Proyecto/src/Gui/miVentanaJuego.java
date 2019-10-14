@@ -29,7 +29,9 @@ public class miVentanaJuego extends JFrame {
 	private Juego juego;
 	private ThreadEnemigos threadEnemigos;
 	private int puntaje;
-
+	
+	public final static int ANCHO = 800;
+	public final static int ALTO = 480;
 	/**
 	 * Launch the application.
 	 */
@@ -148,7 +150,7 @@ public class miVentanaJuego extends JFrame {
 		menu.add(btnNewButton);
 
 		juego = new Juego(this);
-		threadEnemigos = new ThreadEnemigos(juego);
+		threadEnemigos = new ThreadEnemigos(juego,enemigos);
 		threadEnemigos.start();
 		
 	}
@@ -227,4 +229,5 @@ public class miVentanaJuego extends JFrame {
 		grilla[pos.y][pos.x].setIcon(null);
 		
 	}
+
 }

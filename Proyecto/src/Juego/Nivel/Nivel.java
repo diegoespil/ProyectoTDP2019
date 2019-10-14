@@ -1,21 +1,30 @@
 package Juego.Nivel;
 
-import java.io.File;
-import java.io.FileReader;
 import java.util.Vector;
 
 import Entidad.Integrante.Enemigo.Enemigo;
-import Entidad.Integrante.Personaje.Personaje;
+import Juego.Juego;
 
 public abstract class Nivel {
 	
 	protected Vector<Enemigo> enemigos;
-	protected Vector<Personaje> personajes;
+	protected Juego juego;
+	protected int cantEnemigos;
 	
-	public Nivel(){
+	public Nivel(Juego j){
+		juego = j;
 		enemigos = new Vector<Enemigo>();
-		personajes = new Vector<Personaje>();
+		cargarNivel();
+		System.out.println("Cantidad de enemigos: "+this.cantEnemigos);
 	}
+	
+	public abstract Enemigo getEnemigo();
+	
+	public int cantEnemigos() {
+		return cantEnemigos;
+	}
+	
+	public abstract void cargarNivel();
 	
 	public abstract Nivel subirNivel();
 	
