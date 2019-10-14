@@ -4,10 +4,10 @@ import Entidad.Entidad;
 
 public abstract class Objeto extends Entidad {
 
-	public Objeto(int x, int y) {
-		super(x, y);
-		// TODO Auto-generated constructor stub
+	public Objeto(int x, int y, int vida) {
+		super(x, y,vida);
 	}
 
+	public void atacar(Entidad e) { }
 
 }

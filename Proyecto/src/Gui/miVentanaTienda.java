@@ -1,12 +1,9 @@
 package Gui;
 
-
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Image;
-import javax.swing.JCheckBox;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -14,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.SwingConstants;
-
 import Creadores.CreadorConVidaComprable.CreadorBarricadaDoble;
 import Creadores.CreadorConVidaComprable.CreadorBarricadaSimple;
 import Creadores.CreadorPersonaje.CreadorDustin;
@@ -33,7 +29,6 @@ import Entidad.Objeto.Temporal.GasVenenoso;
 import Entidad.Objeto.Temporal.Portal;
 import Juego.Juego;
 import Tienda.Tienda;
-
 import javax.swing.JRadioButton;
 
 @SuppressWarnings("serial")

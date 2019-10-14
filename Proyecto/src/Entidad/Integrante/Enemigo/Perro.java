@@ -13,5 +13,6 @@ public class Perro extends Enemigo{
 	public int getMonedas() {
 		return this.monedas;
 	}
-	
+
+
 }
