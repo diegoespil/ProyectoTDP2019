@@ -150,7 +150,8 @@ public class miVentanaJuego extends JFrame {
 		menu.add(btnNewButton);
 
 		juego = new Juego(this);
-		threadEnemigos = new ThreadEnemigos(juego,enemigos);
+		threadEnemigos = new ThreadEnemigos(juego);
+//		threadEnemigos = new ThreadEnemigos(juego,enemigos);
 		threadEnemigos.start();
 		
 	}

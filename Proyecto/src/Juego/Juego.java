@@ -31,29 +31,29 @@ public class Juego extends Thread{
 		this.objetos = new Vector<Objeto>();
 		this.nivel = new Nivel1(this);
 		this.monedas = 200;
-		agregarEnemigos();
-//		enemigo = new Poseido(12,5,10,5,2,20,30); //(x,y,velocidad,danio,alcance,puntaje,monedas) 
-//		gui.setGrilla(enemigo.getPos(), enemigo.getGrafico());
+		//agregarEnemigos();
+		enemigo = new Poseido(12,5,10,5,2,20,30); //(x,y,velocidad,danio,alcance,puntaje,monedas) 
+		gui.setGrilla(enemigo.getPos(), enemigo.getGrafico(2));
 		this.puntaje = 0;
 	}
 	
-	private void agregarEnemigos() {
-		for(int i = 0;i < 4; i++) {
-			Enemigo e = nivel.getEnemigo();
-			if (e!=null) {
-				this.enemigos.add(e);
-				gui.getContentPane().add(e.getGrafico());
-			}
-		}
-		
-	}
-
-//	public void mover(int dir){
-//		System.out.println("mover");
-////		gui.celdaVacia(enemigo.getPos());
-////		enemigo.mover(dir);
-////		gui.setGrilla(enemigo.getPos(), enemigo.getGrafico());
+//	private void agregarEnemigos() {
+//		for(int i = 0;i < 4; i++) {
+//			Enemigo e = nivel.getEnemigo();
+//			if (e!=null) {
+//				this.enemigos.add(e);
+//				gui.getContentPane().add(e.getGrafico());
+//			}
+//		}
+//		
 //	}
+
+	public void mover(int dir){
+		System.out.println("mover");
+		gui.celdaVacia(enemigo.getPos());
+		enemigo.mover(dir);
+		gui.setGrilla(enemigo.getPos(), enemigo.getGrafico(dir));
+	}
 	
 	public boolean canMove(Enemigo e, int dir) {
 		boolean can = false;
