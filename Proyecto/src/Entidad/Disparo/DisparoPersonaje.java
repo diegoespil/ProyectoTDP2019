@@ -1,6 +1,5 @@
 package Entidad.Disparo;
 
-import Entidad.Entidad;
 import Visitador.Visitor;
 
 public class DisparoPersonaje extends Disparo {
@@ -12,11 +11,4 @@ public class DisparoPersonaje extends Disparo {
 	public void accept(Visitor v) {
 		v.visitDisparoPersonaje(this);
 	}
-
-	public void atacar(Entidad e) { }
-
-	public void afectar(Entidad e) {
-		e.setVida(e.getVida()-danio);	
-	}
-
 }

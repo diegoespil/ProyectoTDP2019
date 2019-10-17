@@ -2,7 +2,6 @@ package Entidad;
 
 import java.awt.Point;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -11,10 +10,8 @@ import Visitador.Visitor;
 public abstract class Entidad {
 	
 	protected String nombre;
-	protected ImageIcon grafico;
-	protected ImageIcon image [];
-//	protected JLabel grafico;
-//	protected Icon images [];
+	protected ImageIcon image;
+	protected JLabel label;
 	protected Point pos;
 	protected final int width = 60;
 	protected final int height = 60;
@@ -23,10 +20,10 @@ public abstract class Entidad {
 	
 	public Entidad(int x, int y, int vida){
 		this.pos = new Point(x,y);
-		image = new ImageIcon[4];
-//		images = new Icon[4];
 		miVisitor = null;
 		this.vida = vida; 
+		image = null;
+		label = null;
 	}
 
 	public Point getPos() {
@@ -37,21 +34,30 @@ public abstract class Entidad {
 		this.pos.x = x;
 		this.pos.y = y;
 	}
-	
+/*	
 	protected ImageIcon cambiarGrafico(int dir){
 		if(this.grafico != null){
 			this.grafico.setImage(this.image[dir].getImage());
-//	public JLabel getGrafico() {
-//		if(this.grafico == null){
-//			this.grafico = new JLabel(this.images[0]);
-//			this.grafico.setBounds(this.pos.x, this.pos.y, this.width, this.height);
 		}
 		return this.grafico;
 	}
-	
-	public ImageIcon getGrafico(int dir) {		
-		return this.image[dir];
+	*/
+	public ImageIcon getImage() {		
+		return this.image;
 	}
+	
+	public void setImage(String ruta) {
+		image = new ImageIcon(ruta);
+	}
+	
+	public JLabel getLabel(){
+		return label;
+	}
+	
+	public void setLabel(JLabel l) {
+		label = l;
+	}
+	
 	public abstract void accept(Visitor v);
 	
 	public abstract void atacar(Entidad e);
@@ -64,6 +70,10 @@ public abstract class Entidad {
 	 
 	public void setVida(int v) {
 		vida = v;
+	}
+	
+	public Visitor getVisitor() {
+		return miVisitor;
 	}
 }
 

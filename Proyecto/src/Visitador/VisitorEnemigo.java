@@ -1,11 +1,17 @@
 package Visitador;
 
+import Entidad.Entidad;
 import Entidad.Disparo.Disparo;
 import Entidad.Integrante.Enemigo.Enemigo;
 import Entidad.Integrante.Personaje.Personaje;
 import Entidad.Objeto.Objeto;
 
 public class VisitorEnemigo extends Visitor {
+
+	public VisitorEnemigo(Entidad e) {
+		super(e);
+
+	}
 
 	public void visitPersonaje(Personaje a) {
 		this.miEntidad.atacar(a);	

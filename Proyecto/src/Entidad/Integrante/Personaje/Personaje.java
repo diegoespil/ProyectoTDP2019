@@ -9,12 +9,6 @@ public abstract class Personaje extends Integrante {
 		super(x,y,dmg,alc,100);
 	}
 	
-	public abstract int getDanio();
-	
-	public abstract int getAlcance();
-	
-	public abstract int getVida();
-	
 	public void accept(Visitor v) {
 		v.visitPersonaje(this);
 	}

@@ -8,6 +8,10 @@ import Entidad.Objeto.Objeto;
 
 public abstract class Visitor {
 	protected Entidad miEntidad;
+	
+	public Visitor(Entidad e) {
+		miEntidad = e;
+	}
 	public abstract void visitPersonaje(Personaje a);
 	public abstract void visitEnemigo(Enemigo e);
 	public abstract void visitObjetosVida(Objeto o);
