@@ -23,7 +23,7 @@ import Visitador.VisitorEnemigo;
 public class Juego extends Thread{
 	private Enemigo enemigo;
 	private Disparo disparo;
-	private miVentanaJuego gui;
+	private Subscriber gui;
 	private int puntaje;
 	private int monedas;
 	private JLabel enemi;
@@ -33,7 +33,6 @@ public class Juego extends Thread{
 	public Juego(miVentanaJuego gui) {
 		this.monedas = 200;
 		this.gui = gui;
-		//gui.setGrilla(enemigo.getPos(),enemi); //, enemigo.getGrafico(enemigo.getDireccion()));
 		this.puntaje = 0;
 		grilla = new Entidad[8][13];
 		try {
@@ -43,74 +42,31 @@ public class Juego extends Thread{
 		} 
 	}
 	
-	public void mover(int dir){ //NO ESTÁ EN USO
-		//gui.celdaVacia(enemigo.getPos());
-		enemigo.mover(2);
-		gui.setGrilla(enemigo.getPos(),enemi);// enemigo.getGrafico(dir));
-	}
-	
 	public boolean canMove(Entidad e) {
 		Point pos = e.getPos();
-		Entidad siguiente = grilla[pos.x][pos.y-1];
-		if ((pos.x != 0)&&(siguiente == null)){
-			e.setPosicion(pos.x, (pos.y)-1);
-			gui.mover(e);
-			return true;
-		}
-		else {
-			siguiente.accept(e.getVisitor());
-			return false;
-		}
-	}
-	
-	/*public boolean canMove(Enemigo e, int dir) {
-		boolean can = false;
-		Point pos = e.getPos();
-		JLabel grilla [][] = gui.getGrilla();
-		System.out.println("Direccion: "+dir);
-		System.out.println("Posicion x: "+pos.x+" pos y: "+pos.y);
-		switch (dir) {
-			case 0: {
-				if ((pos.y != 0)&&(grilla[pos.y-1][pos.x].getIcon() == null)) {
-						System.out.println("Can to "+dir+"(up)");
-						can = true;
-						break;
-					}
-				else {
-					//visitor de la entidad contraria a la colision
-					e.accept(new VisitorEnemigo());
-				}
+		if(pos.y != 0){
+			Entidad siguiente = grilla[pos.x][pos.y-1];
+			if ((pos.x != 0)&&(siguiente == null)){
+				e.setPosicion(pos.x, (pos.y)-1);
+				gui.update(e);
+				return true;
 			}
-			case 1: {
-				if ((pos.y != 7)&&(grilla[pos.y+1][pos.x].getIcon() == null)) {
-						System.out.println("Can to "+dir+"(down)" );
-						can=true; 
-						break;
-					}
+			else {
+				siguiente.accept(e.getVisitor());
+				if(siguiente.getVida()<=0){
+					eliminar(siguiente);
 				}
-			case 2: {
-				if ((pos.x != 0)&&(grilla[pos.y][pos.x-1].getIcon() == null)){
-						System.out.println("Can to "+dir+"(left)");
-						can=true;
-						break;
-					}
-				}
+				return false;
+			}
 		}
-		return can;
-	} */
+		else return false; //en este caso el jugador PERDIÓ
+	}
 
 	public Enemigo getEnemigo() {
 		return this.enemigo;
 	}
 	public Disparo getDisparo() {
 		return disparo;
-	}
-	
-	public void eliminarEnemigo(Enemigo e) {
-		e.setMuerto();
-		this.puntaje +=e.getPuntaje();
-		gui.celdaVacia(enemi);
-		//gui.actualizarPuntaje(puntaje); ACA LO ACTUALIZAMOS EL PUNTAJE EN LA GUI
 	}
 	
 	public int getMoneda() {
@@ -144,19 +100,22 @@ public class Juego extends Thread{
 			/*case "fuego" : { grilla[fila][i] = new Fuego(fila,i,10);
 							break;
 			}*/
-			case "auto" : { grilla[fila][i] = new Auto(fila,i,100);
-							grilla[fila][i].setImage("Imagenes//auto-fuego1.png");
-							break;
+			case "auto" : { 
+				Auto a = crearAuto(fila,i,100);
+				grilla[fila][i] = a;
+				break;
 				
 			}	
-			case "auto2" : { grilla[fila][i] = new Auto(fila,i,100);
-							grilla[fila][i].setImage("Imagenes//auto-fuego2.png");
-							break;
+			case "auto2" : {  
+				Auto a = crearAuto(fila,i,100);
+				grilla[fila][i] = a;
+				break;
 
             }
-			case "auto3" : { grilla[fila][i] = new Auto(fila,i,100);
-							grilla[fila][i].setImage("Imagenes/auto-fuego3.png");
-							break;
+			case "auto3" : { 
+				Auto a = crearAuto(fila,i,100);
+				grilla[fila][i] = a;
+				break;
 			}
 			
 			}
@@ -175,10 +134,29 @@ public class Juego extends Thread{
 		grilla[x][y] = d;
 		disparo = d;
 	}
+	public Auto crearAuto(int x, int y, int vida){
+		Auto a = new Auto(x,y,vida);
+		ImageIcon img = new ImageIcon("Imagenes//auto-fuego1.png");
+		JLabel label = new JLabel();
+		label.setBounds(a.getPos().y*60, a.getPos().x*60, 60, 60);
+		label.setIcon(new ImageIcon(img.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+		label.setVisible(true);
+		a.setLabel(label);
+		return a;
+	}
 	public void eliminar(Entidad e){
+		e.setVida(0);
 		int x =(int) e.getPos().getX();
 		int y =(int) e.getPos().getY();
 		grilla[x][y] = null;
-		gui.celdaVacia(e.getLabel());
+		gui.update(e);
+	}
+	public void eliminarEnemigo(Enemigo e){
+		puntaje += e.getPuntaje();
+		e.setVida(0);
+		int x =(int) e.getPos().getX();
+		int y =(int) e.getPos().getY();
+		grilla[x][y] = null;
+		gui.update(e);
 	}
 }

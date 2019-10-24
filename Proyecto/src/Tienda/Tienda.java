@@ -16,6 +16,7 @@ import Juego.Juego;
 public class Tienda {
 	
 	protected Juego juego;
+	protected Entidad proxACerear;
 	
 	public Tienda(Juego j) {
 		juego = j;

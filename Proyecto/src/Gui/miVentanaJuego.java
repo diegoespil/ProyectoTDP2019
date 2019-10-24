@@ -1,6 +1,7 @@
 package Gui;
 
 import java.awt.Color;
+
 import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.Point;
@@ -16,16 +17,14 @@ import javax.swing.JPanel;
 import Juego.Juego;
 import Juego.ThreadDisparo;
 import Juego.ThreadEnemigos;
-import Mapa.iniMapa;
 import Entidad.Entidad;
-import Entidad.Disparo.Disparo;
 import Entidad.Disparo.DisparoEnemigo;
-import Entidad.Integrante.Integrante;
 import Entidad.Integrante.Enemigo.Enemigo;
 import Entidad.Integrante.Enemigo.Poseido;
+import Juego.Subscriber;
 
 @SuppressWarnings("serial")
-public class miVentanaJuego extends JFrame {
+public class miVentanaJuego extends JFrame implements Subscriber{
 
 	// private JPanel contentPane;
 	//private JLabel[][] grilla;
@@ -145,13 +144,9 @@ public class miVentanaJuego extends JFrame {
 			for(int j=0;j<aux[i].length;j++) {
 				if(aux[i][j]!=null) {
 					System.out.println("tiene entidad");
-					JLabel obstaculo = new JLabel();
-					obstaculo.setBounds(j*60, i*60, 60, 60);
-					ImageIcon nuevo = aux[i][j].getImage();
-					obstaculo.setIcon(new ImageIcon(nuevo.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-					obstaculo.setVisible(true);
-					panel.add(obstaculo);
-					
+					Entidad obstaculo = aux[i][j];
+					JLabel obsLabel = obstaculo.getLabel();
+					panel.add(obsLabel);
 				}
 			}
 		}
@@ -248,19 +243,17 @@ public class miVentanaJuego extends JFrame {
 		image.setBounds(pos.y,pos.x-60, 60, 60);
 	}
 	
-	public void celdaVacia(JLabel label) {
-	    //label.setBorder(BorderFactory.createEtchedBorder(Color.RED, Color.RED));
+	public void quitarLabel(JLabel label) {
 		panel.remove(label);
 		panel.validate();
 		panel.repaint();
-		//grilla[pos.y][pos.x].setIcon(null);
 	}
 	
 	public void insertarEnemigo(){
-		Enemigo enemigo = new Poseido(4,12,10,5,2,20,30); //(x,y,velocidad,danio,alcance,puntaje,monedas) 
+		Enemigo enemigo = new Poseido(4,12,10,50,2,20,30); //(x,y,velocidad,danio,alcance,puntaje,monedas) 
 		ImageIcon img = new ImageIcon("Imagenes/malo1_izq.png");
 		JLabel enemigoLabel = new JLabel();
-		enemigoLabel.setBounds(12*60, 4*60, 60, 60);
+		enemigoLabel.setBounds(enemigo.getPos().y*60, enemigo.getPos().x*60, 60, 60);
 		enemigoLabel.setIcon(new ImageIcon(img.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
 		enemigoLabel.setVisible(true);
 		
@@ -279,10 +272,15 @@ public class miVentanaJuego extends JFrame {
 		panel.add(disparoLabel);
 		juego.insertarDisparo(disparo);
 	}
-	public void mover(Entidad e){
+	public void update(Entidad e){
 		JLabel entidadLabel = e.getLabel();
-		int newX = entidadLabel.getX()-60;
-		int newY = entidadLabel.getY();
-		entidadLabel.setBounds(newX, newY, entidadLabel.getWidth(), entidadLabel.getHeight());
+		if(e.getVida()<=0){
+			quitarLabel(e.getLabel());
+		}
+		else{
+			int newX = entidadLabel.getX()-60;
+			int newY = entidadLabel.getY();
+			entidadLabel.setBounds(newX, newY, entidadLabel.getWidth(), entidadLabel.getHeight());
+		}
 	}
 }

@@ -13,14 +13,21 @@ public class ThreadEnemigos extends Thread{
 	}
 
 	public void run() {
-		while(!enemigo.estaMuerto()){
+		while(enemigo.getVida()>0){
 			System.out.println("estoy ejecutando el hilo");
-			juego.canMove(enemigo);
+			if ((enemigo.getVida()<=0)){
+				juego.eliminarEnemigo(enemigo);
+				
+			}
+			else{
+				juego.canMove(enemigo);
 				try {
 					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+			}
+			
 			   
 		}
 	} 
