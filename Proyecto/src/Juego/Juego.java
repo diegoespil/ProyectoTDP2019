@@ -42,13 +42,21 @@ public class Juego extends Thread{
 		} 
 	}
 	
+	public void actualizarGrilla(Entidad e){
+		Point pos = e.getPos();
+		if(pos.y != 0){
+			e.setPosicion(pos.x, (pos.y)-1);
+			gui.update(e);
+		}
+		
+	}
+	
 	public boolean canMove(Entidad e) {
 		Point pos = e.getPos();
 		if(pos.y != 0){
 			Entidad siguiente = grilla[pos.x][pos.y-1];
 			if ((pos.x != 0)&&(siguiente == null)){
-				e.setPosicion(pos.x, (pos.y)-1);
-				gui.update(e);
+				gui.update(e.getLabel());
 				return true;
 			}
 			else {
@@ -101,19 +109,19 @@ public class Juego extends Thread{
 							break;
 			}*/
 			case "auto" : { 
-				Auto a = crearAuto(fila,i,100);
+				Auto a = crearAuto(fila,i,1300);
 				grilla[fila][i] = a;
 				break;
 				
 			}	
 			case "auto2" : {  
-				Auto a = crearAuto(fila,i,100);
+				Auto a = crearAuto(fila,i,1300);
 				grilla[fila][i] = a;
 				break;
 
             }
 			case "auto3" : { 
-				Auto a = crearAuto(fila,i,100);
+				Auto a = crearAuto(fila,i,1300);
 				grilla[fila][i] = a;
 				break;
 			}

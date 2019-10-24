@@ -278,9 +278,10 @@ public class miVentanaJuego extends JFrame implements Subscriber{
 			quitarLabel(e.getLabel());
 		}
 		else{
-			int newX = entidadLabel.getX()-60;
-			int newY = entidadLabel.getY();
-			entidadLabel.setBounds(newX, newY, entidadLabel.getWidth(), entidadLabel.getHeight());
+			entidadLabel.setBounds((e.getPos().y)*60, (e.getPos().x*60), entidadLabel.getWidth(), entidadLabel.getHeight());
 		}
+	}
+	public void update(JLabel label){
+		label.setBounds(label.getX()-1, label.getY(), label.getWidth(), label.getHeight());
 	}
 }
