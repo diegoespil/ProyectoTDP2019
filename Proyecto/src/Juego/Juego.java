@@ -18,6 +18,8 @@ import Entidad.Objeto.ConVida.Auto;
 import Entidad.Objeto.ConVida.ObjetoConVida;
 import Entidad.Objeto.Temporal.ObjetoTemporal;
 import Gui.miVentanaJuego;
+import Juego.Nivel.Nivel;
+import Juego.Nivel.Nivel1;
 import Visitador.VisitorEnemigo;
 
 public class Juego extends Thread{
@@ -29,21 +31,29 @@ public class Juego extends Thread{
 	private JLabel enemi;
 	private JLabel shoot;
 	private Entidad [][] grilla;
+	private Nivel nivel;
 	
 	public Juego(miVentanaJuego gui) {
+		this.nivel = new Nivel1(this);
 		this.monedas = 200;
 		this.gui = gui;
 		//gui.setGrilla(enemigo.getPos(),enemi); //, enemigo.getGrafico(enemigo.getDireccion()));
 		this.puntaje = 0;
 		grilla = new Entidad[8][13];
-		try {
-			getObstaculos();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
+		cargarEnemigos();
+		cargarObjetos();
+//		try {
+//			getObstaculos();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} 
 	}
 	
-	public void mover(int dir){ //NO ESTÁ EN USO
+	public void run(){
+		
+	}
+	
+	public void mover(int dir){ //NO ESTï¿½ EN USO
 		//gui.celdaVacia(enemigo.getPos());
 		enemigo.mover(2);
 		gui.setGrilla(enemigo.getPos(),enemi);// enemigo.getGrafico(dir));
@@ -123,44 +133,6 @@ public class Juego extends Thread{
 	
 	public Entidad[][] getGrilla(){
 		return grilla;
-	}
-	
-	public void getObstaculos() throws FileNotFoundException, IOException {
-		String cadena;
-		FileReader f = new FileReader("Archivo//Mapa1.txt");
-		BufferedReader b = new BufferedReader(f);
-		int fila = 0;
-		while ((cadena = b.readLine()) != null) {
-			procesarLinea(cadena, fila);
-			fila++;
-		}
-		b.close();
-	}
-
-	private void procesarLinea(String cadena, int fila) {
-		String arr[] = cadena.split(",");
-		for (int i = 0; i < arr.length; i++) {
-			switch(arr[i]) {
-			/*case "fuego" : { grilla[fila][i] = new Fuego(fila,i,10);
-							break;
-			}*/
-			case "auto" : { grilla[fila][i] = new Auto(fila,i,100);
-							grilla[fila][i].setImage("Imagenes//auto-fuego1.png");
-							break;
-				
-			}	
-			case "auto2" : { grilla[fila][i] = new Auto(fila,i,100);
-							grilla[fila][i].setImage("Imagenes//auto-fuego2.png");
-							break;
-
-            }
-			case "auto3" : { grilla[fila][i] = new Auto(fila,i,100);
-							grilla[fila][i].setImage("Imagenes/auto-fuego3.png");
-							break;
-			}
-			
-			}
-		}
 	}
 	
 	public void insertarEnemigo(Enemigo e){

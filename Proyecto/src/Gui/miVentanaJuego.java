@@ -27,6 +27,8 @@ import Entidad.Integrante.Enemigo.Poseido;
 @SuppressWarnings("serial")
 public class miVentanaJuego extends JFrame {
 
+	public static final int ANCHO = 800;
+	public static final int ALTO = 480;
 	// private JPanel contentPane;
 	//private JLabel[][] grilla;
 	private JPanel menu;
