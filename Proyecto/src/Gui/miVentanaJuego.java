@@ -26,8 +26,6 @@ import Juego.Subscriber;
 @SuppressWarnings("serial")
 public class miVentanaJuego extends JFrame implements Subscriber{
 
-	// private JPanel contentPane;
-	//private JLabel[][] grilla;
 	private JPanel menu;
 	private imagenfondo panel;
 	private Juego juego;
@@ -73,10 +71,6 @@ public class miVentanaJuego extends JFrame implements Subscriber{
 		iniciarObstaculos();
 		insertarEnemigo();
 		insertarDisparo();
-	//	grilla = new JLabel[8][13];
-		
-	//	inicializarGrilla();
-	//	crearGrilla();
 
 		//Establece el fondo de la ciudad dde fondo.
 		JLabel fondoCiudad = new JLabel("");
@@ -118,8 +112,7 @@ public class miVentanaJuego extends JFrame implements Subscriber{
 				System.out.println("eliminar enemigo");				
 				Enemigo enemigo = juego.getEnemigo();
 				Point pos = enemigo.getPos();
-				juego.eliminarEnemigo(juego.getEnemigo());
-				//grilla[pos.y][pos.x].setIcon(null);				
+				juego.eliminarEnemigo(juego.getEnemigo());			
 			}
 			
 		});
@@ -133,7 +126,6 @@ public class miVentanaJuego extends JFrame implements Subscriber{
 		threadDisparo.iniciar();
 		
 	}
-	
 
 	//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -151,85 +143,7 @@ public class miVentanaJuego extends JFrame implements Subscriber{
 			}
 		}
 	}
-	
-	
-	/*
- 
-	//aMetodo para crear la grilla de JLabel
-	protected void crearGrilla() {
-		iniMapa matriz = new iniMapa();
-		String palabra;
-		try {
-			obstaculo = matriz.getObstaculos();
-			for (int i = 0; i < obstaculo.length; i++)
-				for (int j = 0; j < obstaculo[i].length; j++) {
-					palabra = obstaculo[i][j];
-					if (palabra.equals("auto")) {
-						ImageIcon auto = new ImageIcon("Imagenes//auto-fuego1.png");
-						grilla[i][j]
-								.setIcon(new ImageIcon(auto.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-					} else {
-						if (palabra.equals("auto2")) {
-							ImageIcon auto2 = new ImageIcon("Imagenes//auto-fuego2.png");
-							grilla[i][j].setIcon(
-									new ImageIcon(auto2.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-						} else {
-							if (palabra.equals("vacio")) {
-								grilla[i][j].setVisible(false);
-							} else {
-								if (palabra.equals("auto3")) {
-									ImageIcon auto3 = new ImageIcon("Imagenes//auto-fuego3.png");
-									grilla[i][j].setIcon(new ImageIcon(
-											auto3.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-								} 
-							}
-						}
 
-					}
-				}
-		} catch (Exception e) {
-			e.getMessage();
-		}
-	}
-
-	//Metodo para inci
-	public void quitarIntegrante(Integrante enemigo) {
-		Point pos = enemigo.getPos();
-		grilla[pos.y][pos.x].setIcon(null);
-		
-	}alizar la grilla
-	protected void inicializarGrilla() {
-
-		for (int i = 0; i < grilla.length; i++)
-			for (int j = 0; j < grilla[i].length; j++) {
-				grilla[i][j] = new JLabel();
-				grilla[i][j].setBounds(j * 60, i * 60, 60, 60);
-				panel.add(grilla[i][j]);
-			}
-	}
-	
-	public void setGrilla(Point pos, ImageIcon image){
-		grilla[pos.y][pos.x].setIcon(new ImageIcon(image.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-		grilla[pos.y][pos.x].setVisible(true);
-		panel.repaint();
-	}
-	
-	public JLabel[][] getGrilla(){
-		return grilla;
-	}
-	
-	public void actualizarPuntaje(int puntaje) {
-		this.puntaje +=puntaje;
-		
-	}
-	
-	
-	public void quitarIntegrante(Integrante enemigo) {
-		Point pos = enemigo.getPos();
-		grilla[pos.y][pos.x].setIcon(null);
-		
-	}
-	*/
 	public JLabel inciarMovieiento(Point pos,ImageIcon image) {
 		JLabel nuevo = new JLabel();
 		System.out.println("posicion x: "+pos.x+" y en y: "+pos.y);
