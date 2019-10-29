@@ -6,7 +6,7 @@ import Entidad.Integrante.Enemigo.Perro;
 public class CreadorPerro extends CreadorEnemigo{
 	
 	public Enemigo crearEnemigo(){
-		Enemigo ene = new Perro(0,0,2,5,1,20,5); //(x,y,vel,danio,alc,ptje,monedas)
+		Enemigo ene = new Perro(0,0,5,10,1,40,10); //(x,y,vel,danio,alc,ptje,monedas)
 		return ene;
 	}
 

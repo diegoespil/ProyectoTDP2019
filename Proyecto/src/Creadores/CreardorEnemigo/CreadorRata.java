@@ -6,7 +6,7 @@ import Entidad.Integrante.Enemigo.Rata;
 public class CreadorRata extends CreadorEnemigo{
 	
 	public Enemigo crearEnemigo(){
-		Enemigo ene = new Rata(0,0,2,5,1,20,5); //(x,y,vel,danio,alc,ptje,monedas)
+		Enemigo ene = new Rata(0,0,4,5,1,20,5); //(x,y,vel,danio,alc,ptje,monedas)
 		return ene;
 	}
 

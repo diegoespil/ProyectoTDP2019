@@ -6,7 +6,7 @@ import Entidad.Integrante.Enemigo.Ruso;
 public class CreadorRuso extends CreadorEnemigo{
 	
 	public Enemigo crearEnemigo(){
-		Enemigo ene = new Ruso(0,0,2,5,1,20,5); //(x,y,vel,danio,alc,ptje,monedas)
+		Enemigo ene = new Ruso(0,0,2,25,12,100,75); //(x,y,vel,danio,alc,ptje,monedas)
 		return ene;
 	}
 
