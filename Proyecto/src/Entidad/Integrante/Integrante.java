@@ -1,18 +1,18 @@
 package Entidad.Integrante;
 
 import Entidad.Entidad;
+import Entidad.Integrante.State.State;
 
 public abstract class Integrante extends Entidad{
 
 	protected int danio, alcance;
-	protected boolean muerto;
-	
+	protected State estado;
 	
 	public Integrante(int x, int y, int d, int a, int vida) {
 		super(x,y,vida);
 		danio=d;
 		alcance=a;
-		this.muerto =false;
+		estado=null;
 	}
 	
 	public int getDanio() {
@@ -26,13 +26,13 @@ public abstract class Integrante extends Entidad{
 	public int getAlcance() {
 		return alcance;
 	}
-
-	public boolean estaMuerto(){
-		return this.muerto;
+	
+	public State getEstado(){
+		return estado;
 	}
 	
-	public void setMuerto() {
-		this.muerto = true;
+	public void setEstado(State s){
+		estado = s;
 	}
 
 	public void afectar(Entidad e) {}

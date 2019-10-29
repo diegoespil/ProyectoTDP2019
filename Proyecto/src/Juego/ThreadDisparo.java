@@ -7,22 +7,32 @@ public class ThreadDisparo extends Thread{
 	private Juego juego;
 	private Disparo disparo;
 	private static volatile boolean llego;
+	private volatile int cont;
 
 	public ThreadDisparo(Juego j) {
 		this.juego = j;
 		this.disparo = juego.getDisparo();
 		llego = false;
+		cont = 0;
 	}
 
 	public void run() {
 		while(llego){
-			System.out.println("estoy ejecutando el hilo");
-			llego = juego.canMove(disparo);
+			//System.out.println("estoy ejecutando el hilo");
+			if(cont<60){
+				llego = juego.canMove(disparo);
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(20);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+				cont++;
+			}
+			else{
+				juego.actualizarGrilla(disparo);
+				cont = 0;
+			}
+				
 		}
 		if (!llego){ 
 			
