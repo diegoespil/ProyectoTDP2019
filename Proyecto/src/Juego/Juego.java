@@ -18,6 +18,8 @@ import Entidad.Objeto.ConVida.Auto;
 import Entidad.Objeto.ConVida.ObjetoConVida;
 import Entidad.Objeto.Temporal.ObjetoTemporal;
 import Gui.miVentanaJuego;
+import Juego.Nivel.Nivel;
+import Juego.Nivel.Nivel1;
 import Visitador.VisitorEnemigo;
 
 public class Juego extends Thread{
@@ -29,26 +31,48 @@ public class Juego extends Thread{
 	private JLabel enemi;
 	private JLabel shoot;
 	private Entidad [][] grilla;
-	
+	private Nivel nivel;
+
 	public Juego(miVentanaJuego gui) {
+		this.nivel = new Nivel1(this);
 		this.monedas = 200;
 		this.gui = gui;
 		this.puntaje = 0;
 		grilla = new Entidad[8][13];
-		try {
-			getObstaculos();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} 
+		cargarEnemigos();
+		cargarObjetos();
+//		try {
+//			getObstaculos();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
-	
+
+	public void run(){
+
+	}
+
+	public void mover(int dir){ //NO EST� EN USO
+		//gui.celdaVacia(enemigo.getPos());
+		enemigo.mover(2);
+		gui.setGrilla(enemigo.getPos(),enemi);// enemigo.getGrafico(dir));
+	}
+
+
+	public void actualizarGrilla(Entidad e){
+		Point pos = e.getPos();
+		if(pos.y != 0){
+			e.setPosicion(pos.x, (pos.y)-1);
+			gui.update(e);
+		}
+	}
+
 	public boolean canMove(Entidad e) {
 		Point pos = e.getPos();
 		if(pos.y != 0){
 			Entidad siguiente = grilla[pos.x][pos.y-1];
 			if ((pos.x != 0)&&(siguiente == null)){
-				e.setPosicion(pos.x, (pos.y)-1);
-				gui.update(e);
+				gui.update(e.getLabel());
 				return true;
 			}
 			else {
@@ -68,19 +92,19 @@ public class Juego extends Thread{
 	public Disparo getDisparo() {
 		return disparo;
 	}
-	
+
 	public int getMoneda() {
 		return this.monedas;
 	}
-	
+
 	public void setMonedas(int monedas) {
 		this.monedas += monedas;
 	}
-	
+
 	public Entidad[][] getGrilla(){
 		return grilla;
 	}
-	
+
 	public void getObstaculos() throws FileNotFoundException, IOException {
 		String cadena;
 		FileReader f = new FileReader("Archivo//Mapa1.txt");
@@ -100,28 +124,26 @@ public class Juego extends Thread{
 			/*case "fuego" : { grilla[fila][i] = new Fuego(fila,i,10);
 							break;
 			}*/
-			case "auto" : { 
-				Auto a = crearAuto(fila,i,100);
+			case "auto" : {
+				Auto a = crearAuto(fila,i,1300);
 				grilla[fila][i] = a;
 				break;
-				
-			}	
-			case "auto2" : {  
-				Auto a = crearAuto(fila,i,100);
+			}
+			case "auto2" : {
+				Auto a = crearAuto(fila,i,1300);
 				grilla[fila][i] = a;
 				break;
 
             }
-			case "auto3" : { 
-				Auto a = crearAuto(fila,i,100);
+			case "auto3" : {
+				Auto a = crearAuto(fila,i,1300);
 				grilla[fila][i] = a;
 				break;
 			}
-			
 			}
 		}
 	}
-	
+
 	public void insertarEnemigo(Enemigo e){
 		int x =(int) e.getPos().getX();
 		int y =(int) e.getPos().getY();

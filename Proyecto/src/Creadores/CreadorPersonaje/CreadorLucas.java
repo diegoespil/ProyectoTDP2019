@@ -6,7 +6,7 @@ import Entidad.Integrante.Personaje.Personaje;
 public class CreadorLucas extends CreadorPersonaje{
 
 	public Personaje crearPersonaje(){
-		Personaje pje = new Lucas(0,0,0,0); //temporalmente par�metros en 0
+		Personaje pje = new Lucas(0,0,15,2); //(x,y,danio,alcance)		
 		return pje;
 	}
 }
