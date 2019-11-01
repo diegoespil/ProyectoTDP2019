@@ -7,6 +7,6 @@ import Entidad.Objeto.ConVida.ObjetoConVida;
 public class CreadorAuto extends CreadorEntidad {
 
 	public ObjetoConVida crear(){
-		return new Auto(0,0,1300);
+		return new Auto(0,0,150);
 	}
 }

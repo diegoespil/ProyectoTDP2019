@@ -7,6 +7,9 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -117,6 +120,27 @@ public class miVentanaJuego extends JFrame{
 		btnNewButton.setBounds(282, 609, 212, 54);
 		menu.add(btnNewButton);
 
+		panel.addMouseListener(new MouseListener() {
+			public void mouseClicked(MouseEvent e) {
+				int x,y;
+				x = e.getX()/60;
+				y = (e.getY()/60);
+				if(!juego.hayEntidad(y, x))
+					juego.insertarPersonaje(y, x);
+				else
+					System.out.println("hay entidad en esa posicion");
+				
+			}
+			public void mouseEntered(MouseEvent arg0) {}
+
+			public void mouseExited(MouseEvent arg0) {}
+			
+			public void mousePressed(MouseEvent arg0) {}
+
+			public void mouseReleased(MouseEvent arg0) {}
+
+		});
+		
 		threadEnemigos = new ThreadEnemigos(juego);
 		threadEnemigos.start();
 		threadDisparo = new ThreadDisparo(juego);
@@ -124,6 +148,11 @@ public class miVentanaJuego extends JFrame{
 
 	}
 
+	
+	
+	
+	
+	
 
 	//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -173,9 +202,11 @@ public class miVentanaJuego extends JFrame{
 	}
 	public void update(JLabel label){
 		label.setBounds(label.getX()-1,label.getY(),label.getWidth(), label.getHeight());
+		panel.repaint();
 	}
 	public void insertar(JLabel label, int x, int y){
 		label.setBounds(y, x, label.getWidth(), label.getHeight());
 		panel.add(label);
+		panel.repaint();
 	}
 }

@@ -9,21 +9,28 @@ public class Tienda {
 	
 	protected Juego juego;
 	protected Entidad proxACrear;
+	protected int aCobrar ;
 	
 	public Tienda(Juego j) {
 		juego = j;
+		aCobrar = 0;
 	}
 	
 	public void crear(CreadorEntidad creador, int precio){
-		if (alcanza(precio)){
-			juego.setMonedas( juego.getMonedas()-precio);
-			Entidad nuevo = creador.crear();
-			proxACrear = nuevo;
+		if (alcanza(precio) ){
+			aCobrar = precio;
+			//juego.setMonedas( juego.getMonedas()-precio);
+			proxACrear = creador.crear();
+			System.out.println(proxACrear);
 		}
 	}
 	
 	public Entidad getProximo(){
 		return proxACrear;
+	}
+	
+	public int finalizarCompra() {
+		return aCobrar;
 	}
 	
 	public void quitarProximo(){

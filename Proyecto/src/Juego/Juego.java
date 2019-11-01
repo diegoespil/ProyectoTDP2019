@@ -15,6 +15,7 @@ import Creadores.CreadorEntidad.CreadorEntidad;
 import Creadores.CreardorEnemigo.CreadorPoseido;
 import Entidad.Entidad;
 import Entidad.Disparo.Disparo;
+import Entidad.Integrante.Integrante;
 import Entidad.Integrante.Enemigo.Enemigo;
 import Entidad.Integrante.Enemigo.Poseido;
 import Entidad.Objeto.ConVida.Auto;
@@ -23,6 +24,7 @@ import Entidad.Objeto.Temporal.ObjetoTemporal;
 import Gui.miVentanaJuego;
 import Juego.Nivel.Nivel;
 import Juego.Nivel.Nivel1;
+import Tienda.Tienda;
 import Visitador.VisitorEnemigo;
 
 public class Juego extends Thread{
@@ -35,12 +37,14 @@ public class Juego extends Thread{
 	private JLabel shoot;
 	private Entidad [][] grilla;
 	private Nivel nivel;
+	private Tienda shop;
 
 	public Juego(miVentanaJuego gui) {
 		this.nivel = new Nivel1(this);
-		this.monedas = 200;
+		this.monedas = 20000;
 		this.gui = gui;
 		this.puntaje = 0;
+		shop = new Tienda(this);
 		grilla = new Entidad[8][13];
 		//cargarEnemigos();
 		//cargarObjetos();
@@ -81,6 +85,32 @@ public class Juego extends Thread{
 		}
 		else return false; //en este caso el jugador PERDIO
 	}
+	
+	public boolean enRangoPersonaje(Integrante i) {
+		Point pos = i.getPos();
+		int j = i.getAlcance();
+		for(int k= 0;k<j && pos.y!=12;k++) {		
+			Entidad siguiente = grilla[pos.x][pos.y+k];
+			if(siguiente != null) {
+				siguiente.accept(i.getVisitor());
+				return true;
+			}			
+		}
+		return false;
+	}
+	
+    public boolean enRangoEnemigo(Integrante i) {
+    	Point pos = i.getPos();
+		int j = i.getAlcance();
+		for(int k= 0;k<j && pos.y!=0;k++) {		
+			Entidad siguiente = grilla[pos.x][pos.y-k];
+			if(siguiente != null) {
+				siguiente.accept(i.getVisitor());
+				return true;
+			}			
+		}
+		return false;
+	}
 
 	public Enemigo getEnemigo() {
 		return this.enemigo;
@@ -96,9 +126,17 @@ public class Juego extends Thread{
 	public void setMonedas(int monedas) {
 		this.monedas = monedas;
 	}
+	
+	public Tienda getTienda() {
+		return shop;
+	}
 
 	public Entidad[][] getGrilla(){
 		return grilla;
+	}
+	
+	public boolean hayEntidad(int x,int y) {
+		return grilla[x][y] != null;
 	}
 
 	public void getObstaculos() throws FileNotFoundException, IOException {
@@ -156,6 +194,18 @@ public class Juego extends Thread{
 		e.setPosicion(4, 12);
 		insertar(e);
 		this.enemigo = e;
+	}
+	
+	public void insertarPersonaje(int x,int y) {
+		Entidad nueva = shop.getProximo();
+		if(nueva != null ) {
+			monedas = monedas - shop.finalizarCompra();
+			shop.quitarProximo();
+			grilla[x][y] = nueva;
+			nueva.setPosicion(x, y);
+			gui.insertar(nueva.getLabel(), x*60, y*60);
+			System.out.println("monedas "+monedas);
+		}
 	}
 	
 	public void insertarDisparo(Disparo d){

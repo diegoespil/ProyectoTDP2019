@@ -18,7 +18,6 @@ public class ThreadDisparo extends Thread{
 
 	public void run() {
 		while(llego){
-			//System.out.println("estoy ejecutando el hilo");
 			if(cont<60){
 				llego = juego.canMove(disparo);
 				try {

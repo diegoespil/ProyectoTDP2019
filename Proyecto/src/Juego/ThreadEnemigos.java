@@ -16,7 +16,6 @@ public class ThreadEnemigos extends Thread{
 
 	public void run() {
 		while(enemigo.getVida()>0){
-			//System.out.println("estoy ejecutando el hilo");
 			if ((enemigo.getVida()<=0)){
 				juego.eliminarEnemigo(enemigo);
 				
@@ -27,7 +26,7 @@ public class ThreadEnemigos extends Thread{
 						cont++;
 					}
 					try {
-						Thread.sleep(25);
+						Thread.sleep(100);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

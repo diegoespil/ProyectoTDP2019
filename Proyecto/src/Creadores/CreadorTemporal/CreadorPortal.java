@@ -2,11 +2,13 @@ package Creadores.CreadorTemporal;
 
 import Creadores.CreadorEntidad.CreadorEntidad;
 import Entidad.Objeto.Temporal.ObjetoTemporal;
+import Entidad.Objeto.Temporal.Portal;
 
 public class CreadorPortal extends CreadorEntidad {
 	
 	public ObjetoTemporal crear() {
-		return null;
+		Portal nuevo = new Portal(0,0,15);
+		return nuevo;
 	}
 
 }

@@ -18,12 +18,14 @@ import Creadores.CreadorPersonaje.CreadorDustin;
 import Creadores.CreadorPersonaje.CreadorHopper;
 import Creadores.CreadorPersonaje.CreadorLucas;
 import Creadores.CreadorPersonaje.CreadorMike;
+import Creadores.CreadorPersonaje.CreadorOnce;
 import Creadores.CreadorTemporal.CreadorGas;
 import Creadores.CreadorTemporal.CreadorPortal;
 import Entidad.Integrante.Personaje.Dustin;
 import Entidad.Integrante.Personaje.Hopper;
 import Entidad.Integrante.Personaje.Lucas;
 import Entidad.Integrante.Personaje.Mike;
+import Entidad.Integrante.Personaje.Once;
 import Entidad.Objeto.ConVida.BarricadaDoble;
 import Entidad.Objeto.ConVida.BarricadaSimple;
 import Entidad.Objeto.Temporal.GasVenenoso;
@@ -75,7 +77,7 @@ public class miVentanaTienda extends JFrame {
 		contentPane.setBorder(null);
 		contentPane.setLayout(null);
 		contentPane.setBackground("Imagenes//fondoTienda.png");
-		shop  = new Tienda(juego);
+		shop  = juego.getTienda();
 		
 		setContentPane(contentPane);
 		

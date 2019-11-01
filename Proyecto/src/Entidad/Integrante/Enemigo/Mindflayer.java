@@ -1,5 +1,6 @@
 package Entidad.Integrante.Enemigo;
 
+import Entidad.Disparo.DisparoEnemigo;
 
 public class Mindflayer extends Enemigo {
 
@@ -15,4 +16,7 @@ public class Mindflayer extends Enemigo {
 		return this.monedas;
 	}
 
+	public void ataque() {
+		miDisparo = new DisparoEnemigo(pos.x,pos.y-1,danio,1);
+	}
 }
