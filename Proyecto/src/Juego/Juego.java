@@ -10,6 +10,9 @@ import java.io.IOException;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import Creadores.CreadorConVida.CreadorAuto;
+import Creadores.CreadorEntidad.CreadorEntidad;
+import Creadores.CreardorEnemigo.CreadorPoseido;
 import Entidad.Entidad;
 import Entidad.Disparo.Disparo;
 import Entidad.Integrante.Enemigo.Enemigo;
@@ -25,7 +28,7 @@ import Visitador.VisitorEnemigo;
 public class Juego extends Thread{
 	private Enemigo enemigo;
 	private Disparo disparo;
-	private Subscriber gui;
+	private miVentanaJuego gui;
 	private int puntaje;
 	private int monedas;
 	private JLabel enemi;
@@ -39,31 +42,24 @@ public class Juego extends Thread{
 		this.gui = gui;
 		this.puntaje = 0;
 		grilla = new Entidad[8][13];
-		cargarEnemigos();
-		cargarObjetos();
-//		try {
-//			getObstaculos();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		//cargarEnemigos();
+		//cargarObjetos();
+		try {
+			getObstaculos();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		insertarEnemigo2();
 	}
 
 	public void run(){
 
 	}
 
-	public void mover(int dir){ //NO EST� EN USO
-		//gui.celdaVacia(enemigo.getPos());
-		enemigo.mover(2);
-		gui.setGrilla(enemigo.getPos(),enemi);// enemigo.getGrafico(dir));
-	}
-
-
 	public void actualizarGrilla(Entidad e){
 		Point pos = e.getPos();
 		if(pos.y != 0){
 			e.setPosicion(pos.x, (pos.y)-1);
-			gui.update(e);
 		}
 	}
 
@@ -93,12 +89,12 @@ public class Juego extends Thread{
 		return disparo;
 	}
 
-	public int getMoneda() {
+	public int getMonedas() {
 		return this.monedas;
 	}
 
 	public void setMonedas(int monedas) {
-		this.monedas += monedas;
+		this.monedas = monedas;
 	}
 
 	public Entidad[][] getGrilla(){
@@ -119,59 +115,61 @@ public class Juego extends Thread{
 
 	private void procesarLinea(String cadena, int fila) {
 		String arr[] = cadena.split(",");
+		CreadorEntidad creador = new CreadorAuto();
 		for (int i = 0; i < arr.length; i++) {
 			switch(arr[i]) {
 			/*case "fuego" : { grilla[fila][i] = new Fuego(fila,i,10);
 							break;
 			}*/
 			case "auto" : {
-				Auto a = crearAuto(fila,i,1300);
-				grilla[fila][i] = a;
+				Entidad a = creador.crear();
+				a.setPosicion(fila, i);
+				insertar(a);
 				break;
 			}
 			case "auto2" : {
-				Auto a = crearAuto(fila,i,1300);
-				grilla[fila][i] = a;
+				Entidad a = creador.crear();
+				a.setPosicion(fila, i);
+				insertar(a);
 				break;
 
             }
 			case "auto3" : {
-				Auto a = crearAuto(fila,i,1300);
-				grilla[fila][i] = a;
-				break;
+				Entidad a = creador.crear();
+				a.setPosicion(fila, i);
+				insertar(a);
 			}
 			}
 		}
 	}
 
-	public void insertarEnemigo(Enemigo e){
+	public void insertar(Entidad e){
 		int x =(int) e.getPos().getX();
 		int y =(int) e.getPos().getY();
 		grilla[x][y] = e;
-		enemigo = e;
+		gui.insertar(e.getLabel(),x*60,y*60);
 	}
+	
+	public void insertarEnemigo2(){
+		CreadorPoseido cp = new CreadorPoseido();
+		Enemigo e = cp.crear();
+		e.setPosicion(4, 12);
+		insertar(e);
+		this.enemigo = e;
+	}
+	
 	public void insertarDisparo(Disparo d){
 		int x =(int) d.getPos().getX();
 		int y =(int) d.getPos().getY();
 		grilla[x][y] = d;
 		disparo = d;
 	}
-	public Auto crearAuto(int x, int y, int vida){
-		Auto a = new Auto(x,y,vida);
-		ImageIcon img = new ImageIcon("Imagenes//auto-fuego1.png");
-		JLabel label = new JLabel();
-		label.setBounds(a.getPos().y*60, a.getPos().x*60, 60, 60);
-		label.setIcon(new ImageIcon(img.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-		label.setVisible(true);
-		a.setLabel(label);
-		return a;
-	}
 	public void eliminar(Entidad e){
 		e.setVida(0);
 		int x =(int) e.getPos().getX();
 		int y =(int) e.getPos().getY();
 		grilla[x][y] = null;
-		gui.update(e);
+		gui.quitarLabel(e.getLabel());
 	}
 	public void eliminarEnemigo(Enemigo e){
 		puntaje += e.getPuntaje();
@@ -179,6 +177,6 @@ public class Juego extends Thread{
 		int x =(int) e.getPos().getX();
 		int y =(int) e.getPos().getY();
 		grilla[x][y] = null;
-		gui.update(e);
+		gui.quitarLabel(e.getLabel());
 	}
 }

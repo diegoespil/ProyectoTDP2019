@@ -1,10 +1,11 @@
 package Creadores.CreadorConVidaComprable;
 
+import Creadores.CreadorEntidad.CreadorEntidad;
 import Entidad.Objeto.ConVida.ObjetoConVida;
 
-public class CreadorBarricadaSimple extends CreadorObjetoConVida {
+public class CreadorBarricadaSimple extends CreadorEntidad {
 
-	public ObjetoConVida crearObjetoConVida() {
+	public ObjetoConVida crear() {
 		return null;
 	}
 

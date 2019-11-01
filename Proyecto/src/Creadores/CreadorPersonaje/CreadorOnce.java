@@ -1,11 +1,12 @@
 package Creadores.CreadorPersonaje;
 
+import Creadores.CreadorEntidad.CreadorEntidad;
 import Entidad.Integrante.Personaje.Once;
 import Entidad.Integrante.Personaje.Personaje;
 
-public class CreadorOnce extends CreadorPersonaje{
+public class CreadorOnce extends CreadorEntidad{
 
-	public Personaje crearPersonaje(){
+	public Personaje crear(){
 		Personaje pje = new Once(0,0,40,2); //(x,y,danio,alcance)
 		return pje;
 	}
