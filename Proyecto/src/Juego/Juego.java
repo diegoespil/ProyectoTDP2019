@@ -39,8 +39,8 @@ public class Juego extends Thread{
 		this.gui = gui;
 		this.puntaje = 0;
 		grilla = new Entidad[8][13];
-		cargarEnemigos();
-		cargarObjetos();
+	//	cargarEnemigos();
+//		cargarObjetos();
 //		try {
 //			getObstaculos();
 //		} catch (IOException e) {
@@ -55,7 +55,7 @@ public class Juego extends Thread{
 	public void mover(int dir){ //NO ESTï¿½ EN USO
 		//gui.celdaVacia(enemigo.getPos());
 		enemigo.mover(2);
-		gui.setGrilla(enemigo.getPos(),enemi);// enemigo.getGrafico(dir));
+		//gui.setGrilla(enemigo.getPos(),enemi);// enemigo.getGrafico(dir));
 	}
 
 
@@ -83,7 +83,7 @@ public class Juego extends Thread{
 				return false;
 			}
 		}
-		else return false; //en este caso el jugador PERDIÓ
+		else return false; //en este caso el jugador PERDIO
 	}
 
 	public Enemigo getEnemigo() {

@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
+import java.awt.EventQueue;
 import javax.swing.SwingConstants;
 import Creadores.CreadorConVidaComprable.CreadorBarricadaDoble;
 import Creadores.CreadorConVidaComprable.CreadorBarricadaSimple;
@@ -46,9 +47,7 @@ public class miVentanaTienda extends JFrame {
 	private ImageIcon portal_trampa = new ImageIcon("Imagenes//portal.png");
 	private Tienda shop;
 	private static Juego juego;
-
 /*
-	/
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -60,7 +59,9 @@ public class miVentanaTienda extends JFrame {
 				}
 			}
 		});
-	}*/
+	}
+	
+	*/
 
 	/**
 	 * Create the frame.
@@ -68,9 +69,8 @@ public class miVentanaTienda extends JFrame {
 	public miVentanaTienda(Juego j) {
 		juego = j;
 		setResizable(false);
-		setUndecorated(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(400, 100, 600, 450);
+		setBounds(400, 100, 460, 450);
 		contentPane = new imagenfondo();
 		contentPane.setBorder(null);
 		contentPane.setLayout(null);
@@ -80,83 +80,109 @@ public class miVentanaTienda extends JFrame {
 		setContentPane(contentPane);
 		
 		/*
-		 * Declaración de los JRadioButton para la compra de objetos y personajes.
+		 * Declaración de los JButton para la compra de objetos y personajes.
 		 */
 		
-		JLabel lblPersonajes = new JLabel("Personajes");
-		lblPersonajes.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblPersonajes.setForeground(Color.WHITE);
-		lblPersonajes.setBounds(65, 75, 82, 24);
-		contentPane.add(lblPersonajes);
+		JButton  jbDustin = new JButton ("$50");
 		
-		JLabel lblObjetos = new JLabel("Objetos");
-		lblObjetos.setForeground(Color.WHITE);
-		lblObjetos.setBounds(65, 252, 58, 14);
-		contentPane.add(lblObjetos);
+		jbDustin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				shop.crear(new CreadorDustin(),Dustin.getPrecio());
+				setVisible(false);
+			}
+		});
+		jbDustin.setBounds(117, 205, 70, 25); 
+		contentPane.add(jbDustin);
 		
-		JRadioButton rbDustin = new JRadioButton("");
-		rbDustin.setBackground(Color.BLACK);
-		rbDustin.setBounds(137, 205, 25, 25);
-		contentPane.add(rbDustin);
+		JButton  jbLucas = new JButton ("$70");
 		
-		JRadioButton  rbLucas = new JRadioButton ("");
-		rbLucas.setBackground(Color.BLACK);
-		rbLucas.setBounds(65, 205, 25, 25);
-		contentPane.add(rbLucas);
+		jbLucas.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				shop.crear(new CreadorLucas(),Lucas.getPrecio());
+				setVisible(false);
+			}
+		});
+		jbLucas.setBounds(40, 205, 70, 25);
+		contentPane.add(jbLucas);
 		
-		JRadioButton  rbMicke = new JRadioButton ("");
-		rbMicke.setBackground(Color.BLACK);
-		rbMicke.setBounds(212, 205, 25, 25);
-		contentPane.add(rbMicke);
+		JButton  jbMike = new JButton ("$70");
 		
-		JRadioButton rbHopper = new JRadioButton ("");
-		rbHopper.setBackground(Color.BLACK);
-		rbHopper.setBounds(364, 205, 25, 25);
-		contentPane.add(rbHopper);
+		jbMike.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				shop.crear(new CreadorMike(),Mike.getPrecio());
+				setVisible(false);
+			}
+		});
+		jbMike.setBounds(192, 205, 70, 25);
+		contentPane.add(jbMike);
 		
-		JRadioButton  rbOnce = new JRadioButton ("");
-		rbOnce.setBackground(Color.BLACK);
-		rbOnce.setBounds(290, 205, 25, 25);
-		contentPane.add(rbOnce);
+		JButton  jbHopper = new JButton ("$100");
 		
-		JRadioButton  rbBarricada1 = new JRadioButton ("BarricadaX1");
-		rbBarricada1.setForeground(Color.WHITE);
-		rbBarricada1.setBackground(Color.BLACK);
-		rbBarricada1.setBounds(8, 345, 115, 23);
-		contentPane.add(rbBarricada1);
+		jbHopper.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				shop.crear(new CreadorHopper(),Hopper.getPrecio());
+				setVisible(false);
+			}
+		});
+		jbHopper.setBounds(344, 205, 70, 25);
+		contentPane.add(jbHopper);
 		
-		JRadioButton rbGasVenenoso = new JRadioButton ("Gas Venenoso");
-		rbGasVenenoso.setForeground(Color.WHITE);
-		rbGasVenenoso.setBackground(Color.BLACK);
-		rbGasVenenoso.setBounds(241, 345, 120, 23);
-		contentPane.add(rbGasVenenoso);
+		JButton  jbOnce = new JButton ("$150");
+		jbOnce.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				shop.crear(new CreadorOnce(),Once.getPrecio());
+				setVisible(false);
+			}
+		});
+		jbOnce.setBounds(270, 205, 70, 25);
+		contentPane.add(jbOnce);
 		
-		JRadioButton  rbBarricada2 = new JRadioButton ("BarricadaX2");
-		rbBarricada2.setForeground(Color.WHITE);
-		rbBarricada2.setBackground(Color.BLACK);
-		rbBarricada2.setBounds(127, 345, 112, 23);
-		contentPane.add(rbBarricada2);
+		JButton  JbBarricada1 = new JButton ("$30");
 		
-		JRadioButton rbPortal = new JRadioButton("Portal Trampa");
-		rbPortal.setForeground(Color.WHITE);
-		rbPortal.setBackground(Color.BLACK);
-		rbPortal.setBounds(356, 345, 135, 23);
-		contentPane.add(rbPortal);
+		JbBarricada1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				shop.crear(new CreadorBarricadaSimple(),BarricadaSimple.getPrecio());
+				setVisible(false);
+			}
+		});
+		JbBarricada1.setBounds(40, 360, 70, 25);
+		contentPane.add(JbBarricada1);
 		
-		ButtonGroup botones_tienda = new ButtonGroup();
+		JButton jbGasVenenoso = new JButton ("$50");
 		
-		botones_tienda.add(rbDustin);
-		botones_tienda.add(rbLucas);
-		botones_tienda.add(rbMicke);
-		botones_tienda.add(rbHopper);
-		botones_tienda.add(rbOnce);
-		botones_tienda.add(rbBarricada1);
-		botones_tienda.add(rbGasVenenoso);
-		botones_tienda.add(rbBarricada2);
-		botones_tienda.add(rbPortal);
+		jbGasVenenoso.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				shop.crear(new CreadorGas(),GasVenenoso.getPrecio());
+				setVisible(false);
+			}
+		});
+		jbGasVenenoso.setBounds(235, 360, 70, 25);
+		contentPane.add(jbGasVenenoso);
+		
+		JButton  jbBarricada2 = new JButton ("$60");
+		
+		jbBarricada2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				shop.crear(new CreadorBarricadaDoble(),BarricadaDoble.getPrecio());
+				setVisible(false);
+			}
+		});
+		jbBarricada2.setBounds(135, 360, 70, 25);
+		contentPane.add(jbBarricada2);
+		
+		JButton jbPortal = new JButton("$100");
+		
+		jbPortal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				shop.crear(new CreadorPortal(),Portal.getPrecio());
+				setVisible(false);
+			}
+		});
+		jbPortal.setBounds(330, 360, 70, 25);
+		contentPane.add(jbPortal);
 		
 		/*
-		 * Se declaran las imagenes y etiquetas de los personaje y objetos a comparar.
+		 * Se declaran las imagenes de los personajes y objetos a comparar.
 		 */
 		
 		JLabel jlLucas = new JLabel("");
@@ -187,31 +213,6 @@ public class miVentanaTienda extends JFrame {
 		jlHopper.setBounds(344, 120, 60, 60);
 		contentPane.add(jlHopper);
 		
-		JLabel lblLucas = new JLabel("Lucas");
-		lblLucas.setForeground(Color.WHITE);
-		lblLucas.setBounds(60, 185, 45, 14);
-		contentPane.add(lblLucas);
-		
-		JLabel lblDustin = new JLabel("Dustin");
-		lblDustin.setForeground(Color.WHITE);
-		lblDustin.setBounds(130, 185, 45, 14);
-		contentPane.add(lblDustin);
-		
-		JLabel lblMicke = new JLabel("Micke");
-		lblMicke.setForeground(Color.WHITE);// TODO Auto-generated constructor stub
-		lblMicke.setBounds(205, 185, 45, 14);
-		contentPane.add(lblMicke);
-		
-		JLabel lblOnce = new JLabel("Once");
-		lblOnce.setForeground(Color.WHITE);
-		lblOnce.setBounds(282, 185, 45, 14);
-		contentPane.add(lblOnce);
-		
-		JLabel lblHopper = new JLabel("Hopper");
-		lblHopper.setForeground(Color.WHITE);
-		lblHopper.setBounds(354, 185, 45, 14);
-		contentPane.add(lblHopper);
-		
 		JLabel barricada1 = new JLabel("");
 		barricada1.setHorizontalAlignment(SwingConstants.CENTER);
 		barricada1.setBackground(Color.LIGHT_GRAY);
@@ -237,46 +238,68 @@ public class miVentanaTienda extends JFrame {
 		portal.setHorizontalAlignment(SwingConstants.CENTER);
 		portal.setBackground(Color.LIGHT_GRAY);
 		portal.setIcon(new ImageIcon(portal_trampa.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
-		portal.setBounds(358, 277, 60, 60);
+		portal.setBounds(330, 277, 60, 60);
 		contentPane.add(portal);
 		
 		/*
-		 * Boton de compra.
+		 * Se declaran las etiquetas de los nombres de personajes y objetos a comparar.
 		 */
 		
-		JButton btnBuy = new JButton("Buy");
-		btnBuy.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(rbMicke.isSelected()== true) {
-					shop.crearPersonaje(new CreadorMike(),Mike.getPrecio());
-				}
-				if(rbDustin.isSelected()== true) {
-					shop.crearPersonaje(new CreadorDustin(),Dustin.getPrecio());
-				}
-				if(rbLucas.isSelected()== true) {
-					shop.crearPersonaje(new CreadorLucas(),Lucas.getPrecio());
-				}
-				if(rbHopper.isSelected()== true) {
-					shop.crearPersonaje(new CreadorHopper(),Hopper.getPrecio());
-				}
-				if(rbBarricada1.isSelected()== true) {
-					shop.crearObjetoConVida(new CreadorBarricadaSimple(),BarricadaSimple.getPrecio());
-				}
-				if(rbBarricada2.isSelected()== true) {
-					shop.crearObjetoConVida(new CreadorBarricadaDoble(),BarricadaDoble.getPrecio());
-				}
-				if(rbGasVenenoso.isSelected()== true) {
-					shop.crearObjetoTemporal(new CreadorGas(),GasVenenoso.getPrecio());
-				}
-				if(rbPortal.isSelected()== true) {
-					shop.crearObjetoTemporal(new CreadorPortal(),Portal.getPrecio());
-				}
-				setVisible(false);
-				
-			}
-		});
-		btnBuy.setBounds(485, 397, 89, 23);
-		contentPane.add(btnBuy);
+		JLabel lblPersonajes = new JLabel("Personajes");
+		lblPersonajes.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblPersonajes.setForeground(Color.WHITE);
+		lblPersonajes.setBounds(190, 75, 82, 24);
+		contentPane.add(lblPersonajes);
+		
+		JLabel lblObjetos = new JLabel("Objetos");
+		lblObjetos.setForeground(Color.WHITE);
+		lblObjetos.setBounds(190, 252, 58, 14);
+		contentPane.add(lblObjetos);
+		
+		JLabel lblLucas = new JLabel("Lucas");
+		lblLucas.setForeground(Color.WHITE);
+		lblLucas.setBounds(60, 185, 45, 14);
+		contentPane.add(lblLucas);
+		
+		JLabel lblDustin = new JLabel("Dustin");
+		lblDustin.setForeground(Color.WHITE);
+		lblDustin.setBounds(130, 185, 45, 14);
+		contentPane.add(lblDustin);
+		
+		JLabel lblMike = new JLabel("Mike");
+		lblMike.setForeground(Color.WHITE);
+		lblMike.setBounds(205, 185, 45, 14);
+		contentPane.add(lblMike);
+		
+		JLabel lblOnce = new JLabel("Once");
+		lblOnce.setForeground(Color.WHITE);
+		lblOnce.setBounds(282, 185, 45, 14);
+		contentPane.add(lblOnce);
+		
+		JLabel lblHopper = new JLabel("Hopper");
+		lblHopper.setForeground(Color.WHITE);
+		lblHopper.setBounds(354, 185, 65, 14);
+		contentPane.add(lblHopper);
+			
+		JLabel lbBarricadax1 = new JLabel("BarricadaX1");
+		lbBarricadax1.setForeground(Color.WHITE);
+		lbBarricadax1.setBounds(35, 340, 100, 14);
+		contentPane.add(lbBarricadax1);
+		
+		JLabel lbBarricadax2 = new JLabel("BarricadaX2");
+		lbBarricadax2.setForeground(Color.WHITE);
+		lbBarricadax2.setBounds(130, 340, 100, 14);
+		contentPane.add(lbBarricadax2);
+		
+		JLabel lblGasVenenoso = new JLabel("Gas venenoso");
+		lblGasVenenoso.setForeground(Color.WHITE);
+		lblGasVenenoso.setBounds(225, 340, 100, 14);
+		contentPane.add(lblGasVenenoso);
+		
+		JLabel lblPortal = new JLabel("Portal");
+		lblPortal .setForeground(Color.WHITE);
+		lblPortal .setBounds(340, 340, 100, 14);
+		contentPane.add(lblPortal);	
 	}
 	
 }

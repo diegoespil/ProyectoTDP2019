@@ -7,7 +7,6 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -89,7 +88,6 @@ public class miVentanaJuego extends JFrame implements Subscriber{
 			public void actionPerformed(ActionEvent e) {
 				miVentanaTienda tienda = new miVentanaTienda(juego);
 				tienda.setVisible(true);
-				//setVisible(false);
 			}
 		});
 		button.setFocusable(false);
@@ -116,7 +114,6 @@ public class miVentanaJuego extends JFrame implements Subscriber{
 				Point pos = enemigo.getPos();
 				juego.eliminarEnemigo(juego.getEnemigo());			
 				juego.eliminarEnemigo(juego.getEnemigo());
-
 			}
 		});
 		btnNewButton.setBounds(282, 609, 212, 54);
@@ -168,12 +165,11 @@ public class miVentanaJuego extends JFrame implements Subscriber{
 
 	public void insertarEnemigo(){
 		Enemigo enemigo = new Poseido(4,12,10,50,2,20,30); //(x,y,velocidad,danio,alcance,puntaje,monedas) 
-		ImageIcon img = new ImageIcon("Imagenes/malo1_izq.png");
+		ImageIcon img = new ImageIcon("Imagenes/poseido_caminar.gif");
 		JLabel enemigoLabel = new JLabel();
 		enemigoLabel.setBounds(enemigo.getPos().y*60, enemigo.getPos().x*60, 60, 60);
-		enemigoLabel.setIcon(new ImageIcon(img.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
+		enemigoLabel.setIcon(new ImageIcon(img.getImage()));
 		enemigoLabel.setVisible(true);
-
 		enemigo.setLabel(enemigoLabel);
 		panel.add(enemigoLabel);
 		juego.insertarEnemigo(enemigo);
@@ -184,7 +180,6 @@ public class miVentanaJuego extends JFrame implements Subscriber{
 		disparoLabel.setBounds(12*60, 3*60, 10, 5);
 		disparoLabel.setBorder(BorderFactory.createEtchedBorder(Color.RED, Color.RED));
 		disparoLabel.setVisible(true);
-
 		disparo.setLabel(disparoLabel);
 		panel.add(disparoLabel);
 		juego.insertarDisparo(disparo);
