@@ -20,10 +20,9 @@ import Entidad.Entidad;
 import Entidad.Disparo.DisparoEnemigo;
 import Entidad.Integrante.Enemigo.Enemigo;
 import Entidad.Integrante.Enemigo.Poseido;
-import Juego.Subscriber;
 
 @SuppressWarnings("serial")
-public class miVentanaJuego extends JFrame implements Subscriber{
+public class miVentanaJuego extends JFrame{
 
 
 	public static final int ANCHO = 800;
@@ -71,7 +70,6 @@ public class miVentanaJuego extends JFrame implements Subscriber{
 		panel.setLayout(null);
 		juego = new Juego(this);
 		iniciarObstaculos();
-		insertarEnemigo();
 		insertarDisparo();
 
 
@@ -163,17 +161,6 @@ public class miVentanaJuego extends JFrame implements Subscriber{
 		panel.repaint();
 	}
 
-	public void insertarEnemigo(){
-		Enemigo enemigo = new Poseido(4,12,10,50,2,20,30); //(x,y,velocidad,danio,alcance,puntaje,monedas) 
-		ImageIcon img = new ImageIcon("Imagenes/poseido_caminar.gif");
-		JLabel enemigoLabel = new JLabel();
-		enemigoLabel.setBounds(enemigo.getPos().y*60, enemigo.getPos().x*60, 60, 60);
-		enemigoLabel.setIcon(new ImageIcon(img.getImage()));
-		enemigoLabel.setVisible(true);
-		enemigo.setLabel(enemigoLabel);
-		panel.add(enemigoLabel);
-		juego.insertarEnemigo(enemigo);
-	}
 	public void insertarDisparo(){
 		DisparoEnemigo disparo = new DisparoEnemigo(3,12,5,1); //(x,y,danio,velocidad)
 		JLabel disparoLabel = new JLabel();
@@ -184,16 +171,11 @@ public class miVentanaJuego extends JFrame implements Subscriber{
 		panel.add(disparoLabel);
 		juego.insertarDisparo(disparo);
 	}
-	public void update(Entidad e){
-		JLabel entidadLabel = e.getLabel();
-		if(e.getVida()<=0){
-			quitarLabel(e.getLabel());
-		}
-		else{
-			entidadLabel.setBounds((e.getPos().y)*60, (e.getPos().x*60), entidadLabel.getWidth(), entidadLabel.getHeight());
-		}
-	}
 	public void update(JLabel label){
-		label.setBounds(label.getX()-1, label.getY(), label.getWidth(), label.getHeight());
+		label.setBounds(label.getX()-1,label.getY(),label.getWidth(), label.getHeight());
+	}
+	public void insertar(JLabel label, int x, int y){
+		label.setBounds(y, x, label.getWidth(), label.getHeight());
+		panel.add(label);
 	}
 }

@@ -23,13 +23,15 @@ public class ThreadEnemigos extends Thread{
 			}
 			else{
 				if(cont<60){
-					juego.canMove(enemigo);
+					if (juego.canMove(enemigo) ){
+						cont++;
+					}
 					try {
 						Thread.sleep(25);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
-					cont++;
+					
 				}
 				else{
 					juego.actualizarGrilla(enemigo);
