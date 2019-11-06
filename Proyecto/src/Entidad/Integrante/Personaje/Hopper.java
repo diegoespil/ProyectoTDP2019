@@ -36,7 +36,7 @@ public class Hopper extends Personaje {
 		return vida;
 	}
 	
-	public void atacar() {
+	public void atacar(Entidad e) {
 		miDisparo = new DisparoPersonaje(pos.x,pos.y+1,danio,1);
 	}
 	

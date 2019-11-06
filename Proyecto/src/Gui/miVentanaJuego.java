@@ -33,9 +33,6 @@ public class miVentanaJuego extends JFrame{
 	private JPanel menu;
 	private imagenfondo panel;
 	private Juego juego;
-	private ThreadEnemigos threadEnemigos;
-	private ThreadDisparo threadDisparo;
-	private int puntaje;
 
 	/**
 	 * Launch the application.
@@ -141,10 +138,7 @@ public class miVentanaJuego extends JFrame{
 
 		});
 		
-		threadEnemigos = new ThreadEnemigos(juego);
-		threadEnemigos.start();
-		threadDisparo = new ThreadDisparo(juego);
-		threadDisparo.iniciar();
+		
 
 	}
 
@@ -200,8 +194,8 @@ public class miVentanaJuego extends JFrame{
 		panel.add(disparoLabel);
 		juego.insertarDisparo(disparo);
 	}
-	public void update(JLabel label){
-		label.setBounds(label.getX()-1,label.getY(),label.getWidth(), label.getHeight());
+	public void update(JLabel label, int dir){
+		label.setBounds(label.getX()+dir,label.getY(),label.getWidth(), label.getHeight());
 		panel.repaint();
 	}
 	public void insertar(JLabel label, int x, int y){

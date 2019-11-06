@@ -37,6 +37,11 @@ public abstract class Integrante extends Entidad{
 	public void setEstado(State s){
 		estado = s;
 	}
+	
+	public Disparo getDisparo(){
+		return miDisparo;
+	}
+	
 
 	public void afectar(Entidad e) {}
 	

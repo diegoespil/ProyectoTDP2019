@@ -15,6 +15,7 @@ import Creadores.CreadorEntidad.CreadorEntidad;
 import Creadores.CreardorEnemigo.CreadorPoseido;
 import Entidad.Entidad;
 import Entidad.Disparo.Disparo;
+import Entidad.Disparo.DisparoPersonaje;
 import Entidad.Integrante.Integrante;
 import Entidad.Integrante.Enemigo.Enemigo;
 import Entidad.Integrante.Enemigo.Poseido;
@@ -38,6 +39,8 @@ public class Juego extends Thread{
 	private Entidad [][] grilla;
 	private Nivel nivel;
 	private Tienda shop;
+	private ThreadEnemigos threadEnemigos;
+	private ThreadDisparo threadDisparo;
 
 	public Juego(miVentanaJuego gui) {
 		this.nivel = new Nivel1(this);
@@ -54,6 +57,17 @@ public class Juego extends Thread{
 			e.printStackTrace();
 		}
 		insertarEnemigo2();
+		threadEnemigos = new ThreadEnemigos(this);
+		threadEnemigos.start();
+		threadDisparo = new ThreadDisparo(this);
+		
+		for(int i = 0; i<4 ;i++){
+			Disparo disparo = new DisparoPersonaje(i,0,10,1);
+			insertar(disparo);
+			threadDisparo.insertarDisparoPersonaje(disparo);
+		}
+		
+		threadDisparo.iniciar();
 	}
 
 	public void run(){
@@ -71,8 +85,8 @@ public class Juego extends Thread{
 		Point pos = e.getPos();
 		if(pos.y != 0){
 			Entidad siguiente = grilla[pos.x][pos.y-1];
-			if ((pos.x != 0)&&(siguiente == null)){
-				gui.update(e.getLabel());
+			if (siguiente == null){
+				gui.update(e.getLabel(),-1);
 				return true;
 			}
 			else {
@@ -86,6 +100,25 @@ public class Juego extends Thread{
 		else return false; //en este caso el jugador PERDIO
 	}
 	
+	public boolean canMoveDer(Entidad e){
+		Point pos = e.getPos();
+		if(pos.y != 12){
+			Entidad siguiente = grilla[pos.x][pos.y+1];
+			if (siguiente == null){
+				gui.update(e.getLabel(),1);
+				return true;
+			}
+			else {
+				siguiente.accept(e.getVisitor());
+				if(siguiente.getVida()<=0){
+					eliminar(siguiente);
+				}
+				return false;
+			}
+		}
+		else return false; 
+	}
+	
 	public boolean enRangoPersonaje(Integrante i) {
 		Point pos = i.getPos();
 		int j = i.getAlcance();
@@ -93,6 +126,11 @@ public class Juego extends Thread{
 			Entidad siguiente = grilla[pos.x][pos.y+k];
 			if(siguiente != null) {
 				siguiente.accept(i.getVisitor());
+				Disparo disparo = i.getDisparo();
+				if(disparo != null){
+					threadDisparo.insertarDisparoPersonaje(disparo);
+					insertar(disparo);
+				}
 				return true;
 			}			
 		}
