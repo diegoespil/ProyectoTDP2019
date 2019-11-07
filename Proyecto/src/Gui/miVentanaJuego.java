@@ -70,7 +70,7 @@ public class miVentanaJuego extends JFrame{
 		panel.setLayout(null);
 		juego = new Juego(this);
 		iniciarObstaculos();
-		insertarDisparo();
+		//insertarDisparo();
 
 
 
@@ -183,7 +183,7 @@ public class miVentanaJuego extends JFrame{
 		panel.validate();
 		panel.repaint();
 	}
-
+/*
 	public void insertarDisparo(){
 		DisparoEnemigo disparo = new DisparoEnemigo(3,12,5,1); //(x,y,danio,velocidad)
 		JLabel disparoLabel = new JLabel();
@@ -192,8 +192,9 @@ public class miVentanaJuego extends JFrame{
 		disparoLabel.setVisible(true);
 		disparo.setLabel(disparoLabel);
 		panel.add(disparoLabel);
-		juego.insertarDisparo(disparo);
+		juego.insertarDisparo(disparo); 
 	}
+	*/
 	public void update(JLabel label, int dir){
 		label.setBounds(label.getX()+dir,label.getY(),label.getWidth(), label.getHeight());
 		panel.repaint();

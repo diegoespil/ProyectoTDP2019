@@ -7,7 +7,7 @@ import Entidad.Integrante.Enemigo.Poseido;
 public class CreadorPoseido extends CreadorEntidad{
 	
 	public Enemigo crear(){
-		Enemigo ene = new Poseido(0,0,2,15,1,50,15); //(x,y,vel,danio,alc,ptje,monedas)
+		Enemigo ene = new Poseido(0,0,2,15,4,50,15); //(x,y,vel,danio,alc,ptje,monedas)
 		return ene;
 	}
 

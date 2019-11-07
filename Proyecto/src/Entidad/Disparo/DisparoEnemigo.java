@@ -12,7 +12,7 @@ import Visitador.VisitorDisparoPersonaje;
 public class DisparoEnemigo extends Disparo {
 	
 	public DisparoEnemigo(int x, int y, int danio,int velocidad) {
-		super(x, y,danio,velocidad);
+		super(x, y,danio,velocidad,-1);
 		miVisitor = new VisitorDisparoEnemigo(this);
 		JLabel label = new JLabel();
 		label.setBounds(0, 0, 10, 5);

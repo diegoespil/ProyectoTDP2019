@@ -7,12 +7,14 @@ public abstract class Disparo extends Entidad {
 
 	protected int danio,velocidad;
 	protected boolean llego;
+	protected int mueve;
 
-	public Disparo(int x, int y, int danio,int velocidad) {
+	public Disparo(int x, int y, int danio,int velocidad,int dir) {
 		super(x, y,Integer.MAX_VALUE);
 		this.danio = danio ;
 		this.velocidad = velocidad;
 		llego = false;
+		mueve = dir;
 	}
 	
 	public boolean llego(){
@@ -26,6 +28,10 @@ public abstract class Disparo extends Entidad {
 	
 	public void afectar(Entidad e) {
 		e.setVida(e.getVida()-danio);	
+	}
+	
+	public int getMovimiento() {
+		return mueve;
 	}
 
 

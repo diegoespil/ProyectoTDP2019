@@ -16,30 +16,29 @@ public class ThreadEnemigos extends Thread{
 
 	public void run() {
 		while(enemigo.getVida()>0){
+			juego.enRango(enemigo,-1);
 			if ((enemigo.getVida()<=0)){
 				juego.eliminarEnemigo(enemigo);
 				
 			}
 			else{
 				if(cont<60){
-					if (juego.canMove(enemigo) ){
+					if (juego.canMove(enemigo,-1) ){
 						cont++;
 					}
 					try {
-						Thread.sleep(100);
+						Thread.sleep(25);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 					
 				}
 				else{
-					juego.actualizarGrilla(enemigo);
+					juego.actualizarGrilla(enemigo,-1);
 					cont = 0;
 				}
 				
-			}
-			
-			   
+			}	   
 		}
 	} 
 }

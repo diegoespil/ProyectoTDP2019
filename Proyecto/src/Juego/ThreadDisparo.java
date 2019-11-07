@@ -1,102 +1,69 @@
 package Juego;
 
-import java.util.LinkedList;
-
+import java.util.Iterator;
+import java.util.Vector;
 import Entidad.Disparo.Disparo;
-import Entidad.Disparo.DisparoEnemigo;
-import Entidad.Disparo.DisparoPersonaje;
+
 
 public class ThreadDisparo extends Thread{
 
 	private Juego juego;
-	private LinkedList<Disparo>  disparosPersonaje;
-	private LinkedList<Disparo>  disparosEnemigo;
-	//private static volatile boolean llego;
+	private Vector<Disparo>  disparos;
+	private Vector<Disparo> eliminados;
 	private volatile int cont;
 
 	public ThreadDisparo(Juego j) {
 		this.juego = j;
-		disparosPersonaje = new LinkedList<Disparo>();
-		disparosEnemigo = new LinkedList<Disparo>();
-		//llego = false;
+		disparos = new Vector<Disparo>();
+		eliminados = new Vector<Disparo>();
 		cont = 0;
 	}
 
 	public void run() {
-		while( !disparosPersonaje.isEmpty() || !disparosEnemigo.isEmpty() ){
-			if(!disparosPersonaje.isEmpty()){
-				for (Disparo d : disparosPersonaje){
-					if(!d.llego()){
-						if(cont<60){
-							boolean movio = juego.canMoveDer(d);
-							d.setLlego(movio);
-							System.out.println("Hilo disapros : canMoveDer="+movio+"cont = "+cont);
-							try {
-								Thread.sleep(20);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-							cont++;
+		while(true ) {
+			Iterator<Disparo> lista = disparos.iterator();
+			while (lista.hasNext()){
+				Disparo d = lista.next();
+				if(!d.llego()){
+					if(cont<60){
+						 d.setLlego(!juego.canMove(d,d.getMovimiento()));
+						try {
+							Thread.sleep(2);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
 						}
-						else{
-							juego.actualizarGrilla(d);
-							cont = 0;
+							cont++;
+					}
+					else{
+						juego.actualizarGrilla(d,d.getMovimiento());
+						cont = 0;
 						}
 					}
 					else{ 
-						//disparosPersonaje.remove(d);
-						//juego.eliminar(d);
+						eliminados.add(d);
+						juego.eliminar(d);
 					}
-						
-				}
+			}
+			for(Disparo d1: eliminados)
+				disparos.remove(d1);
+			eliminados.removeAllElements();
 			}
 			
-		    //if(!disparosEnemigo.isEmpty()){
-		    	//for(Disparo d : disparosEnemigo){
-		    		
-		    	//}
-		}
-			
-		
-		/*while(llego){
-			if(cont<60){
-				llego = juego.canMove(disparo);
-				try {
-					Thread.sleep(20);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				cont++;
-			}
-			else{
-				juego.actualizarGrilla(disparo);
-				cont = 0;
-			}
 				
-		}
-		if (!llego){ 
-			
-			juego.eliminar(disparo);
-			*/
 			
 		
 	} 
 	public synchronized void iniciar(){
-		//llego=true;
 		this.start();
 	}
 	public synchronized void detener(){
-		//llego=false;
 		try {
 			this.join();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
-	public void insertarDisparoPersonaje(Disparo d){
-		disparosPersonaje.add(d);
-	}
-	public void insertarDisparoEnemigo(Disparo d){
-		disparosEnemigo.add(d);
+	public void insertarDisparo(Disparo d){
+		disparos.add(d);
 	}
 }

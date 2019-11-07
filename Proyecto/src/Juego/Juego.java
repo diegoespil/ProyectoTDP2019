@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -15,6 +16,7 @@ import Creadores.CreadorEntidad.CreadorEntidad;
 import Creadores.CreardorEnemigo.CreadorPoseido;
 import Entidad.Entidad;
 import Entidad.Disparo.Disparo;
+import Entidad.Disparo.DisparoEnemigo;
 import Entidad.Disparo.DisparoPersonaje;
 import Entidad.Integrante.Integrante;
 import Entidad.Integrante.Enemigo.Enemigo;
@@ -41,6 +43,8 @@ public class Juego extends Thread{
 	private Tienda shop;
 	private ThreadEnemigos threadEnemigos;
 	private ThreadDisparo threadDisparo;
+	private ThreadPersonaje threadPersonaje;
+	private Vector<Integrante> personajes;
 
 	public Juego(miVentanaJuego gui) {
 		this.nivel = new Nivel1(this);
@@ -51,6 +55,7 @@ public class Juego extends Thread{
 		grilla = new Entidad[8][13];
 		//cargarEnemigos();
 		//cargarObjetos();
+		personajes = new Vector<Integrante>();
 		try {
 			getObstaculos();
 		} catch (IOException e) {
@@ -59,14 +64,23 @@ public class Juego extends Thread{
 		insertarEnemigo2();
 		threadEnemigos = new ThreadEnemigos(this);
 		threadEnemigos.start();
+		//threadPersonaje = new ThreadPersonaje(this);
+		//threadPersonaje.start();
 		threadDisparo = new ThreadDisparo(this);
-		
+	/*	
 		for(int i = 0; i<4 ;i++){
-			Disparo disparo = new DisparoPersonaje(i,0,10,1);
+			Disparo disparo = new DisparoPersonaje(i,1,10,1);
 			insertar(disparo);
-			threadDisparo.insertarDisparoPersonaje(disparo);
+			threadDisparo.insertarDisparo(disparo);
 		}
 		
+		for(int i = 0; i<4 ;i++){
+			Disparo disparo = new DisparoEnemigo(i,12,10,1);
+			insertar(disparo);
+			threadDisparo.insertarDisparo(disparo);
+		}
+		
+		*/
 		threadDisparo.iniciar();
 	}
 
@@ -74,19 +88,20 @@ public class Juego extends Thread{
 
 	}
 
-	public void actualizarGrilla(Entidad e){
+	public void actualizarGrilla(Entidad e,int dir){
 		Point pos = e.getPos();
-		if(pos.y != 0){
-			e.setPosicion(pos.x, (pos.y)-1);
+		System.out.println("pos "+pos.x+" "+pos.y);
+		if(pos.y > 0 && pos.y<=12){
+			e.setPosicion(pos.x, (pos.y)+dir);
 		}
 	}
 
-	public boolean canMove(Entidad e) {
+	public boolean canMove(Entidad e,int dir ) {
 		Point pos = e.getPos();
-		if(pos.y != 0){
-			Entidad siguiente = grilla[pos.x][pos.y-1];
+		if(pos.y > 0 && pos.y<=12){
+			Entidad siguiente = grilla[pos.x][pos.y+dir];
 			if (siguiente == null){
-				gui.update(e.getLabel(),-1);
+				gui.update(e.getLabel(),+dir);
 				return true;
 			}
 			else {
@@ -100,6 +115,7 @@ public class Juego extends Thread{
 		else return false; //en este caso el jugador PERDIO
 	}
 	
+	/*
 	public boolean canMoveDer(Entidad e){
 		Point pos = e.getPos();
 		if(pos.y != 12){
@@ -117,8 +133,28 @@ public class Juego extends Thread{
 			}
 		}
 		else return false; 
-	}
+	}*/
 	
+	
+	public boolean enRango(Integrante i,int dir) {
+    	Point pos = i.getPos();
+		int j = i.getAlcance();
+		for(int k= 0;k<j && (pos.y>0 && pos.y<12);k++) {		
+			Entidad siguiente = grilla[pos.x][pos.y+(k*dir)];
+			if(siguiente != null) {
+				siguiente.accept(i.getVisitor());
+				Disparo disparo = i.getDisparo();
+				if(disparo != null){
+					System.out.println("tengo disparo");
+					threadDisparo.insertarDisparo(disparo);
+					insertar(disparo);
+				}
+				return true;
+			}			
+		}
+		return false;
+	}
+	/*
 	public boolean enRangoPersonaje(Integrante i) {
 		Point pos = i.getPos();
 		int j = i.getAlcance();
@@ -137,7 +173,7 @@ public class Juego extends Thread{
 		return false;
 	}
 	
-    public boolean enRangoEnemigo(Integrante i) {
+    public boolean enRangoEnemigo(Integrante i) {Vector
     	Point pos = i.getPos();
 		int j = i.getAlcance();
 		for(int k= 0;k<j && pos.y!=0;k++) {		
@@ -149,7 +185,7 @@ public class Juego extends Thread{
 		}
 		return false;
 	}
-
+*/
 	public Enemigo getEnemigo() {
 		return this.enemigo;
 	}
@@ -242,6 +278,7 @@ public class Juego extends Thread{
 			grilla[x][y] = nueva;
 			nueva.setPosicion(x, y);
 			gui.insertar(nueva.getLabel(), x*60, y*60);
+			personajes.add((Integrante)nueva);
 			System.out.println("monedas "+monedas);
 		}
 	}
@@ -266,5 +303,9 @@ public class Juego extends Thread{
 		int y =(int) e.getPos().getY();
 		grilla[x][y] = null;
 		gui.quitarLabel(e.getLabel());
+	}
+	
+	public Vector<Integrante> getPersonajes(){
+		return personajes;
 	}
 }

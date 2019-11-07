@@ -13,7 +13,7 @@ import Visitador.VisitorEnemigo;
 public class DisparoPersonaje extends Disparo {
 
 	public DisparoPersonaje(int x, int y, int danio,int velocidad) {
-		super(x, y,danio,velocidad);	
+		super(x, y,danio,velocidad,1);	
 		//ImageIcon img = new ImageIcon("Imagenes/poseido_caminar.gif");
 		JLabel label = new JLabel();
 		label.setBounds(0, 0, 10, 5);
