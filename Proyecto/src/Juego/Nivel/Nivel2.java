@@ -5,8 +5,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Random;
-import java.util.Vector;
 
 import Creadores.CreadorConVida.CreadorAuto;
 import Creadores.CreadorEntidad.CreadorEntidad;
@@ -16,26 +14,17 @@ import Creadores.CreardorEnemigo.CreadorPerro;
 import Creadores.CreardorEnemigo.CreadorPoseido;
 import Creadores.CreardorEnemigo.CreadorRata;
 import Creadores.CreardorEnemigo.CreadorRuso;
-import Entidad.Integrante.Enemigo.*;
-import Entidad.Objeto.Objeto;
-import Entidad.Objeto.ConVida.Auto;
+import Entidad.Integrante.Enemigo.Enemigo;
 import Entidad.Objeto.ConVida.ObjetoConVida;
-import Gui.miVentanaJuego;
 import Juego.Juego;
 
-public class Nivel1 extends Nivel {
+public class Nivel2 extends Nivel {
 
-	public Nivel1(Juego j) {
+	public Nivel2(Juego j) {
 		super(j);
 	}
-	
 
-	public Nivel subirNivel() {
-		
-		return new Nivel2(this.juego);
-	}
-
-	
+	@Override
 	protected void cargarNivel() {
 		initEnemigos();
 		initObjetos();
@@ -138,7 +127,12 @@ public class Nivel1 extends Nivel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
-	
+
+	@Override
+	public Nivel subirNivel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
