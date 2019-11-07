@@ -45,7 +45,7 @@ public class Juego extends Thread{
 		this.gui = gui;
 		this.puntaje = 0;
 		shop = new Tienda(this);
-		grilla = new Entidad[8][13];
+		grilla = new Entidad[8][14];
 		//cargarEnemigos();
 		//cargarObjetos();
 		personajes = new Vector<Integrante>();
@@ -60,16 +60,21 @@ public class Juego extends Thread{
 		//threadPersonaje = new ThreadPersonaje(this);
 		//threadPersonaje.start();
 		threadDisparo = new ThreadDisparo(this);
-		/*
-		for(int i = 0; i<4 ;i++){
+		
+		
+		Disparo disparo = new DisparoPersonaje(3,1,10,1);
+		gui.insertar(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
+		threadDisparo.insertarDisparo(disparo);
+		/*for(int i = 0; i<6 ;i++){
 			Disparo disparo = new DisparoPersonaje(i,1,10,1);
-			insertar(disparo);
+			gui.insertar(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
 			threadDisparo.insertarDisparo(disparo);
 		}
 		
+		/*
 		for(int i = 0; i<4 ;i++){
 			Disparo disparo = new DisparoEnemigo(i,12,10,1);
-			insertar(disparo);
+			gui.insertar(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
 			threadDisparo.insertarDisparo(disparo);
 		}
 		*/
@@ -79,10 +84,24 @@ public class Juego extends Thread{
 
 	public void actualizarGrilla(Entidad e,int dir){
 		Point pos = e.getPos();
+		int oldX = pos.x;
+		int oldY = pos.y;
 		System.out.println("pos "+pos.x+" "+pos.y);
 		if(pos.y > 0 && pos.y<=12){
-			e.setPosicion(pos.x, (pos.y)+dir);
+			int newX = pos.x;
+			int newY = pos.y+dir;
+			e.setPosicion(newX, newY);
+			grilla[newX][newY] = e;
+			grilla[oldX][oldY] = null;
 		}
+	}
+	
+	public void actualizarDisparo(Entidad e,int dir){
+		Point pos = e.getPos();
+		int newX = pos.x;
+		int newY = pos.y+dir;
+		e.setPosicion(newX, newY);
+		
 	}
 
 	public boolean canMove(Entidad e,int dir ) {
@@ -107,14 +126,21 @@ public class Juego extends Thread{
 	public boolean enRango(Integrante i,int dir) {
     	Point pos = i.getPos();
 		int j = i.getAlcance();
-		for(int k= 0;k<j && pos.y>0 && pos.y<=12;k++) {		
+		for(int k= 1;k<j && pos.y>0 && pos.y<=12;k++) {	
+			System.out.println("enRango :: pos x: "+pos.x+" y: "+(pos.y+(k*dir)));
 			Entidad siguiente = grilla[pos.x][pos.y+(k*dir)];
 			if(siguiente != null) {
 				siguiente.accept(i.getVisitor());
+				System.out.println("revisó rango");
 				Disparo disparo = i.getDisparo();
+				if(disparo != null) System.out.println("tengo disparo");
+				else System.out.println("disparo es nulo");
 				if(disparo != null){
 					threadDisparo.insertarDisparo(disparo);
-					insertar(disparo);
+					
+					System.out.println("disparo insertado");
+					
+					gui.insertar(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
 				}
 				return true;
 			}			
@@ -146,7 +172,13 @@ public class Juego extends Thread{
 	}
 	
 	public boolean hayEntidad(int x,int y) {
+		Entidad ent =  grilla[x][y];
+		if (ent!=null){
+			System.out.println(ent);
+		}
+		else System.out.println("hay nulo");
 		return grilla[x][y] != null;
+		
 	}
 
 	public void getObstaculos() throws FileNotFoundException, IOException {
@@ -199,7 +231,8 @@ public class Juego extends Thread{
 	}
 	
 	public void insertarEnemigo2(){
-		CreadorRuso cp = new CreadorRuso();
+		CreadorPoseido cp = new CreadorPoseido();
+		//CreadorRuso cp = new CreadorRuso();
 		Enemigo e = cp.crear();
 		e.setPosicion(4, 12);
 		insertar(e);

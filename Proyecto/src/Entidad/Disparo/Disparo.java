@@ -27,7 +27,8 @@ public abstract class Disparo extends Entidad {
 	public void atacar(Entidad e) { }
 	
 	public void afectar(Entidad e) {
-		e.setVida(e.getVida()-danio);	
+		e.setVida(e.getVida()-danio);
+		llego = true;
 	}
 	
 	public int getMovimiento() {

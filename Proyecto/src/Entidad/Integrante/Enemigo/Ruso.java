@@ -20,7 +20,8 @@ public class Ruso extends Enemigo {
 	}
 	
 	public void atacar(Entidad e) {
-		miDisparo = new DisparoEnemigo(pos.x,pos.y-1,danio,1);
+		miDisparo = new DisparoEnemigo(pos.x,pos.y,danio,1);
+		System.out.println("Ruso creó disparo");
 	}
 
 }

@@ -26,16 +26,17 @@ public class ThreadDisparo extends Thread{
 				Disparo d = lista.next();
 				if(!d.llego()){
 					if(cont<60){
-						 d.setLlego(!juego.canMove(d,d.getMovimiento()));
+						 juego.canMove(d,d.getMovimiento());
 						try {
-							Thread.sleep(2);
+							Thread.sleep(20);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
 							cont++;
 					}
 					else{
-						juego.actualizarGrilla(d,d.getMovimiento());
+						juego.actualizarDisparo(d,d.getMovimiento());
+						System.out.println(d+"est+a en: "+d.getPos());
 						cont = 0;
 						}
 				}

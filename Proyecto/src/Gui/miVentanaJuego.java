@@ -100,7 +100,7 @@ public class miVentanaJuego extends JFrame{
 				if(!juego.hayEntidad(y, x))
 					juego.insertarPersonaje(y, x);
 				else
-					System.out.println("hay entidad en esa posicion");
+					System.out.println("En esa posicion hay");
 				
 			}
 			public void mouseEntered(MouseEvent arg0) {}
