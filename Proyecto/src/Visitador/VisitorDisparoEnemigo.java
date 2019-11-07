@@ -10,7 +10,6 @@ public class VisitorDisparoEnemigo extends Visitor {
 
 	public VisitorDisparoEnemigo(Entidad e) {
 		super(e);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void visitPersonaje(Personaje a) {
@@ -21,7 +20,6 @@ public class VisitorDisparoEnemigo extends Visitor {
 
 	public void visitObjetosVida(Objeto o) {
 		this.miEntidad.afectar(o);
-		
 	}
 
 	public void visitObjetosTemporal(Objeto o) { }

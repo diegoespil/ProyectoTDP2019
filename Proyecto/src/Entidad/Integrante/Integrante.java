@@ -49,4 +49,8 @@ public abstract class Integrante extends Entidad{
 		e.setVida(e.getVida()-danio);
 	}
 	
+	public void changeState(State s) {
+		estado = s;
+	}
+	
 }

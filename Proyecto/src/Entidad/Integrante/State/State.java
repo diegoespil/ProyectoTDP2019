@@ -1,10 +1,21 @@
 package Entidad.Integrante.State;
 
-import Entidad.Objeto.Temporal.ObjetoTemporal;
+import Entidad.Integrante.Integrante;
 
-public interface State {
+public abstract class State {
 	
-	public void asignarPowerup();
-	public void quitarPowerup();
+	protected Integrante integrante;
+	
+	public State(Integrante i) {
+		integrante = i;
+	}
+	
+	public abstract void activarPowerup();
+		
+	public abstract void mover();
+
+	public abstract void disparar();
+	
+	public abstract void detener();
 	
 }

@@ -1,6 +1,5 @@
 package Entidad.Integrante.Personaje;
 
-import Entidad.Disparo.Disparo;
 import Entidad.Integrante.Integrante;
 import Visitador.Visitor;
 

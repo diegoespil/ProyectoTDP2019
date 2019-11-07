@@ -16,7 +16,6 @@ public class DisparoEnemigo extends Disparo {
 		miVisitor = new VisitorDisparoEnemigo(this);
 		JLabel label = new JLabel();
 		label.setBounds(0, 0, 10, 5);
-		//label.setIcon(new ImageIcon(img.getImage()));
 		label.setBorder(BorderFactory.createEtchedBorder(Color.RED, Color.RED));
 		label.setVisible(true);
 		label.setVisible(true);

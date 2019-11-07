@@ -20,9 +20,9 @@ public class ThreadDisparo extends Thread{
 	}
 
 	public void run() {
-		while(true ) {
+		while(true) {
 			Iterator<Disparo> lista = disparos.iterator();
-			while (lista.hasNext()){
+			while(lista.hasNext()){
 				Disparo d = lista.next();
 				if(!d.llego()){
 					if(cont<60){
@@ -38,21 +38,18 @@ public class ThreadDisparo extends Thread{
 						juego.actualizarGrilla(d,d.getMovimiento());
 						cont = 0;
 						}
-					}
-					else{ 
-						eliminados.add(d);
-						juego.eliminar(d);
-					}
+				}
+				else{ 
+					eliminados.add(d);
+					juego.eliminar(d);
+				}
 			}
 			for(Disparo d1: eliminados)
 				disparos.remove(d1);
 			eliminados.removeAllElements();
-			}
-			
-				
-			
-		
-	} 
+		}
+	}
+				 
 	public synchronized void iniciar(){
 		this.start();
 	}

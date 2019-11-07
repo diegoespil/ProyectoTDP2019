@@ -10,7 +10,7 @@ import Visitador.Visitor;
 public abstract class Entidad {
 	
 	protected String nombre;
-	protected ImageIcon image;
+	protected ImageIcon [] image;
 	protected JLabel label;
 	protected Point pos;
 	protected final int width = 60;
@@ -22,7 +22,7 @@ public abstract class Entidad {
 		this.pos = new Point(x,y);
 		miVisitor = null;
 		this.vida = vida; 
-		image = null;
+		image = new ImageIcon[3];
 		label = null;
 	}
 
@@ -31,24 +31,20 @@ public abstract class Entidad {
 	}
 	
 	public void setPosicion(int x, int y) {
-		//this.pos.x = x;
-		//this.pos.y = y;
 		pos.move(x, y);
 	}
-/*	
-	protected ImageIcon cambiarGrafico(int dir){
-		if(this.grafico != null){
-			this.grafico.setImage(this.image[dir].getImage());
-		}
-		return this.grafico;
+	
+	public ImageIcon getImage(int estado) {
+		return image[estado];
 	}
-	*/
-	public ImageIcon getImage() {		
-		return this.image;
+
+
+	public void setImage(ImageIcon i,int estado) {
+		image[estado] = i ;
 	}
 	
-	public void setImage(String ruta) {
-		image = new ImageIcon(ruta);
+	public void cambiarEstado(int estado) {
+		label.setIcon(image[estado]);
 	}
 	
 	public JLabel getLabel(){
