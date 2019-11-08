@@ -12,7 +12,6 @@ public class Rata extends Enemigo{
 		this.image[1] = new ImageIcon("Imagenes/rata_ataque.gif");
 		this.image[2] = new ImageIcon("Imagenes/rata_muerto.gif");
 		this.image[3] = new ImageIcon("Imagenes/rata_quemado.gif");
-		this.image[4] = null;
 		JLabel label = new JLabel();
 		label.setBounds(0, 0, 60, 60);
 		label.setIcon(this.getImage(0));

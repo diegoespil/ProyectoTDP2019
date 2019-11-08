@@ -11,7 +11,6 @@ public class Perro extends Enemigo{
 		this.image[1] = new ImageIcon("Imagenes/perro_disparo.gif");
 		this.image[2] = new ImageIcon("Imagenes/perro_muerto.gif");
 		this.image[3] = new ImageIcon("Imagenes/perro_quemado.gif");
-		this.image[4] = null;
 		JLabel label = new JLabel();
 		label.setBounds(0, 0, 60, 60);
 		label.setIcon(this.getImage(0));
