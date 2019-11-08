@@ -12,10 +12,14 @@ public class Lucas extends Personaje {
 	
 	public Lucas(int x, int y, int dmg, int alc) {
 		super(x, y, dmg, alc);
-		ImageIcon img = new ImageIcon("Imagenes/lucas.png");
+		this.image[0] = new ImageIcon("Imagenes/lucas_normal.gif");
+		this.image[1] = new ImageIcon("Imagenes/lucas_ataque.gif");
+		this.image[2] = new ImageIcon("Imagenes/lucas_muerto.gif");
+		this.image[3] = new ImageIcon("Imagenes/lucas_campo.gif");
+		this.image[4] = new ImageIcon("Imagenes/lucas_ataque.gif");
 		JLabel label = new JLabel();
 		label.setBounds(0, 0, 60, 60);
-		label.setIcon(new ImageIcon(img.getImage()));
+		label.setIcon(this.getImage(0));
 		label.setVisible(true);
 		this.setLabel(label);
 	}

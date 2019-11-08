@@ -3,21 +3,18 @@ package Entidad.Integrante.State;
 import Entidad.Integrante.Integrante;
 import Entidad.Objeto.Temporal.ObjetoTemporal;
 
-public class Curado implements State{
+public class Curado extends PowerUp{
 
 	protected Integrante integrante;
 	
 	public Curado(Integrante i){
-		integrante = i;
+		super(i);
 	}
 
-	public void asignarPowerup() {
+	public void activarPowerup(ObjetoTemporal pwu) {
 		if (integrante.getVida()<=75){
 			integrante.setVida(integrante.getVida()+25);
 		}
+		integrante.changeState(null);
 	}
-
-	public void quitarPowerup() {
-	}
-	
 }

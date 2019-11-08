@@ -11,10 +11,14 @@ public class Mike extends Personaje {
 	
 	public Mike(int x, int y,int danio, int alcance) {
 		super(x,y,danio,alcance);
-		ImageIcon img = new ImageIcon("Imagenes/mike.gif");
+		this.image[0] = new ImageIcon("Imagenes/mike_normal.gif");
+		this.image[1] = new ImageIcon("Imagenes/mike_ataque.gif");
+		this.image[2] = new ImageIcon("Imagenes/mike_muerto.gif");
+		this.image[3] = new ImageIcon("Imagenes/mike_campo.gif");
+		this.image[4] = new ImageIcon("Imagenes/mike_ataquex2.gif");
 		JLabel label = new JLabel();
 		label.setBounds(0, 0, 60, 60);
-		label.setIcon(new ImageIcon(img.getImage()));
+		label.setIcon(this.getImage(0));
 		label.setVisible(true);
 		this.setLabel(label);
 	}

@@ -3,46 +3,26 @@ package Entidad.Integrante.State;
 import Entidad.Integrante.Integrante;
 import Entidad.Objeto.Temporal.ObjetoTemporal;
 
-public class AtaqueDuplicado extends State{
-
-	protected Integrante integrante;
-	protected int danioAux;
+public class AtaqueDuplicado extends PowerUp{
 	
-	public AtaqueDuplicado(Integrante i){
-		integrante = i;
-		danioAux = integrante.getDanio();
+	public AtaqueDuplicado(Integrante i) {
+		super(i);
 	}
-
-	public void asignarPowerup() {
-		integrante.setDanio(danioAux*2);
-	}
-
-	public void quitarPowerup() {
-		integrante.setDanio(danioAux);
-	}
-
-	@Override
-	public void activarPowerup() {
-		// TODO Auto-generated method stub
+	
+	public void activarPowerup(ObjetoTemporal pwu) {
+		int danioAnterior = integrante.getDanio();
+		integrante.setDanio(danioAnterior*2);
+		integrante.cambiarEstado(4);
+		 try {
+	            Thread.sleep(5*1000);
+	         } catch (Exception e) {
+	            System.out.println(e);
+	         }
+		integrante.setDanio(danioAnterior);
+		integrante.cambiarEstado(0);
+		integrante.changeState(null);
 		
 	}
-
-	@Override
-	public void mover() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void disparar() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void detener() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 }

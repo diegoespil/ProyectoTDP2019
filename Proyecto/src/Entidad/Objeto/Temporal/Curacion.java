@@ -8,10 +8,9 @@ public class Curacion extends ObjetoTemporal {
 		super(x,y,tiempo);
 	}
 	
-	@Override
 	public void afectar(Entidad e) {
-		// TODO Auto-generated method stub
 		
 	}
+
 
 }

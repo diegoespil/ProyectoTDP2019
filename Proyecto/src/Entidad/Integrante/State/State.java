@@ -1,6 +1,7 @@
 package Entidad.Integrante.State;
 
 import Entidad.Integrante.Integrante;
+import Entidad.Objeto.Temporal.ObjetoTemporal;
 
 public abstract class State {
 	
@@ -10,7 +11,7 @@ public abstract class State {
 		integrante = i;
 	}
 	
-	public abstract void activarPowerup();
+	public abstract void activarPowerup(ObjetoTemporal pwu);
 		
 	public abstract void mover();
 

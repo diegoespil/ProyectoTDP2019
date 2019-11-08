@@ -61,6 +61,8 @@ public class Juego extends Thread{
 		//threadPersonaje.start();
 		threadDisparo = new ThreadDisparo(this);
 		
+
+		//for(int i = 0; i<4 ;i++){
 		
 		/*Disparo disparo = new DisparoPersonaje(4,1,1000,1);
 		gui.insertar(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
@@ -76,8 +78,8 @@ public class Juego extends Thread{
 			Disparo disparo = new DisparoEnemigo(i,12,10,1);
 			gui.insertar(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
 			threadDisparo.insertarDisparo(disparo);
-		}
-		*/
+		}*/
+	
 		threadDisparo.iniciar();
 		
 	}
@@ -149,7 +151,7 @@ public class Juego extends Thread{
 			Entidad siguiente = grilla[pos.x][pos.y+(k*dir)];
 			if(siguiente != null) {
 				siguiente.accept(i.getVisitor());
-				System.out.println("revisó rango");
+				System.out.println("revisï¿½ rango");
 				Disparo disparo = i.getDisparo();
 				if(disparo != null) System.out.println("tengo disparo");
 				else System.out.println("disparo es nulo");

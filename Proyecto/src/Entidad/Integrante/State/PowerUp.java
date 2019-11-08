@@ -1,6 +1,8 @@
 package Entidad.Integrante.State;
 
 import Entidad.Integrante.Integrante;
+import Entidad.Objeto.Temporal.ObjetoTemporal;
+
 
 public class PowerUp extends State{
 
@@ -8,8 +10,7 @@ public class PowerUp extends State{
 		super(i);
 	}
 
-	public void activarPowerup() {
-		
+	public void activarPowerup(ObjetoTemporal pwu) {
 	}
 
 	public void mover() {}
@@ -17,4 +18,5 @@ public class PowerUp extends State{
 	public void disparar() {}
 
 	public void detener() {}
+
 }
