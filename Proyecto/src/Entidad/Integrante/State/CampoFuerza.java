@@ -16,7 +16,7 @@ public class CampoFuerza extends PowerUp  {
 		 try {
 	            Thread.sleep(5*1000);
 	         } catch (Exception e) {
-	            System.out.println(e);
+	            //System.out.println(e);
 	         }
 		integrante.setVida(vidaAnterior);
 		integrante.cambiarEstado(0);

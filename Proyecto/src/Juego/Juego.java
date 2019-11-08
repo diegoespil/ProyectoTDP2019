@@ -46,7 +46,7 @@ public class Juego extends Thread{
 		this.puntaje = 0;
 		shop = new Tienda(this);
 		grilla = new Entidad[8][14];
-		//cargarEnemigos();
+		cargarEnemigos();
 		//cargarObjetos();
 		personajes = new Vector<Integrante>();
 		try {
@@ -82,6 +82,16 @@ public class Juego extends Thread{
 	
 		threadDisparo.iniciar();
 		
+	}
+	
+	public void cargarEnemigos() {
+		int cont = 0;
+		Vector<Enemigo> enemigos = nivel.getOleada1();
+		for(Enemigo e : enemigos) {
+			e.setPosicion(cont, 12);
+			insertar(e);
+			cont++;
+		}
 	}
 
 	public void actualizarGrilla(Entidad e,int dir){
@@ -129,7 +139,7 @@ public class Juego extends Thread{
     	Point pos = i.getPos();
 		int j = i.getAlcance();
 		for(int k= 1;k<j && pos.y>0 && pos.y<=12;k++) {	
-			System.out.println("enRango :: pos x: "+pos.x+" y: "+(pos.y+(k*dir)));
+			System.out.println("e	this.image[4] = null;nRango :: pos x: "+pos.x+" y: "+(pos.y+(k*dir)));
 			Entidad siguiente = grilla[pos.x][pos.y+(k*dir)];
 			if(siguiente != null) {
 				siguiente.accept(i.getVisitor());

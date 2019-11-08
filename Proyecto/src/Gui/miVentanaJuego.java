@@ -106,10 +106,10 @@ public class miVentanaJuego extends JFrame{
 						System.out.println("En esa posicion hay");  
 				}
 				if(e.getButton()==MouseEvent.BUTTON2){			
-					System.out.println("click derescho");
+					System.out.println("click centro");
 				}
 				if(e.getButton()==MouseEvent.BUTTON3){			
-					System.out.println("click derescho");
+					System.out.println("click derecho");
 				}
 			}
 				
