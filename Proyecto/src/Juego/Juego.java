@@ -60,7 +60,7 @@ public class Juego extends Thread{
 		//threadPersonaje = new ThreadPersonaje(this);
 		//threadPersonaje.start();
 		threadDisparo = new ThreadDisparo(this);
-		/*
+		
 		for(int i = 0; i<4 ;i++){
 			Disparo disparo = new DisparoPersonaje(i,1,10,1);
 			insertar(disparo);
@@ -72,7 +72,7 @@ public class Juego extends Thread{
 			insertar(disparo);
 			threadDisparo.insertarDisparo(disparo);
 		}
-		*/
+	
 		threadDisparo.iniciar();
 		
 	}
