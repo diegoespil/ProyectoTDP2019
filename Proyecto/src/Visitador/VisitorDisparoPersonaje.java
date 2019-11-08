@@ -19,7 +19,7 @@ public class VisitorDisparoPersonaje extends Visitor {
 		this.miEntidad.afectar(e);
 	}
 
-	public void visitObjetosVida(Objeto o) { }
+	public void visitObjetosVida(Objeto o) { System.out.println("obj encontrado"); }
 
 	public void visitObjetosTemporal(Objeto o) { }
 

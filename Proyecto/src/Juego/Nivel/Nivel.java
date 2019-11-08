@@ -8,33 +8,38 @@ import Juego.Juego;
 
 public abstract class Nivel {
 	
-	protected Vector<Enemigo> enemigos;
+	protected Vector<Enemigo> oleada1;
+	protected Vector<Enemigo> oleada2;
+	protected Vector<Enemigo> oleada3;
 	protected Vector<Objeto> objetos;
 	protected Juego juego;
-	protected int cantEnemigos;
-	protected int cantObjetos;
 	
 	public Nivel(Juego j){
 		juego = j;
-		enemigos = new Vector<Enemigo>();
+		oleada1 = new Vector<Enemigo>();
+		oleada2 = new Vector<Enemigo>();
+		oleada3 = new Vector<Enemigo>();
 		objetos = new Vector<Objeto>();
 		cargarNivel();
-		System.out.println("Cantidad de enemigos: "+this.cantEnemigos);
 	}
 	
-	public abstract Enemigo getEnemigo();
-	
-	public abstract Objeto getObjeto();
-	
-	public int cantEnemigos() {
-		return cantEnemigos;
+	public Vector<Enemigo> getOleada1(){
+		return this.oleada1;
 	}
 	
-	public int cantObjetos(){
-		return cantObjetos;
+	public Vector<Enemigo> getOleada2(){
+		return this.oleada2;
 	}
 	
-	public abstract void cargarNivel();
+	public Vector<Enemigo> getOleada3(){
+		return this.oleada3;
+	}
+	
+	public Vector<Objeto> getObjetos(){
+		return this.objetos;
+	}
+	
+	protected abstract void cargarNivel();
 	
 	public abstract Nivel subirNivel();
 	

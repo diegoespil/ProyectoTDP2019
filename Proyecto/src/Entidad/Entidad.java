@@ -22,7 +22,7 @@ public abstract class Entidad {
 		this.pos = new Point(x,y);
 		miVisitor = null;
 		this.vida = vida; 
-		image = new ImageIcon[3];
+		image = new ImageIcon[4];
 		label = null;
 	}
 
@@ -72,5 +72,7 @@ public abstract class Entidad {
 	public Visitor getVisitor() {
 		return miVisitor;
 	}
+	
+	
 }
 

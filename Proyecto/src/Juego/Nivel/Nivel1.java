@@ -6,10 +6,20 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
+import java.util.Vector;
 
+import Creadores.CreadorConVida.CreadorAuto;
+import Creadores.CreadorEntidad.CreadorEntidad;
+import Creadores.CreardorEnemigo.CreadorDemogorgon;
+import Creadores.CreardorEnemigo.CreadorMindflayer;
+import Creadores.CreardorEnemigo.CreadorPerro;
+import Creadores.CreardorEnemigo.CreadorPoseido;
+import Creadores.CreardorEnemigo.CreadorRata;
+import Creadores.CreardorEnemigo.CreadorRuso;
 import Entidad.Integrante.Enemigo.*;
 import Entidad.Objeto.Objeto;
 import Entidad.Objeto.ConVida.Auto;
+import Entidad.Objeto.ConVida.ObjetoConVida;
 import Gui.miVentanaJuego;
 import Juego.Juego;
 
@@ -17,20 +27,18 @@ public class Nivel1 extends Nivel {
 
 	public Nivel1(Juego j) {
 		super(j);
-		// TODO Auto-generated constructor stub
 	}
 	
 
 	public Nivel subirNivel() {
 		
-		return null;
+		return new Nivel2(this.juego);
 	}
 
-	@Override
-	public void cargarNivel() {
+	
+	protected void cargarNivel() {
 		initEnemigos();
 		initObjetos();
-
 	}
 
 	private void initObjetos() {
@@ -44,24 +52,11 @@ public class Nivel1 extends Nivel {
 				String arr[] = cadena.split(",");
 				for (int i = 0; i < arr.length; i++) {
 					switch(arr[i]) {
-					/*case "fuego" : { grilla[fila][i] = new Fuego(fila,i,10);
-									break;
-					}*/
-					case "auto" : { this.objetos.add(new Auto(fila,i,100));
-	//								grilla[fila][i].setImage("Imagenes//auto-fuego1.png");
-									break;
-						
-					}	
-					case "auto2" : { this.objetos.add(new Auto(fila,i,100));
-	//								grilla[fila][i].setImage("Imagenes//auto-fuego2.png");
-									break;
-	
-		            }
-					case "auto3" : { this.objetos.add(new Auto(fila,i,100));
-	//								grilla[fila][i].setImage("Imagenes/auto-fuego3.png");
-									break;
-					}
-					
+						case "auto" : { CreadorEntidad auto = new CreadorAuto();
+										ObjetoConVida objeto = (ObjetoConVida)auto.crear();
+										this.objetos.add(objeto);
+										break;
+						}						
 					}
 				}
 				fila++;
@@ -80,32 +75,59 @@ public class Nivel1 extends Nivel {
 	private void initEnemigos() {
 		try{
 			String cadena;
-			File file = new File("src\\Juego\\Nivel\\Nivel1");
+			File file = new File("src//Juego//Nivel//Nivel1");
 			FileReader f = new FileReader(file.getAbsolutePath());
 			BufferedReader b = new BufferedReader(f);
-			this.cantEnemigos = 0;
+			int linea = 1;
 			while ((cadena = b.readLine()) != null) {
 				String arr[] = cadena.split(",");
-				cantEnemigos += arr.length;
 				for (int i = 0; i < arr.length; i++) {
-					int x = (int) (Math.random() * 100) + 800;
-					int y = (int) (Math.random() * 420);
-					System.out.println("x: "+x+" y: "+y);
 					switch (arr[i]) {
-						case "rata": {this.enemigos.add(new Rata(x,y, 2, 1, 4, 50, 20));
-										System.out.println("rata");
+						case "rata": {CreadorEntidad rata = new CreadorRata();
+										Enemigo e = (Enemigo) rata.crear();
+										if (linea == 1) this.oleada1.add(e);
+										else if (linea == 2) this.oleada2.add(e);
+										else this.oleada3.add(e);
 										break;
 									}
-						case "ruso": {this.enemigos.add(new Ruso(x,y, 2, 1, 4, 50, 20));
-										System.out.println("ruso");
+						case "ruso": {CreadorEntidad ruso = new CreadorRuso();
+										Enemigo e = (Enemigo) ruso.crear();
+										if (linea == 1) this.oleada1.add(e);
+										else if (linea == 2) this.oleada2.add(e);
+										else this.oleada3.add(e);
 										break;
 									}
-						case "perro": {this.enemigos.add(new Perro(x,y, 2, 1, 4, 50, 20));
-										System.out.println("perro");
+						case "perro": {CreadorEntidad perro = new CreadorPerro();
+										Enemigo e = (Enemigo) perro.crear();
+										if (linea == 1) this.oleada1.add(e);
+										else if (linea == 2) this.oleada2.add(e);
+										else this.oleada3.add(e);
 										break;
 									}
+						case "demogorgon": {CreadorEntidad demogorgon = new CreadorDemogorgon();
+											Enemigo e = (Enemigo) demogorgon.crear();
+											if (linea == 1) this.oleada1.add(e);
+											else if (linea == 2) this.oleada2.add(e);
+											else this.oleada3.add(e);
+											break;
 					}
-				}			
+						case "mindflayer": {CreadorEntidad mindflayer = new CreadorMindflayer();
+											Enemigo e = (Enemigo) mindflayer.crear();
+											if (linea == 1) this.oleada1.add(e);
+											else if (linea == 2) this.oleada2.add(e);
+											else this.oleada3.add(e);
+											break;
+					}
+						case "poseido": {CreadorEntidad poseido = new CreadorPoseido();
+										Enemigo e = (Enemigo) poseido.crear();
+										if (linea == 1) this.oleada1.add(e);
+										else if (linea == 2) this.oleada2.add(e);
+										else this.oleada3.add(e);
+										break;
+										}
+					}
+				}
+				linea++;
 			}
 			b.close();
 			
@@ -117,29 +139,6 @@ public class Nivel1 extends Nivel {
 			e.printStackTrace();
 		}
 		
-	}
-
-	@Override
-	public Enemigo getEnemigo() {
-		if (cantEnemigos != 0) {
-			cantEnemigos--;
-//			switch (cantEnemigos) {
-//				case 11: juego.addPowerUp(this.getPowerUp());break;
-//				case 9: juego.addPowerUp(this.getPowerUp());break;
-//				case 5: juego.addPowerUp(this.getPowerUp());break;
-//				case 3: juego.addPowerUp(this.getPowerUp());break;
-//			}
-			return enemigos.get(cantEnemigos);
-		}
-		return null;
-	}
-	
-	public Objeto getObjeto(){
-		if (cantObjetos != 0){
-			cantObjetos--;
-			return this.objetos.get(cantObjetos);
-		}
-		return null;
 	}
 	
 }

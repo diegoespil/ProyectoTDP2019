@@ -12,10 +12,14 @@ public class Hopper extends Personaje {
 	
 	public Hopper(int x, int y, int dmg, int alc) {
 		super(x, y, dmg, alc);
-		ImageIcon img = new ImageIcon("Imagenes/hopper.png");
+		this.image[0] = new ImageIcon("Imagenes/hopper_normal.gif");
+		this.image[1] = new ImageIcon("Imagenes/hopper_ataque.gif");
+		this.image[2] = new ImageIcon("Imagenes/hopper_muerto.gif");
+		this.image[3] = new ImageIcon("Imagenes/hopper_campo.gif");
+		this.image[4] = new ImageIcon("Imagenes/hopper_ataque.gif");
 		JLabel label = new JLabel();
 		label.setBounds(0, 0, 60, 60);
-		label.setIcon(new ImageIcon(img.getImage()));
+		label.setIcon(this.getImage(0));
 		label.setVisible(true);
 		this.setLabel(label);
 	}

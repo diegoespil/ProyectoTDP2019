@@ -94,13 +94,25 @@ public class miVentanaJuego extends JFrame{
 		panel.addMouseListener(new MouseListener() {
 			
 		public void mouseClicked(MouseEvent e) {
-				int x,y;
-				x = e.getX()/60;
-				y = (e.getY()/60);
-				if(!juego.hayEntidad(y, x))
-					juego.insertarPersonaje(y, x);
-				else
-					System.out.println("hay entidad en esa posicion");
+			
+			if(e.getClickCount()== 1){
+				if(e.getButton()==MouseEvent.BUTTON1){
+					int x,y;
+					x = e.getX()/60;
+					y = (e.getY()/60);
+					if(!juego.hayEntidad(y, x))
+						juego.insertarPersonaje(y, x);
+					else
+						System.out.println("En esa posicion hay");  
+				}
+				if(e.getButton()==MouseEvent.BUTTON2){			
+					System.out.println("click derescho");
+				}
+				if(e.getButton()==MouseEvent.BUTTON3){			
+					System.out.println("click derescho");
+				}
+			}
+				
 				
 			}
 			public void mouseEntered(MouseEvent arg0) {}
