@@ -46,6 +46,8 @@ public class Juego extends Thread{
 		this.puntaje = 0;
 		shop = new Tienda(this);
 		grilla = new Entidad[8][14];
+		threadEnemigos = new ThreadEnemigos(this);
+		
 		cargarEnemigos();
 		//cargarObjetos();
 		personajes = new Vector<Integrante>();
@@ -54,9 +56,8 @@ public class Juego extends Thread{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		insertarEnemigo2();
-		threadEnemigos = new ThreadEnemigos(this);
-		threadEnemigos.start();
+		//insertarEnemigo2();
+		
 		//threadPersonaje = new ThreadPersonaje(this);
 		//threadPersonaje.start();
 		threadDisparo = new ThreadDisparo(this);
@@ -81,15 +82,17 @@ public class Juego extends Thread{
 		}*/
 	
 		threadDisparo.iniciar();
+		threadEnemigos.start();
 		
 	}
 	
 	public void cargarEnemigos() {
-		int cont = 0;
+		int cont = 2;
 		Vector<Enemigo> enemigos = nivel.getOleada1();
 		for(Enemigo e : enemigos) {
 			e.setPosicion(cont, 12);
 			insertar(e);
+			threadEnemigos.insertarEnemigo(e);
 			cont++;
 		}
 	}
@@ -129,7 +132,7 @@ public class Juego extends Thread{
 	}
 	public void aceptarVisitor(Entidad aceptador, Entidad visitante){
 		aceptador.accept(visitante.getVisitor());
-		if(aceptador.getVida()<=0){ //esta parte debería sacarse y hacerse en otro lado
+		if(aceptador.getVida()<=0){ //esta parte deberï¿½a sacarse y hacerse en otro lado
 			eliminar(aceptador);
 		}
 	}
@@ -156,11 +159,11 @@ public class Juego extends Thread{
 	public boolean enRango(Integrante i,int dir) {
     	Point pos = i.getPos();
 		int j = i.getAlcance();
-		for(int k= 1;k<j && pos.y>0 && pos.y<=12;k++) {	
+		for(int k= 1;k<=j && pos.y>0 && pos.y<=12;k++) {	
 			System.out.println("e	this.image[4] = null;nRango :: pos x: "+pos.x+" y: "+(pos.y+(k*dir)));
 			Entidad siguiente = grilla[pos.x][pos.y+(k*dir)];
 			if(siguiente != null) {
-				siguiente.accept(i.getVisitor());
+				aceptarVisitor(siguiente,i);
 				System.out.println("revisï¿½ rango");
 				Disparo disparo = i.getDisparo();
 				if(disparo != null) System.out.println("tengo disparo");

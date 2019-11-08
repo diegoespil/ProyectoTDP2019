@@ -29,14 +29,13 @@ public class ThreadDisparo extends Thread{
 				if(!d.llego()){
 					if(cont<60){
 						 juego.mover(d,d.getMovimiento());
-						
-							cont++;
+						 cont++;
 					}
 					else{
 						juego.actualizarDisparo(d,d.getMovimiento());
 						Entidad sig = juego.getSiguiente(d, d.getMovimiento());
-						if (sig != null) juego.aceptarVisitor(sig, d);
-						System.out.println(d+"est+a en: "+d.getPos());
+						if (sig != null) 
+							juego.aceptarVisitor(sig, d);
 						cont = 0;
 						}
 				}
