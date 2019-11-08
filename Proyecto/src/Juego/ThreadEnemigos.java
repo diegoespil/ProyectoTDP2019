@@ -1,5 +1,6 @@
 package Juego;
 
+import Entidad.Entidad;
 import Entidad.Integrante.Enemigo.Enemigo;
 
 public class ThreadEnemigos extends Thread{
@@ -21,9 +22,13 @@ public class ThreadEnemigos extends Thread{
 			}
 			else{
 				if(cont<60){
-					if (juego.canMove(enemigo,-1) ){
-						
+					Entidad sig = juego.getSiguiente(enemigo,-1);
+					if (sig == null ){
+						juego.mover(enemigo, -1);
 						cont++;
+					}
+					else{
+						juego.aceptarVisitor(sig, enemigo);
 					}
 					try {
 						Thread.sleep(50);

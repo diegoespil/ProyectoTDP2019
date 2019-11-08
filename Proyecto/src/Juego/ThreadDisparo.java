@@ -2,6 +2,8 @@ package Juego;
 
 import java.util.Iterator;
 import java.util.Vector;
+
+import Entidad.Entidad;
 import Entidad.Disparo.Disparo;
 
 
@@ -26,16 +28,14 @@ public class ThreadDisparo extends Thread{
 				Disparo d = lista.next();
 				if(!d.llego()){
 					if(cont<60){
-						 juego.canMove(d,d.getMovimiento());
-						try {
-							Thread.sleep(20);
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
+						 juego.mover(d,d.getMovimiento());
+						
 							cont++;
 					}
 					else{
 						juego.actualizarDisparo(d,d.getMovimiento());
+						Entidad sig = juego.getSiguiente(d, d.getMovimiento());
+						if (sig != null) juego.aceptarVisitor(sig, d);
 						System.out.println(d+"est+a en: "+d.getPos());
 						cont = 0;
 						}
@@ -44,6 +44,11 @@ public class ThreadDisparo extends Thread{
 					eliminados.add(d);
 					juego.eliminar(d);
 				}
+			}
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 			for(Disparo d1: eliminados)
 				disparos.remove(d1);

@@ -62,10 +62,10 @@ public class Juego extends Thread{
 		threadDisparo = new ThreadDisparo(this);
 		
 		
-		Disparo disparo = new DisparoPersonaje(3,1,10,1);
+		/*Disparo disparo = new DisparoPersonaje(4,1,1000,1);
 		gui.insertar(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
-		threadDisparo.insertarDisparo(disparo);
-		/*for(int i = 0; i<6 ;i++){
+		threadDisparo.insertarDisparo(disparo); */
+		for(int i = 0; i<6 ;i++){
 			Disparo disparo = new DisparoPersonaje(i,1,10,1);
 			gui.insertar(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
 			threadDisparo.insertarDisparo(disparo);
@@ -96,14 +96,32 @@ public class Juego extends Thread{
 		}
 	}
 	
-	public void actualizarDisparo(Entidad e,int dir){
+	public void actualizarDisparo(Disparo e,int dir){
 		Point pos = e.getPos();
 		int newX = pos.x;
 		int newY = pos.y+dir;
-		e.setPosicion(newX, newY);
+		if(newY >= 13) e.setLlego(true);
+		else e.setPosicion(newX, newY);
 		
 	}
 
+	public Entidad getSiguiente(Entidad e, int dir){
+		Point pos = e.getPos();
+		Entidad siguiente = null;
+		if(pos.y > 0 && pos.y<=12)
+			siguiente = grilla[pos.x][pos.y+dir];
+		return siguiente;
+	}
+	public void mover(Entidad e, int dir){
+		if (e != null) gui.update(e.getLabel(),+dir);
+	}
+	public void aceptarVisitor(Entidad aceptador, Entidad visitante){
+		aceptador.accept(visitante.getVisitor());
+		if(aceptador.getVida()<=0){ //esta parte debería sacarse y hacerse en otro lado
+			eliminar(aceptador);
+		}
+	}
+	
 	public boolean canMove(Entidad e,int dir ) {
 		Point pos = e.getPos();
 		if(pos.y > 0 && pos.y<=12){
