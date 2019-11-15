@@ -3,16 +3,21 @@ package Gui;
 import java.awt.Color;
 
 import java.awt.EventQueue;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+
 import Juego.Juego;
 import Entidad.Entidad;
 
@@ -153,6 +158,11 @@ public class miVentanaJuego extends JFrame{
 	}
 	public void insertar(JLabel label, int x, int y){
 		label.setBounds(y, x, label.getWidth(), label.getHeight());
+		panel.add(label);
+		panel.repaint();
+	}
+	public void insertarDisparo(JLabel label, int x, int y){
+		label.setBounds(y, x+30, label.getWidth(), label.getHeight());
 		panel.add(label);
 		panel.repaint();
 	}

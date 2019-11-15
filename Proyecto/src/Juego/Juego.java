@@ -17,6 +17,7 @@ import Entidad.Disparo.DisparoEnemigo;
 import Entidad.Disparo.DisparoPersonaje;
 import Entidad.Integrante.Integrante;
 import Entidad.Integrante.Enemigo.Enemigo;
+import Entidad.Integrante.Personaje.Personaje;
 import Entidad.Objeto.ConVida.Auto;
 import Gui.miVentanaJuego;
 import Juego.Nivel.Nivel;
@@ -49,7 +50,7 @@ public class Juego extends Thread{
 		grilla = new Entidad[8][14];
 		threadEnemigos = new ThreadEnemigos(this);
 		threadRango = new ThreadRango(this, threadEnemigos); //nuevo
-		
+		threadPersonaje = new ThreadPersonaje(this);
 		cargarEnemigos();
 		//cargarObjetos();
 		personajes = new Vector<Integrante>();
@@ -86,6 +87,7 @@ public class Juego extends Thread{
 		threadDisparo.iniciar();
 		threadEnemigos.start();
 		threadRango.start();
+		threadPersonaje.start();
 		
 	}
 	
@@ -136,7 +138,7 @@ public class Juego extends Thread{
 	public void aceptarVisitor(Entidad aceptador, Entidad visitante){
 		aceptador.accept(visitante.getVisitor());
 		if(aceptador.getVida()<=0){ //esta parte deberï¿½a sacarse y hacerse en otro lado
-			eliminar(aceptador); System.out.println("murió algo");
+			eliminar(aceptador); System.out.println("muriï¿½ algo");
 		}
 	}
 	
@@ -162,11 +164,14 @@ public class Juego extends Thread{
 	public boolean enRango(Integrante i,int dir) {
     	Point pos = i.getPos();
 		int j = i.getAlcance();
-		for(int k= 1;k<=j && pos.y+(k*dir)>0 && pos.y<=12;k++) {	
+		
+		System.out.println("Soy: "+i.toString());
+		for(int k= 1;k<=j && pos.y+(k*dir)>0 && pos.y+(k*dir)<=12;k++) {
+			System.out.println("En rango: pos y "+pos.y+(k*dir));
 			Entidad siguiente = grilla[pos.x][pos.y+(k*dir)];
 			if(siguiente != null) {
 				aceptarVisitor(siguiente,i);
-				System.out.println("revisïo rango");
+				System.out.println("revisï¿½o rango");
 				Disparo disparo = i.getDisparo();
 				if(disparo != null) System.out.println("tengo disparo");
 				else System.out.println("disparo es nulo");
@@ -175,7 +180,7 @@ public class Juego extends Thread{
 					
 					System.out.println("disparo insertado");
 					
-					gui.insertar(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
+					gui.insertarDisparo(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
 				}
 				return true;
 			}
@@ -283,6 +288,7 @@ public class Juego extends Thread{
 			nueva.setPosicion(x, y);
 			gui.insertar(nueva.getLabel(), x*60, y*60);
 			personajes.add((Integrante)nueva);
+			this.threadPersonaje.insertarPersonaje((Personaje) nueva);
 		}
 	}
 	
