@@ -45,7 +45,7 @@ public class ThreadEnemigos extends Thread{
 						if (sig == null){
 							juego.actualizarGrilla(enemigo,-1);
 						}
-						juego.enRango(enemigo,-1);
+						//juego.enRango(enemigo,-1);
 						enemigo.setContPasos(0);
 					}	
 				}	  
@@ -63,5 +63,8 @@ public class ThreadEnemigos extends Thread{
 	
 	public void insertarEnemigo(Enemigo e){
 		enemigos.add(e);
+	}
+	public Vector<Enemigo> getEnemigos(){
+		return enemigos;
 	}
 }

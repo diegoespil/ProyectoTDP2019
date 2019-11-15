@@ -35,6 +35,7 @@ public class Juego extends Thread{
 	private Nivel nivel;
 	private Tienda shop;
 	private ThreadEnemigos threadEnemigos;
+	private ThreadRango threadRango; //nuevo
 	private ThreadDisparo threadDisparo;
 	private ThreadPersonaje threadPersonaje;
 	private Vector<Integrante> personajes;
@@ -47,6 +48,7 @@ public class Juego extends Thread{
 		shop = new Tienda(this);
 		grilla = new Entidad[8][14];
 		threadEnemigos = new ThreadEnemigos(this);
+		threadRango = new ThreadRango(this, threadEnemigos); //nuevo
 		
 		cargarEnemigos();
 		//cargarObjetos();
@@ -83,6 +85,7 @@ public class Juego extends Thread{
 	
 		threadDisparo.iniciar();
 		threadEnemigos.start();
+		threadRango.start();
 		
 	}
 	
