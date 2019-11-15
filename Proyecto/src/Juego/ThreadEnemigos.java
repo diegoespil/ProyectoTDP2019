@@ -30,19 +30,24 @@ public class ThreadEnemigos extends Thread{
 					eliminados.add(enemigo);
 				}
 				else{
-					juego.enRango(enemigo,-1);
+					//juego.enRango(enemigo,-1);
+					Entidad sig = juego.getSiguiente(enemigo,-1);
 					if(cont<60) {
-						Entidad sig = juego.getSiguiente(enemigo,-1);
+						//Entidad sig = juego.getSiguiente(enemigo,-1);
 						if (sig == null){
 							juego.mover(enemigo, -1);
 							cont++;
 						}
 					}
 					else {
-						juego.actualizarGrilla(enemigo,-1);
+						
+						if (sig == null){
+							juego.actualizarGrilla(enemigo,-1);
+						}
+						juego.enRango(enemigo,-1);
 						cont = 0;
 					}	
-				}	   
+				}	  
 			}
 			try {
 				this.sleep(50);

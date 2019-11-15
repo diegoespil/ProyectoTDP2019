@@ -68,7 +68,7 @@ public class Juego extends Thread{
 		/*Disparo disparo = new DisparoPersonaje(4,1,1000,1);
 		gui.insertar(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
 		threadDisparo.insertarDisparo(disparo); */
-		for(int i = 0; i<6 ;i++){
+		/*for(int i = 0; i<6 ;i++){
 			Disparo disparo = new DisparoPersonaje(i,1,10,1);
 			gui.insertar(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
 			threadDisparo.insertarDisparo(disparo);
@@ -159,8 +159,7 @@ public class Juego extends Thread{
 	public boolean enRango(Integrante i,int dir) {
     	Point pos = i.getPos();
 		int j = i.getAlcance();
-		for(int k= 1;k<=j && pos.y>0 && pos.y<=12;k++) {	
-			System.out.println("e	this.image[4] = null;nRango :: pos x: "+pos.x+" y: "+(pos.y+(k*dir)));
+		for(int k= 1;k<=j && pos.y+(k*dir)>0 && pos.y<=12;k++) {	
 			Entidad siguiente = grilla[pos.x][pos.y+(k*dir)];
 			if(siguiente != null) {
 				aceptarVisitor(siguiente,i);

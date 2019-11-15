@@ -27,4 +27,3 @@ public class Ruso extends Enemigo {
 	}
 
 }
-

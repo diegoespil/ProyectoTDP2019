@@ -23,9 +23,9 @@ public class ThreadDisparo extends Thread{
 
 	public void run() {
 		while(true) {
-			Iterator<Disparo> lista = disparos.iterator();
-			while(lista.hasNext()){
-				Disparo d = lista.next();
+			Vector<Disparo> lista = (Vector<Disparo>) disparos.clone();
+			for (Disparo d : lista){
+				//Disparo d = lista.next();
 				if(!d.llego()){
 					if(cont<60){
 						 juego.mover(d,d.getMovimiento());
