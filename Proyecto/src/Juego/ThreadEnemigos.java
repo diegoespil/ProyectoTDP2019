@@ -11,13 +11,13 @@ public class ThreadEnemigos extends Thread{
 	private Juego juego;
 	private Vector<Enemigo>  enemigos;
 	private Vector<Enemigo> eliminados;
-	private volatile int cont;
+	//private volatile int cont;
 
 	public ThreadEnemigos(Juego j) {
 		this.juego = j;
 		eliminados = new Vector<Enemigo>();
 		enemigos = new Vector<Enemigo>();
-		cont = 0;
+		//cont = 0;
 	}
 
 	public void run() {
@@ -30,13 +30,14 @@ public class ThreadEnemigos extends Thread{
 					eliminados.add(enemigo);
 				}
 				else{
+					int cont = enemigo.getContPasos();
 					//juego.enRango(enemigo,-1);
 					Entidad sig = juego.getSiguiente(enemigo,-1);
 					if(cont<60) {
 						//Entidad sig = juego.getSiguiente(enemigo,-1);
 						if (sig == null){
 							juego.mover(enemigo, -1);
-							cont++;
+							enemigo.setContPasos(cont+1);
 						}
 					}
 					else {
@@ -45,7 +46,7 @@ public class ThreadEnemigos extends Thread{
 							juego.actualizarGrilla(enemigo,-1);
 						}
 						juego.enRango(enemigo,-1);
-						cont = 0;
+						enemigo.setContPasos(0);
 					}	
 				}	  
 			}

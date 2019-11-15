@@ -8,7 +8,7 @@ import Visitador.VisitorEnemigo;
 
 public abstract class Enemigo extends Integrante {
 
-	protected int velocidad,puntaje, monedas;
+	protected int velocidad,puntaje,monedas,contPasos;
 	protected ObjetoTemporal powerUp;
 	
 	
@@ -19,6 +19,7 @@ public abstract class Enemigo extends Integrante {
 		this.monedas = monedas;
 		miVisitor = new VisitorEnemigo(this); 
 		powerUp = null;
+		contPasos = 0;
 	}
 	
 	public int getVelocidad() {
@@ -32,7 +33,12 @@ public abstract class Enemigo extends Integrante {
 	public int getMonedas() {
 		return monedas;
 	}
-	
+	public int getContPasos(){
+		return contPasos;
+	}
+	public void setContPasos(int i){
+		contPasos = i;
+	}
 	public void accept(Visitor v) {
 		v.visitEnemigo(this);
 	}

@@ -5,7 +5,7 @@ import Entidad.Entidad;
 
 public abstract class Disparo extends Entidad {
 
-	protected int danio,velocidad;
+	protected int danio,velocidad,contPasos;
 	protected boolean llego;
 	protected int mueve;
 
@@ -15,6 +15,7 @@ public abstract class Disparo extends Entidad {
 		this.velocidad = velocidad;
 		llego = false;
 		mueve = dir;
+		contPasos = 0;
 	}
 	
 	public boolean llego(){
@@ -23,7 +24,12 @@ public abstract class Disparo extends Entidad {
 	public void setLlego(boolean l){
 		llego = l;
 	}
-	
+	public int getContPasos(){
+		return contPasos;
+	}
+	public void setContPasos(int i){
+		contPasos = i;
+	}
 	public void atacar(Entidad e) { }
 	
 	public void afectar(Entidad e) {

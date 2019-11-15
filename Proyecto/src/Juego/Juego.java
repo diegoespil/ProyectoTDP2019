@@ -163,19 +163,19 @@ public class Juego extends Thread{
 			Entidad siguiente = grilla[pos.x][pos.y+(k*dir)];
 			if(siguiente != null) {
 				aceptarVisitor(siguiente,i);
-				//System.out.println("revisï¿½ rango");
+				System.out.println("revisïo rango");
 				Disparo disparo = i.getDisparo();
 				if(disparo != null) System.out.println("tengo disparo");
-				//else System.out.println("disparo es nulo");
+				else System.out.println("disparo es nulo");
 				if(disparo != null){
 					threadDisparo.insertarDisparo(disparo);
 					
-					//System.out.println("disparo insertado");
+					System.out.println("disparo insertado");
 					
 					gui.insertar(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
 				}
 				return true;
-			}			
+			}
 		}
 		return false;
 	}

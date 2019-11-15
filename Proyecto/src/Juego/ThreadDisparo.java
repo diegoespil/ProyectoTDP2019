@@ -12,13 +12,13 @@ public class ThreadDisparo extends Thread{
 	private Juego juego;
 	private Vector<Disparo>  disparos;
 	private Vector<Disparo> eliminados;
-	private volatile int cont;
+	//private volatile int cont;
 
 	public ThreadDisparo(Juego j) {
 		this.juego = j;
 		disparos = new Vector<Disparo>();
 		eliminados = new Vector<Disparo>();
-		cont = 0;
+		//cont = 0;
 	}
 
 	public void run() {
@@ -27,16 +27,20 @@ public class ThreadDisparo extends Thread{
 			for (Disparo d : lista){
 				//Disparo d = lista.next();
 				if(!d.llego()){
+					int cont = d.getContPasos();
+					Entidad sig = juego.getSiguiente(d, d.getMovimiento());
+					if (sig != null) 
+						juego.aceptarVisitor(sig, d);
 					if(cont<60){
 						 juego.mover(d,d.getMovimiento());
-						 cont++;
+						 d.setContPasos(cont+1);
 					}
 					else{
 						juego.actualizarDisparo(d,d.getMovimiento());
-						Entidad sig = juego.getSiguiente(d, d.getMovimiento());
+						sig = juego.getSiguiente(d, d.getMovimiento());
 						if (sig != null) 
 							juego.aceptarVisitor(sig, d);
-						cont = 0;
+						d.setContPasos(0);
 						}
 				}
 				else{ 
