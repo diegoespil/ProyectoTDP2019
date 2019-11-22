@@ -9,7 +9,7 @@ public class CreadorRuso extends CreadorEntidad{
 	
 	public Enemigo crear(){
 		Enemigo ene = new Ruso(0,0,2,25,12,100,75); //(x,y,vel,danio,alc,ptje,monedas)
-		ene.changeState(new Normal(ene));
+		ene.setState(new Normal(ene));
 		return ene;
 	}
 

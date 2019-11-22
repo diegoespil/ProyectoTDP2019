@@ -1,5 +1,8 @@
 package Entidad.Integrante.Enemigo;
 
+import java.awt.Color;
+
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -16,6 +19,7 @@ public class Rata extends Enemigo{
 		label.setBounds(0, 0, 60, 60);
 		label.setIcon(this.getImage(0));
 		label.setVisible(true);
+		label.setBorder(BorderFactory.createEtchedBorder(Color.WHITE, Color.WHITE));
 		this.setLabel(label);
 	}
 	

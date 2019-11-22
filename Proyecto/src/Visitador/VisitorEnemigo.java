@@ -14,7 +14,7 @@ public class VisitorEnemigo extends Visitor {
 	}
 
 	public void visitPersonaje(Personaje a) {
-		this.miEntidad.atacar(a);	
+		this.miEntidad.atacar(a);
 	}
 
 	public void visitEnemigo(Enemigo e) { }

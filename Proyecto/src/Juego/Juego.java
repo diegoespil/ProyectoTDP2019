@@ -18,6 +18,8 @@ import Entidad.Disparo.DisparoPersonaje;
 import Entidad.Integrante.Integrante;
 import Entidad.Integrante.Enemigo.Enemigo;
 import Entidad.Integrante.Personaje.Personaje;
+import Entidad.Integrante.State.Ataque;
+import Entidad.Integrante.State.Normal;
 import Entidad.Objeto.ConVida.Auto;
 import Gui.miVentanaJuego;
 import Juego.Nivel.Nivel;
@@ -49,8 +51,8 @@ public class Juego extends Thread{
 		shop = new Tienda(this);
 		grilla = new Entidad[8][14];
 		threadEnemigos = new ThreadEnemigos(this);
-		threadRango = new ThreadRango(this, threadEnemigos); //nuevo
 		threadPersonaje = new ThreadPersonaje(this);
+		threadRango = new ThreadRango(this, threadEnemigos,threadPersonaje); //nuevo
 		cargarEnemigos();
 		//cargarObjetos();
 		personajes = new Vector<Integrante>();
@@ -167,7 +169,7 @@ public class Juego extends Thread{
 		
 		System.out.println("Soy: "+i.toString());
 		for(int k= 1;k<=j && pos.y+(k*dir)>0 && pos.y+(k*dir)<=12;k++) {
-			System.out.println("En rango: pos y "+pos.y+(k*dir));
+			System.out.println("En rango: pos y "+(pos.y+(k*dir)));
 			Entidad siguiente = grilla[pos.x][pos.y+(k*dir)];
 			if(siguiente != null) {
 				aceptarVisitor(siguiente,i);
@@ -176,6 +178,8 @@ public class Juego extends Thread{
 				if(disparo != null) System.out.println("tengo disparo");
 				else System.out.println("disparo es nulo");
 				if(disparo != null){
+					i.setState(new Ataque(i));
+					i.getState().disparar();
 					threadDisparo.insertarDisparo(disparo);
 					
 					System.out.println("disparo insertado");
@@ -185,6 +189,8 @@ public class Juego extends Thread{
 				return true;
 			}
 		}
+		i.setState(new Normal(i));
+		i.getState().mover();
 		return false;
 	}
 
@@ -316,5 +322,20 @@ public class Juego extends Thread{
 	
 	public Vector<Integrante> getPersonajes(){
 		return personajes;
+	}
+	
+	
+	public void detenerJuego() {
+			threadPersonaje.suspended();
+			threadEnemigos.suspended();
+			threadRango.suspended();
+			threadDisparo.suspended();
+	}
+	
+	public void reanudarJuego() {
+		threadPersonaje.resumen();
+		threadEnemigos.resumen();
+		threadRango.resumen();
+		threadDisparo.resumen();
 	}
 }

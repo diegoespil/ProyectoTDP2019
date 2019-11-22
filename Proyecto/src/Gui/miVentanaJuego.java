@@ -79,6 +79,7 @@ public class miVentanaJuego extends JFrame{
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				miVentanaTienda tienda = new miVentanaTienda(juego);
+				juego.detenerJuego();
 				tienda.setVisible(true);
 			}
 		});
@@ -103,10 +104,13 @@ public class miVentanaJuego extends JFrame{
 			if(e.getClickCount()== 1){
 				if(e.getButton()==MouseEvent.BUTTON1){
 					int x,y;
-					x = e.getX()/60;
+					x = (e.getX()/60);
 					y = (e.getY()/60);
-					if(!juego.hayEntidad(y, x))
+					System.out.println("posicion de insercion (x,y):"+x+";"+y+" posicion pixeles "+e.getX()+";"+e.getY());
+					if(!juego.hayEntidad(y, x)) {
 						juego.insertarPersonaje(y, x);
+						juego.reanudarJuego();
+					}
 					else
 						System.out.println("En esa posicion hay");  
 				}

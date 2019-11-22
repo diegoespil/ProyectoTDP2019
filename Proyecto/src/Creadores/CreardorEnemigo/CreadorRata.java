@@ -9,7 +9,7 @@ public class CreadorRata extends CreadorEntidad{
 	
 	public Enemigo crear(){
 		Enemigo ene = new Rata(0,0,4,5,1,20,5); //(x,y,vel,danio,alc,ptje,monedas)
-		ene.changeState(new Normal(ene));
+		ene.setState(new Normal(ene));
 		return ene;
 	}
 

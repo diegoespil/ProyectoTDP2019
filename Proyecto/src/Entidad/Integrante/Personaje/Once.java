@@ -3,6 +3,7 @@ package Entidad.Integrante.Personaje;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import Entidad.Entidad;
 import Entidad.Disparo.DisparoPersonaje;
 
 public class Once extends Personaje {
@@ -39,8 +40,8 @@ public class Once extends Personaje {
 		return vida;
 	}
 	
-	public void atacar() {
-		miDisparo = new DisparoPersonaje(pos.x,pos.y+1,danio,1);
+	public void atacar(Entidad e) {
+		miDisparo = new DisparoPersonaje(pos.x,pos.y,danio,1);
 	}
 	
 

@@ -2,6 +2,7 @@ package Entidad.Integrante;
 
 import Entidad.Entidad;
 import Entidad.Disparo.Disparo;
+import Entidad.Integrante.State.Ataque;
 import Entidad.Integrante.State.State;
 
 public abstract class Integrante extends Entidad{
@@ -29,15 +30,7 @@ public abstract class Integrante extends Entidad{
 	public int getAlcance() {
 		return alcance;
 	}
-	
-	public State getEstado(){
-		return estado;
-	}
-	
-	public void setEstado(State s){
-		estado = s;
-	}
-	
+
 	public Disparo getDisparo(){
 		return miDisparo;
 	}
@@ -46,10 +39,16 @@ public abstract class Integrante extends Entidad{
 	public void afectar(Entidad e) {}
 	
 	public void atacar(Entidad e) {
+		setState(new Ataque(this));
+		getState().disparar();
 		e.setVida(e.getVida()-danio);
 	}
 	
-	public void changeState(State s) {
+	public State getState() {
+		return estado;
+	}
+	
+	public void setState(State s) {
 		estado = s;
 	}
 	

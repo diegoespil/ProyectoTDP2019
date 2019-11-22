@@ -1,7 +1,9 @@
 
 package Entidad.Integrante.Enemigo;
 
+import Entidad.Entidad;
 import Entidad.Integrante.Integrante;
+import Entidad.Integrante.State.Ataque;
 import Entidad.Objeto.Temporal.ObjetoTemporal;
 import Visitador.Visitor;
 import Visitador.VisitorEnemigo;
@@ -46,7 +48,6 @@ public abstract class Enemigo extends Integrante {
 	public void setPowerUp(ObjetoTemporal pwu) {
 		powerUp = pwu;
 	}
-	
 
 }
 

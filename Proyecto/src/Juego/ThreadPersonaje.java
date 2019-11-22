@@ -15,6 +15,7 @@ public class ThreadPersonaje extends Thread{
 	private Vector<Personaje> personajesAInsertar;
 	private Vector<Personaje> eliminados;
 	private volatile int cont;
+	private boolean suspend;
 
 	public ThreadPersonaje(Juego j) {
 		this.juego = j;
@@ -22,21 +23,26 @@ public class ThreadPersonaje extends Thread{
 		eliminados = new Vector<Personaje>();
 		personajesAInsertar = new Vector<Personaje>();
 		cont = 0;
+		suspend = false;
 	}
 
 	public void run() {
 		while(true) {
+			synchronized(this) {
+				while(suspend)
+					try {
+						wait();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			}
 			Iterator<Personaje> p = personajes.iterator();
 			while(p.hasNext()) {
 				Personaje personaje = p.next();
 				System.out.println("Personaje: "+personaje==null);
-				try {
-					this.sleep(1000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				juego.enRango(personaje,1);
+				
+				//juego.enRango(personaje,1);
 				System.out.println("Luego de ver el rango del personaje");
 				if (personaje.getVida()<=0){
 					eliminados.add(personaje);
@@ -58,6 +64,12 @@ public class ThreadPersonaje extends Thread{
 							juego.actualizarGrilla(e,0);
 							cont = 0;
 						}*/
+				try {
+					this.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 						
 			}
 			for(Personaje p_elim: eliminados)
@@ -71,5 +83,18 @@ public class ThreadPersonaje extends Thread{
 		 
 	public void insertarPersonaje(Personaje p){
 		personajesAInsertar.add(p);
+	}
+	
+	public Vector<Personaje> getPersonajes(){
+		return personajes;
+	}
+	
+	public void suspended() {
+		suspend = true;
+	}
+	
+	synchronized void resumen() {
+		suspend = false;
+		notify();
 	}
 }

@@ -9,7 +9,7 @@ public class CreadorDemogorgon extends CreadorEntidad{
 	
 	public Enemigo crear(){
 		Enemigo ene = new Demogorgon(0,0,2,30,1,150,100); //(x,y,vel,danio,alc,ptje,monedas)
-		ene.changeState(new Normal(ene));
+		ene.setState(new Normal(ene));
 		return ene;
 	}
 

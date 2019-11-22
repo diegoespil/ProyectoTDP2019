@@ -9,7 +9,7 @@ public class CreadorLucas extends CreadorEntidad{
 
 	public Personaje crear(){
 		Personaje pje = new Lucas(0,0,15,2); //(x,y,danio,alcance)	
-		pje.changeState(new Normal(pje));
+		pje.setState(new Normal(pje));
 		return pje;
 	}
 }

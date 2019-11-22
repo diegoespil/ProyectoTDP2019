@@ -9,7 +9,7 @@ public class CreadorHopper extends CreadorEntidad {
 
 	public Personaje crear(){
 		Personaje pje = new Hopper(0,0,25,12); //(x,y,danio,alcance)
-		pje.changeState(new Normal(pje));
+		pje.setState(new Normal(pje));
 		return pje;
 	}
 }

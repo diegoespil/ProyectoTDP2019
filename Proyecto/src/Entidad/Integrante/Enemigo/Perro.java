@@ -7,8 +7,8 @@ public class Perro extends Enemigo{
 
 	public Perro(int x, int y, int velocidad, int danio, int alcance, int puntaje, int monedas) {
 		super(x, y, velocidad, danio, alcance, puntaje,monedas);
-		this.image[0] = new ImageIcon("Imagenes/perro_mover.gif");
-		this.image[1] = new ImageIcon("Imagenes/perro_disparo.gif");
+		this.image[0] = new ImageIcon("Imagenes/perro_normal.gif");
+		this.image[1] = new ImageIcon("Imagenes/perro_ataque.gif");
 		this.image[2] = new ImageIcon("Imagenes/perro_muerto.gif");
 		this.image[3] = new ImageIcon("Imagenes/perro_quemado.gif");
 		JLabel label = new JLabel();

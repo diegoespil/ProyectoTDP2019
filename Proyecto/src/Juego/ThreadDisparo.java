@@ -12,17 +12,28 @@ public class ThreadDisparo extends Thread{
 	private Juego juego;
 	private Vector<Disparo>  disparos;
 	private Vector<Disparo> eliminados;
+	private boolean suspend;
 	//private volatile int cont;
 
 	public ThreadDisparo(Juego j) {
 		this.juego = j;
 		disparos = new Vector<Disparo>();
 		eliminados = new Vector<Disparo>();
+		suspend = false;
 		//cont = 0;
 	}
 
 	public void run() {
 		while(true) {
+			synchronized(this) {
+				while(suspend)
+					try {
+						wait();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			}
 			Vector<Disparo> lista = (Vector<Disparo>) disparos.clone();
 			for (Disparo d : lista){
 				//Disparo d = lista.next();
@@ -71,5 +82,14 @@ public class ThreadDisparo extends Thread{
 	}
 	public void insertarDisparo(Disparo d){
 		disparos.add(d);
+	}
+	
+	public void suspended() {
+		suspend = true;
+	}
+	
+	synchronized void resumen() {
+		suspend = false;
+		notify();
 	}
 }

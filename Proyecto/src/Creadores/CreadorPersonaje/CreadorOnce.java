@@ -9,7 +9,7 @@ public class CreadorOnce extends CreadorEntidad{
 
 	public Personaje crear(){
 		Personaje pje = new Once(0,0,40,2); //(x,y,danio,alcance)
-		pje.changeState(new Normal(pje));
+		pje.setState(new Normal(pje));
 		return pje;
 	}
 }

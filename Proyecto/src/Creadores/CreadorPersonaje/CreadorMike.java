@@ -9,7 +9,7 @@ public class CreadorMike extends CreadorEntidad {
 
 	public Personaje crear(){
 		Personaje pje = new Mike(0,0,20,1); //(x,y,danio,alcance)
-		pje.changeState(new Normal(pje));
+		pje.setState(new Normal(pje));
 		return pje;
 	}
 }

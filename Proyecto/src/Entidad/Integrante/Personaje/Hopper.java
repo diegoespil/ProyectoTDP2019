@@ -1,5 +1,8 @@
 package Entidad.Integrante.Personaje;
 
+import java.awt.Color;
+
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
@@ -21,6 +24,7 @@ public class Hopper extends Personaje {
 		label.setBounds(0, 0, 60, 60);
 		label.setIcon(this.getImage(0));
 		label.setVisible(true);
+		label.setBorder(BorderFactory.createEtchedBorder(Color.WHITE, Color.WHITE));
 		this.setLabel(label);
 	}
 	
@@ -41,7 +45,7 @@ public class Hopper extends Personaje {
 	}
 	
 	public void atacar(Entidad e) {
-		miDisparo = new DisparoPersonaje(pos.x,pos.y+1,danio,1);
+		miDisparo = new DisparoPersonaje(pos.x,pos.y,danio,1);
 	}
 	
 

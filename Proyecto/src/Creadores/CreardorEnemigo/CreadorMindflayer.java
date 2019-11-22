@@ -9,7 +9,7 @@ public class CreadorMindflayer extends CreadorEntidad{
 	
 	public Enemigo crear(){
 		Enemigo ene = new Mindflayer(0,0,1,50,2,300,150); //(x,y,vel,danio,alc,ptje,monedas)
-		ene.changeState(new Normal(ene));
+		ene.setState(new Normal(ene));
 		return ene;
 	}
 

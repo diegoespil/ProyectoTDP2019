@@ -11,6 +11,7 @@ public class ThreadEnemigos extends Thread{
 	private Juego juego;
 	private Vector<Enemigo>  enemigos;
 	private Vector<Enemigo> eliminados;
+	private boolean suspend;
 	//private volatile int cont;
 
 	public ThreadEnemigos(Juego j) {
@@ -18,10 +19,20 @@ public class ThreadEnemigos extends Thread{
 		eliminados = new Vector<Enemigo>();
 		enemigos = new Vector<Enemigo>();
 		//cont = 0;
+		suspend = false;
 	}
 
 	public void run() {
 		while(true){
+			synchronized(this) {
+				while(suspend)
+					try {
+						wait();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+			}
 			Iterator<Enemigo> lista = enemigos.iterator();
 			while(lista.hasNext()){
 				Enemigo enemigo = lista.next();
@@ -51,7 +62,7 @@ public class ThreadEnemigos extends Thread{
 				}	  
 			}
 			try {
-				this.sleep(50);
+				this.sleep(150);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -64,7 +75,17 @@ public class ThreadEnemigos extends Thread{
 	public void insertarEnemigo(Enemigo e){
 		enemigos.add(e);
 	}
+	
 	public Vector<Enemigo> getEnemigos(){
 		return enemigos;
+	}
+	
+	public void suspended() {
+		suspend = true;
+	}
+	
+	synchronized void resumen() {
+		suspend = false;
+		notify();
 	}
 }

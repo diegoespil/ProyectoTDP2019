@@ -9,7 +9,7 @@ public class CreadorPoseido extends CreadorEntidad{
 	
 	public Enemigo crear(){
 		Enemigo ene = new Poseido(0,0,2,15,1,50,15); //(x,y,vel,danio,alc,ptje,monedas)
-		ene.changeState(new Normal(ene));
+		ene.setState(new Normal(ene));
 		return ene;
 	}
 
