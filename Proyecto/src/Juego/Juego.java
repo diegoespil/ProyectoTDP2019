@@ -104,7 +104,9 @@ public class Juego extends Thread{
 		}
 	}
 
-	public void actualizarGrilla(Entidad e,int dir){
+	public synchronized void actualizarGrilla(Entidad e,int dir){
+		System.out.println("Actualizar grilla");
+		System.out.println("Entidad "+e+" pos "+e.getPos());
 		Point pos = e.getPos();
 		int oldX = pos.x;
 		int oldY = pos.y;
@@ -126,12 +128,28 @@ public class Juego extends Thread{
 		else e.setPosicion(newX, newY);
 		
 	}
+	
+	public void run() {
+		while (true) {
+			
+		}
+	}
 
 	public Entidad getSiguiente(Entidad e, int dir){
 		Point pos = e.getPos();
 		Entidad siguiente = null;
-		if(pos.y > 0 && pos.y<=12)
+		System.out.println("Get posicion(): soy "+e);
+		System.out.println("Posicion siguiente a x: "+pos.x+" y: "+pos.y+" en direccion: "+dir);
+		System.out.println("Grilla en posicion "+grilla[pos.x][pos.y]);
+		System.out.println("Grilla en posicion siguiente"+grilla[pos.x][pos.y+dir]);
+		if(pos.y > 0 && pos.y<=12) {
+			System.out.println("Pos y entre 0 y 12");
+			System.out.println("Antes de setear siguiente: "+siguiente);
 			siguiente = grilla[pos.x][pos.y+dir];
+			System.out.println("despues de setear siguiente: "+grilla[pos.x][pos.y+dir]);
+			System.out.println("Despues de setear siguiente: "+siguiente);
+		}
+		System.out.println("Posicion siguiente tiene "+siguiente);
 		return siguiente;
 	}
 	public void mover(Entidad e, int dir){
@@ -144,7 +162,8 @@ public class Juego extends Thread{
 		}
 	}
 	
-	public boolean canMove(Entidad e,int dir ) {
+	 public boolean canMove(Entidad e,int dir ) { 
+		 System.out.println("Can move");
 		Point pos = e.getPos();
 		if(pos.y > 0 && pos.y<=12){
 			Entidad siguiente = grilla[pos.x][pos.y+dir];
@@ -163,7 +182,7 @@ public class Juego extends Thread{
 		else return false; //en este caso el jugador PERDIO
 	}
 	
-	public boolean enRango(Integrante i,int dir) {
+	public synchronized boolean enRango(Integrante i,int dir) {
     	Point pos = i.getPos();
 		int j = i.getAlcance();
 		
@@ -180,11 +199,11 @@ public class Juego extends Thread{
 				if(disparo != null){
 					i.setState(new Ataque(i));
 					i.getState().disparar();
+					gui.insertarDisparo(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60,dir);
 					threadDisparo.insertarDisparo(disparo);
-					
+					System.out.println("Personaje "+i+"posicion x "+pos.x+"y "+pos.y);
 					System.out.println("disparo insertado");
 					
-					gui.insertarDisparo(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
 				}
 				return true;
 			}
@@ -295,6 +314,7 @@ public class Juego extends Thread{
 			gui.insertar(nueva.getLabel(), x*60, y*60);
 			personajes.add((Integrante)nueva);
 			this.threadPersonaje.insertarPersonaje((Personaje) nueva);
+			System.out.println("Inserte personaje en x y "+x+" "+y);
 		}
 	}
 	
@@ -311,6 +331,12 @@ public class Juego extends Thread{
 		grilla[x][y] = null;
 		gui.quitarLabel(e.getLabel());
 	}
+	
+	public void eliminarDisparo(Entidad e){
+		e.setVida(0);
+		gui.quitarLabel(e.getLabel());
+	}
+	
 	public void eliminarEnemigo(Enemigo e){
 		puntaje += e.getPuntaje();
 		e.setVida(0);
@@ -326,16 +352,17 @@ public class Juego extends Thread{
 	
 	
 	public void detenerJuego() {
+			threadDisparo.suspended();
 			threadPersonaje.suspended();
 			threadEnemigos.suspended();
-			threadRango.suspended();
-			threadDisparo.suspended();
+			threadRango.suspended();			
 	}
 	
 	public void reanudarJuego() {
+
+		threadDisparo.resumen();
 		threadPersonaje.resumen();
 		threadEnemigos.resumen();
 		threadRango.resumen();
-		threadDisparo.resumen();
 	}
 }

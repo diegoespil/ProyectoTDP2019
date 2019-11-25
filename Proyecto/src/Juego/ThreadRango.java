@@ -26,6 +26,7 @@ public class ThreadRango extends Thread{
 	
 	public void run() {
 		while(true){
+			System.out.println("while true ThreadRango");
 			synchronized(this) {
 				while(suspend)
 					try {
@@ -44,7 +45,7 @@ public class ThreadRango extends Thread{
 				juego.enRango(e1,1);
 			}
 			try {
-				this.sleep(1000);
+				this.sleep(800);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

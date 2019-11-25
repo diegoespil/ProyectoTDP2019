@@ -56,7 +56,7 @@ public class ThreadDisparo extends Thread{
 				}
 				else{ 
 					eliminados.add(d);
-					juego.eliminar(d);
+					juego.eliminarDisparo(d);
 				}
 			}
 			try {
