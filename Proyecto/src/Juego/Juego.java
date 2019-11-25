@@ -108,7 +108,7 @@ public class Juego extends Thread{
 		Point pos = e.getPos();
 		int oldX = pos.x;
 		int oldY = pos.y;
-		System.out.println("pos "+pos.x+" "+pos.y);
+		//System.out.println("pos "+pos.x+" "+pos.y);
 		if(pos.y > 0 && pos.y<=12){
 			int newX = pos.x;
 			int newY = pos.y+dir;
@@ -139,12 +139,9 @@ public class Juego extends Thread{
 	}
 	public void aceptarVisitor(Entidad aceptador, Entidad visitante){
 		aceptador.accept(visitante.getVisitor());
-		if(aceptador.getVida()<=0){ //esta parte deber�a sacarse y hacerse en otro lado
-			eliminar(aceptador); System.out.println("muri� algo");
-		}
 	}
 	
-	public boolean canMove(Entidad e,int dir ) {
+	public boolean canMove(Entidad e,int dir ) { //en desuso
 		Point pos = e.getPos();
 		if(pos.y > 0 && pos.y<=12){
 			Entidad siguiente = grilla[pos.x][pos.y+dir];
@@ -167,24 +164,24 @@ public class Juego extends Thread{
     	Point pos = i.getPos();
 		int j = i.getAlcance();
 		
-		System.out.println("Soy: "+i.toString());
+		//System.out.println("Soy: "+i.toString());
 		for(int k= 1;k<=j && pos.y+(k*dir)>0 && pos.y+(k*dir)<=12;k++) {
-			System.out.println("En rango: pos y "+(pos.y+(k*dir)));
+			//System.out.println("En rango: pos y "+(pos.y+(k*dir)));
 			Entidad siguiente = grilla[pos.x][pos.y+(k*dir)];
 			if(siguiente != null) {
 				aceptarVisitor(siguiente,i);
-				System.out.println("revis�o rango");
+				//System.out.println("revis�o rango");
 				Disparo disparo = i.getDisparo();
-				if(disparo != null) System.out.println("tengo disparo");
-				else System.out.println("disparo es nulo");
+				//if(disparo != null) System.out.println("tengo disparo");
+				//else System.out.println("disparo es nulo");
 				if(disparo != null){
 					i.setState(new Ataque(i));
 					i.getState().disparar();
 					threadDisparo.insertarDisparo(disparo);
 					
-					System.out.println("disparo insertado");
+					//System.out.println("disparo insertado");
 					
-					gui.insertarDisparo(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
+					gui.insertar(disparo.getLabel(),disparo.getPos().x*60+30,disparo.getPos().y*60+30);
 				}
 				return true;
 			}
@@ -222,7 +219,7 @@ public class Juego extends Thread{
 		if (ent!=null){
 			System.out.println(ent);
 		}
-		else System.out.println("hay nulo");
+		//else System.out.println("hay nulo");
 		return grilla[x][y] != null;
 		
 	}

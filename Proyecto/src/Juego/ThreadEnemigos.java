@@ -44,11 +44,17 @@ public class ThreadEnemigos extends Thread{
 					int cont = enemigo.getContPasos();
 					//juego.enRango(enemigo,-1);
 					Entidad sig = juego.getSiguiente(enemigo,-1);
+					if(sig != null){ //solo para debuguear
+						System.out.println("Para "+enemigo.toString()+": sig es "+sig.toString());
+					}
+					else System.out.println("Para "+enemigo.toString()+": sig es nulo");
 					if(cont<60) {
 						//Entidad sig = juego.getSiguiente(enemigo,-1);
 						if (sig == null){
-							juego.mover(enemigo, -1);
-							enemigo.setContPasos(cont+1);
+							for(int i=0; i<enemigo.getVelocidad(); i++){
+								juego.mover(enemigo, -1);
+							}
+							enemigo.setContPasos(cont+enemigo.getVelocidad());
 						}
 					}
 					else {
@@ -62,7 +68,7 @@ public class ThreadEnemigos extends Thread{
 				}	  
 			}
 			try {
-				this.sleep(150);
+				this.sleep(300);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

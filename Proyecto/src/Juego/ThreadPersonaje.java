@@ -40,10 +40,10 @@ public class ThreadPersonaje extends Thread{
 			Iterator<Personaje> p = personajes.iterator();
 			while(p.hasNext()) {
 				Personaje personaje = p.next();
-				System.out.println("Personaje: "+personaje==null);
+				//System.out.println("Personaje: "+personaje==null);
 				
 				//juego.enRango(personaje,1);
-				System.out.println("Luego de ver el rango del personaje");
+				//System.out.println("Luego de ver el rango del personaje");
 				if (personaje.getVida()<=0){
 					eliminados.add(personaje);
 					juego.eliminar(personaje);

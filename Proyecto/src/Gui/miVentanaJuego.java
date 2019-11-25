@@ -165,9 +165,5 @@ public class miVentanaJuego extends JFrame{
 		panel.add(label);
 		panel.repaint();
 	}
-	public void insertarDisparo(JLabel label, int x, int y){
-		label.setBounds(y, x+30, label.getWidth(), label.getHeight());
-		panel.add(label);
-		panel.repaint();
-	}
+
 }
