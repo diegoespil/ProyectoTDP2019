@@ -24,6 +24,7 @@ public class ThreadEnemigos extends Thread{
 
 	public void run() {
 		while(true){
+			
 			synchronized(this) {
 				while(suspend)
 					try {
@@ -35,7 +36,10 @@ public class ThreadEnemigos extends Thread{
 			}
 			Iterator<Enemigo> lista = enemigos.iterator();
 			while(lista.hasNext()){
+				System.out.println("Estoy en ThreadEnemigos");
 				Enemigo enemigo = lista.next();
+				System.out.println("Vida de "+enemigo+": "+enemigo.getVida());
+				System.out.println("Posicion de "+enemigo+": "+enemigo.getPos());
 				if ((enemigo.getVida()<=0)){
 					juego.eliminarEnemigo(enemigo);	
 					eliminados.add(enemigo);
@@ -61,6 +65,7 @@ public class ThreadEnemigos extends Thread{
 						
 						if (sig == null){
 							juego.actualizarGrilla(enemigo,-1);
+							System.out.println("Avanza enemigo ");
 						}
 						//juego.enRango(enemigo,-1);
 						enemigo.setContPasos(0);
