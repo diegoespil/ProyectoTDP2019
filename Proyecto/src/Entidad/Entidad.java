@@ -73,6 +73,5 @@ public abstract class Entidad {
 		return miVisitor;
 	}
 	
-	
 }
 

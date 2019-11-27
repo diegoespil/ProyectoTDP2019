@@ -41,6 +41,7 @@ public class ThreadEnemigos extends Thread{
 				System.out.println("Vida de "+enemigo+": "+enemigo.getVida());
 				System.out.println("Posicion de "+enemigo+": "+enemigo.getPos());
 				if ((enemigo.getVida()<=0)){
+					juego.guardarPowerup(enemigo.getPowerUp(),enemigo.getPos());
 					juego.eliminarEnemigo(enemigo);	
 					eliminados.add(enemigo);
 				}

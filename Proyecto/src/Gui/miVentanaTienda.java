@@ -90,6 +90,7 @@ public class miVentanaTienda extends JFrame {
 		jbDustin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				shop.crear(new CreadorDustin(),Dustin.getPrecio());
+				shop.setEsPersonaje(true);
 				setVisible(false);
 			}
 		});
@@ -101,6 +102,7 @@ public class miVentanaTienda extends JFrame {
 		jbLucas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				shop.crear(new CreadorLucas(),Lucas.getPrecio());
+				shop.setEsPersonaje(true);
 				setVisible(false);
 			}
 		});
@@ -112,6 +114,7 @@ public class miVentanaTienda extends JFrame {
 		jbMike.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				shop.crear(new CreadorMike(),Mike.getPrecio());
+				shop.setEsPersonaje(true);
 				setVisible(false);
 			}
 		});
@@ -123,6 +126,7 @@ public class miVentanaTienda extends JFrame {
 		jbHopper.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				shop.crear(new CreadorHopper(),Hopper.getPrecio());
+				shop.setEsPersonaje(true);
 				setVisible(false);
 			}
 		});
@@ -133,6 +137,7 @@ public class miVentanaTienda extends JFrame {
 		jbOnce.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				shop.crear(new CreadorOnce(),Once.getPrecio());
+				shop.setEsPersonaje(true);
 				setVisible(false);
 			}
 		});
@@ -144,6 +149,7 @@ public class miVentanaTienda extends JFrame {
 		JbBarricada1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				shop.crear(new CreadorBarricadaSimple(),BarricadaSimple.getPrecio());
+				shop.setEsPersonaje(false);
 				setVisible(false);
 			}
 		});
@@ -155,6 +161,7 @@ public class miVentanaTienda extends JFrame {
 		jbGasVenenoso.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				shop.crear(new CreadorGas(),GasVenenoso.getPrecio());
+				shop.setEsPersonaje(false);
 				setVisible(false);
 			}
 		});
@@ -166,6 +173,7 @@ public class miVentanaTienda extends JFrame {
 		jbBarricada2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				shop.crear(new CreadorBarricadaDoble(),BarricadaDoble.getPrecio());
+				shop.setEsPersonaje(false);
 				setVisible(false);
 			}
 		});
@@ -177,6 +185,7 @@ public class miVentanaTienda extends JFrame {
 		jbPortal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				shop.crear(new CreadorPortal(),Portal.getPrecio());
+				shop.setEsPersonaje(false);
 				setVisible(false);
 			}
 		});

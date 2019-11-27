@@ -9,6 +9,7 @@ import java.util.Vector;
 import javax.swing.JLabel;
 import Creadores.CreadorConVida.CreadorAuto;
 import Creadores.CreadorEntidad.CreadorEntidad;
+import Creadores.CreadorTemporal.CreadorAttaqueX2;
 import Creadores.CreardorEnemigo.CreadorPoseido;
 import Creadores.CreardorEnemigo.CreadorRuso;
 import Entidad.Entidad;
@@ -21,6 +22,8 @@ import Entidad.Integrante.Personaje.Personaje;
 import Entidad.Integrante.State.Ataque;
 import Entidad.Integrante.State.Normal;
 import Entidad.Objeto.ConVida.Auto;
+import Entidad.Objeto.Temporal.AttaqueX2;
+import Entidad.Objeto.Temporal.ObjetoTemporal;
 import Gui.miVentanaJuego;
 import Juego.Nivel.Nivel;
 import Juego.Nivel.Nivel1;
@@ -44,6 +47,8 @@ public class Juego extends Thread{
 	private ThreadPersonaje threadPersonaje;
 	private Vector<Integrante> personajes;
 	private boolean fin;
+	private AttaqueX2 power;
+	private ObjetoTemporal powerupguardado;
 
 	public Juego(miVentanaJuego gui) {
 		this.fin = false;
@@ -55,8 +60,9 @@ public class Juego extends Thread{
 		grilla = new Entidad[8][14];
 		threadEnemigos = new ThreadEnemigos(this);
 		threadPersonaje = new ThreadPersonaje(this);
-		threadRango = new ThreadRango(this, threadEnemigos,threadPersonaje); //nuevo
+		threadRango = new ThreadRango(this, threadEnemigos,threadPersonaje);
 		cargarEnemigos(nivel.getOleada(4));
+		//cargarEnemigos();
 		//cargarObjetos();
 		personajes = new Vector<Integrante>();
 		try {
@@ -102,11 +108,41 @@ public class Juego extends Thread{
 		int cont = 0;
 		Vector<Enemigo> enemigos = oleada.getEnemigos();
 		System.out.println("Cantidad de enemigos en oleada: "+enemigos.size());
+	
+		powerupguardado = null;
+		
+		CreadorAttaqueX2 creador = new CreadorAttaqueX2();
+		power = (AttaqueX2) creador.crear() ;
+		insertarEnemigo2(power);
+	}
+	
+	public void guardarPowerup(ObjetoTemporal o, Point p) {
+		System.out.println("---------------------------------------------------");
+		System.out.println(o.toString());
+		powerupguardado = o;
+		powerupguardado.setPosicion(p.x,p.y);
+		gui.insertar(powerupguardado.getLabel(), p.x*60, p.y*60);
+		
+	}
+	
+	public void asignarPowerup(int x, int y) {
+		Entidad e = grilla[y][x];
+		aceptarVisitor(e,powerupguardado);
+		if(powerupguardado.getAsignado()) {
+			((Integrante)e).asignarPowerup(powerupguardado);
+			powerupguardado = null;	
+		}
+	}
+	
+	public void cargarEnemigos() {
+		int cont = 2;
+		Vector<Enemigo> enemigos = nivel.getOleada1();
 		for(Enemigo e : enemigos) {
 			e.setPosicion(cont*2, 12);
 			insertar(e);
 			threadEnemigos.insertarEnemigo(e);
 			cont++;
+			
 		}
 	}
 
@@ -177,8 +213,9 @@ public class Juego extends Thread{
 	}
 	public void aceptarVisitor(Entidad aceptador, Entidad visitante){
 		aceptador.accept(visitante.getVisitor());
+		if(aceptador.getVida()<=0)
+			eliminar(aceptador);
 	}
-	
 	
 	public synchronized boolean enRango(Integrante i,int dir) {
     	Point pos = i.getPos();
@@ -190,6 +227,7 @@ public class Juego extends Thread{
 			Entidad siguiente = grilla[pos.x][pos.y+(k*dir)];
 			if(siguiente != null) {
 				aceptarVisitor(siguiente,i);
+				System.out.println("la vida del siguiente es: "+siguiente.getVida());
 				//System.out.println("revis�o rango");
 				Disparo disparo = i.getDisparo();
 				//if(disparo != null) System.out.println("tengo disparo");
@@ -293,16 +331,19 @@ public class Juego extends Thread{
 		gui.insertar(e.getLabel(),x*60,y*60);
 	}
 	
-	public void insertarEnemigo2(){
+	public void insertarEnemigo2(ObjetoTemporal pw){
 		CreadorPoseido cp = new CreadorPoseido();
+		
 		//CreadorRuso cp = new CreadorRuso();
 		Enemigo e = cp.crear();
-		e.setPosicion(4, 12);
+		e.setPosicion(1, 12);
+		e.asignarPowerup(pw);
+		threadEnemigos.insertarEnemigo(e);
 		insertar(e);
-		this.enemigo = e;
+		//this.enemigo = e;
 	}
 	
-	public void insertarPersonaje(int x,int y) {
+	public void comprarPersonaje(int x,int y) {
 		Entidad nueva = shop.getProximo();
 		if(nueva != null ) {
 			monedas = monedas - shop.finalizarCompra();
@@ -315,6 +356,22 @@ public class Juego extends Thread{
 			this.threadPersonaje.insertarPersonaje((Personaje) nueva);
 			System.out.println("Inserte personaje en x y "+x+" "+y);
 		}
+	}
+	
+	public void comprarObjeto(int x,int y) {
+		Entidad nueva = shop.getProximo();
+		if(nueva != null ) {
+			monedas = monedas - shop.finalizarCompra();
+			shop.quitarProximo();
+			gui.updateContadores(puntaje, monedas);
+			grilla[x][y] = nueva;
+			nueva.setPosicion(x, y);
+			gui.insertar(nueva.getLabel(), x*60, y*60);
+		}
+	}
+	
+	public boolean esPersonaje() {
+		return shop.getEsPersonaje();
 	}
 	
 	public void insertarDisparo(Disparo d){

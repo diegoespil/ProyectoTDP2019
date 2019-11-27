@@ -10,10 +10,13 @@ public class Tienda {
 	protected Juego juego;
 	protected Entidad proxACrear;
 	protected int aCobrar ;
+	protected boolean esPersonaje;
 	
 	public Tienda(Juego j) {
 		juego = j;
 		aCobrar = 0;
+		esPersonaje = false;
+
 	}
 	
 	public void crear(CreadorEntidad creador, int precio){
@@ -42,6 +45,14 @@ public class Tienda {
 			return true;
 		else
 			return false;
+	}
+	
+	public boolean getEsPersonaje() {
+		return esPersonaje;
+	}
+	
+	public void setEsPersonaje(boolean es) {
+		esPersonaje = es;
 	}
 
 }

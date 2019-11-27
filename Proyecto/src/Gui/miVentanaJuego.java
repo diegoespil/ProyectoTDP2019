@@ -114,25 +114,36 @@ public class miVentanaJuego extends JFrame{
 		panel.addMouseListener(new MouseListener() {
 			
 		public void mouseClicked(MouseEvent e) {
-			
+			int x,y;
 			if(e.getClickCount()== 1){
 				if(e.getButton()==MouseEvent.BUTTON1){
-					int x,y;
 					x = (e.getX()/60);
 					y = (e.getY()/60);
 					System.out.println("posicion de insercion (x,y):"+x+";"+y+" posicion pixeles "+e.getX()+";"+e.getY());
 					if(!juego.hayEntidad(y, x)) {
-						juego.insertarPersonaje(y, x);
+						if(juego.esPersonaje())
+							juego.comprarPersonaje(y, x);
+						else
+							juego.comprarObjeto(y,x);
 						juego.reanudarJuego();
 					}
 					else
 						System.out.println("En esa posicion hay");  
 				}
-				if(e.getButton()==MouseEvent.BUTTON2){			
-					System.out.println("click centro");
+				if(e.getButton()==MouseEvent.BUTTON2){	
+					x = e.getX();
+					y = e.getY();
+					if(((panel.getComponentAt(x, y) != null) && (juego.hayEntidad(y/60, x/60) == false)) ) {
+						panel.remove(panel.getComponentAt(x, y));
+						panel.repaint();
+					}
 				}
 				if(e.getButton()==MouseEvent.BUTTON3){			
-					System.out.println("click derecho");
+					x = (e.getX()/60);
+					y = (e.getY()/60);
+					if(juego.hayEntidad(y, x)) {
+						juego.asignarPowerup(x, y);
+					}
 				}
 			}
 				
