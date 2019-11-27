@@ -9,6 +9,7 @@ import java.util.Vector;
 import javax.swing.JLabel;
 import Creadores.CreadorConVida.CreadorAuto;
 import Creadores.CreadorEntidad.CreadorEntidad;
+import Creadores.CreadorTemporal.CreadorAttaqueX2;
 import Creadores.CreardorEnemigo.CreadorPoseido;
 import Creadores.CreardorEnemigo.CreadorRuso;
 import Entidad.Entidad;
@@ -21,6 +22,8 @@ import Entidad.Integrante.Personaje.Personaje;
 import Entidad.Integrante.State.Ataque;
 import Entidad.Integrante.State.Normal;
 import Entidad.Objeto.ConVida.Auto;
+import Entidad.Objeto.Temporal.AttaqueX2;
+import Entidad.Objeto.Temporal.ObjetoTemporal;
 import Gui.miVentanaJuego;
 import Juego.Nivel.Nivel;
 import Juego.Nivel.Nivel1;
@@ -42,6 +45,8 @@ public class Juego extends Thread{
 	private ThreadDisparo threadDisparo;
 	private ThreadPersonaje threadPersonaje;
 	private Vector<Integrante> personajes;
+	private AttaqueX2 power;
+	private ObjetoTemporal powerupguardado;
 
 	public Juego(miVentanaJuego gui) {
 		this.nivel = new Nivel1(this);
@@ -53,7 +58,7 @@ public class Juego extends Thread{
 		threadEnemigos = new ThreadEnemigos(this);
 		threadPersonaje = new ThreadPersonaje(this);
 		threadRango = new ThreadRango(this, threadEnemigos,threadPersonaje); //nuevo
-		cargarEnemigos();
+		//cargarEnemigos();
 		//cargarObjetos();
 		personajes = new Vector<Integrante>();
 		try {
@@ -90,7 +95,30 @@ public class Juego extends Thread{
 		threadEnemigos.start();
 		threadRango.start();
 		threadPersonaje.start();
+	
+		powerupguardado = null;
 		
+		CreadorAttaqueX2 creador = new CreadorAttaqueX2();
+		power = (AttaqueX2) creador.crear() ;
+		insertarEnemigo2(power);
+	}
+	
+	public void guardarPowerup(ObjetoTemporal o, Point p) {
+		System.out.println("---------------------------------------------------");
+		System.out.println(o.toString());
+		powerupguardado = o;
+		powerupguardado.setPosicion(p.x,p.y);
+		gui.insertar(powerupguardado.getLabel(), p.x*60, p.y*60);
+		
+	}
+	
+	public void asignarPowerup(int x, int y) {
+		Entidad e = grilla[y][x];
+		aceptarVisitor(e,powerupguardado);
+		if(powerupguardado.getAsignado()) {
+			((Integrante)e).asignarPowerup(powerupguardado);
+			powerupguardado = null;	
+		}
 	}
 	
 	public void cargarEnemigos() {
@@ -101,14 +129,17 @@ public class Juego extends Thread{
 			insertar(e);
 			threadEnemigos.insertarEnemigo(e);
 			cont++;
+			
 		}
 	}
 
-	public void actualizarGrilla(Entidad e,int dir){
+	public synchronized void actualizarGrilla(Entidad e,int dir){
+		System.out.println("Actualizar grilla");
+		System.out.println("Entidad "+e+" pos "+e.getPos());
 		Point pos = e.getPos();
 		int oldX = pos.x;
 		int oldY = pos.y;
-		System.out.println("pos "+pos.x+" "+pos.y);
+		//System.out.println("pos "+pos.x+" "+pos.y);
 		if(pos.y > 0 && pos.y<=12){
 			int newX = pos.x;
 			int newY = pos.y+dir;
@@ -126,65 +157,63 @@ public class Juego extends Thread{
 		else e.setPosicion(newX, newY);
 		
 	}
+	
+	public void run() {
+		while (true) {
+			
+		}
+	}
 
 	public Entidad getSiguiente(Entidad e, int dir){
 		Point pos = e.getPos();
 		Entidad siguiente = null;
-		if(pos.y > 0 && pos.y<=12)
+		System.out.println("Get posicion(): soy "+e);
+		System.out.println("Posicion siguiente a x: "+pos.x+" y: "+pos.y+" en direccion: "+dir);
+		System.out.println("Grilla en posicion "+grilla[pos.x][pos.y]);
+		//System.out.println("Grilla en posicion siguiente"+grilla[pos.x][pos.y+dir]);
+		if(pos.y > 0 && pos.y<=12) {
+			System.out.println("Pos y entre 0 y 12");
+			System.out.println("Antes de setear siguiente: "+siguiente);
 			siguiente = grilla[pos.x][pos.y+dir];
+			System.out.println("despues de setear siguiente: "+grilla[pos.x][pos.y+dir]);
+			System.out.println("Despues de setear siguiente: "+siguiente);
+		}
+		System.out.println("Posicion siguiente tiene "+siguiente);
 		return siguiente;
 	}
 	public void mover(Entidad e, int dir){
-		if (e != null) gui.update(e.getLabel(),+dir);
+		if (e != null) gui.updateLabel(e.getLabel(),+dir);
 	}
 	public void aceptarVisitor(Entidad aceptador, Entidad visitante){
 		aceptador.accept(visitante.getVisitor());
-		if(aceptador.getVida()<=0){ //esta parte deber�a sacarse y hacerse en otro lado
-			eliminar(aceptador); System.out.println("muri� algo");
-		}
+		if(aceptador.getVida()<=0)
+			eliminar(aceptador);
 	}
 	
-	public boolean canMove(Entidad e,int dir ) {
-		Point pos = e.getPos();
-		if(pos.y > 0 && pos.y<=12){
-			Entidad siguiente = grilla[pos.x][pos.y+dir];
-			if (siguiente == null){
-				gui.update(e.getLabel(),+dir);
-				return true;
-			}
-			else {
-				siguiente.accept(e.getVisitor());
-				if(siguiente.getVida()<=0){
-					eliminar(siguiente);
-				}
-				return false;
-			}
-		}
-		else return false; //en este caso el jugador PERDIO
-	}
 	
-	public boolean enRango(Integrante i,int dir) {
+	public synchronized boolean enRango(Integrante i,int dir) {
     	Point pos = i.getPos();
 		int j = i.getAlcance();
 		
-		System.out.println("Soy: "+i.toString());
+		//System.out.println("Soy: "+i.toString());
 		for(int k= 1;k<=j && pos.y+(k*dir)>0 && pos.y+(k*dir)<=12;k++) {
-			System.out.println("En rango: pos y "+(pos.y+(k*dir)));
+			//System.out.println("En rango: pos y "+(pos.y+(k*dir)));
 			Entidad siguiente = grilla[pos.x][pos.y+(k*dir)];
 			if(siguiente != null) {
 				aceptarVisitor(siguiente,i);
-				System.out.println("revis�o rango");
+				System.out.println("la vida del siguiente es: "+siguiente.getVida());
+				//System.out.println("revis�o rango");
 				Disparo disparo = i.getDisparo();
-				if(disparo != null) System.out.println("tengo disparo");
-				else System.out.println("disparo es nulo");
+				//if(disparo != null) System.out.println("tengo disparo");
+				//else System.out.println("disparo es nulo");
 				if(disparo != null){
 					i.setState(new Ataque(i));
 					i.getState().disparar();
-					threadDisparo.insertarDisparo(disparo);
-					
-					System.out.println("disparo insertado");
-					
-					gui.insertarDisparo(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
+					gui.insertar(disparo.getLabel(),disparo.getPos().x*60+30,disparo.getPos().y*60+30);
+					threadDisparo.insertarDisparo(disparo);					
+					//System.out.println("disparo insertado
+					//System.out.println("Personaje "+i+"posicion x "+pos.x+"y "+pos.y);
+					//System.out.println("disparo insertado");
 				}
 				return true;
 			}
@@ -222,7 +251,7 @@ public class Juego extends Thread{
 		if (ent!=null){
 			System.out.println(ent);
 		}
-		else System.out.println("hay nulo");
+		//else System.out.println("hay nulo");
 		return grilla[x][y] != null;
 		
 	}
@@ -276,26 +305,47 @@ public class Juego extends Thread{
 		gui.insertar(e.getLabel(),x*60,y*60);
 	}
 	
-	public void insertarEnemigo2(){
+	public void insertarEnemigo2(ObjetoTemporal pw){
 		CreadorPoseido cp = new CreadorPoseido();
+		
 		//CreadorRuso cp = new CreadorRuso();
 		Enemigo e = cp.crear();
-		e.setPosicion(4, 12);
+		e.setPosicion(1, 12);
+		e.asignarPowerup(pw);
+		threadEnemigos.insertarEnemigo(e);
 		insertar(e);
-		this.enemigo = e;
+		//this.enemigo = e;
 	}
 	
-	public void insertarPersonaje(int x,int y) {
+	public void comprarPersonaje(int x,int y) {
 		Entidad nueva = shop.getProximo();
 		if(nueva != null ) {
 			monedas = monedas - shop.finalizarCompra();
 			shop.quitarProximo();
+			gui.updateContadores(puntaje, monedas);
 			grilla[x][y] = nueva;
 			nueva.setPosicion(x, y);
 			gui.insertar(nueva.getLabel(), x*60, y*60);
 			personajes.add((Integrante)nueva);
 			this.threadPersonaje.insertarPersonaje((Personaje) nueva);
+			System.out.println("Inserte personaje en x y "+x+" "+y);
 		}
+	}
+	
+	public void comprarObjeto(int x,int y) {
+		Entidad nueva = shop.getProximo();
+		if(nueva != null ) {
+			monedas = monedas - shop.finalizarCompra();
+			shop.quitarProximo();
+			gui.updateContadores(puntaje, monedas);
+			grilla[x][y] = nueva;
+			nueva.setPosicion(x, y);
+			gui.insertar(nueva.getLabel(), x*60, y*60);
+		}
+	}
+	
+	public boolean esPersonaje() {
+		return shop.getEsPersonaje();
 	}
 	
 	public void insertarDisparo(Disparo d){
@@ -311,13 +361,21 @@ public class Juego extends Thread{
 		grilla[x][y] = null;
 		gui.quitarLabel(e.getLabel());
 	}
+	
+	public void eliminarDisparo(Entidad e){
+		e.setVida(0);
+		gui.quitarLabel(e.getLabel());
+	}
+	
 	public void eliminarEnemigo(Enemigo e){
 		puntaje += e.getPuntaje();
+		monedas += e.getMonedas();
 		e.setVida(0);
 		int x =(int) e.getPos().getX();
 		int y =(int) e.getPos().getY();
 		grilla[x][y] = null;
 		gui.quitarLabel(e.getLabel());
+		gui.updateContadores(puntaje, monedas);
 	}
 	
 	public Vector<Integrante> getPersonajes(){
@@ -326,16 +384,17 @@ public class Juego extends Thread{
 	
 	
 	public void detenerJuego() {
+			threadDisparo.suspended();
 			threadPersonaje.suspended();
 			threadEnemigos.suspended();
-			threadRango.suspended();
-			threadDisparo.suspended();
+			threadRango.suspended();			
 	}
 	
 	public void reanudarJuego() {
+
+		threadDisparo.resumen();
 		threadPersonaje.resumen();
 		threadEnemigos.resumen();
 		threadRango.resumen();
-		threadDisparo.resumen();
 	}
 }

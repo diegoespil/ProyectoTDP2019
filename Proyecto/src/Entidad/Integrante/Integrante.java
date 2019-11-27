@@ -4,12 +4,14 @@ import Entidad.Entidad;
 import Entidad.Disparo.Disparo;
 import Entidad.Integrante.State.Ataque;
 import Entidad.Integrante.State.State;
+import Entidad.Objeto.Temporal.ObjetoTemporal;
 
 public abstract class Integrante extends Entidad{
 
 	protected int danio, alcance;
 	protected State estado;
 	protected Disparo miDisparo;
+	protected ObjetoTemporal powerup;
 	
 	public Integrante(int x, int y, int d, int a, int vida) {
 		super(x,y,vida);
@@ -17,6 +19,7 @@ public abstract class Integrante extends Entidad{
 		alcance=a;
 		estado=null;
 		miDisparo = null;
+		powerup = null;
 	}
 	
 	public int getDanio() {
@@ -51,5 +54,11 @@ public abstract class Integrante extends Entidad{
 	public void setState(State s) {
 		estado = s;
 	}
+	
+	public void asignarPowerup(ObjetoTemporal p) {
+		powerup = p;
+		powerup.activar(this);
+	}
+	
 	
 }

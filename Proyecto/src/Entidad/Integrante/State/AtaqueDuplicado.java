@@ -12,7 +12,7 @@ public class AtaqueDuplicado extends PowerUp{
 	public void activarPowerup(ObjetoTemporal pwu) {
 		int danioAnterior = integrante.getDanio();
 		integrante.setDanio(danioAnterior*2);
-		integrante.cambiarEstado(4);
+		integrante.cambiarEstado(3);
 		 try {
 	            Thread.sleep(5*1000);
 	         } catch (Exception e) {
@@ -20,7 +20,7 @@ public class AtaqueDuplicado extends PowerUp{
 	         }
 		integrante.setDanio(danioAnterior);
 		integrante.cambiarEstado(0);
-		integrante.changeState(null);
+		integrante.setState(new Normal(integrante));
 		
 	}
 	

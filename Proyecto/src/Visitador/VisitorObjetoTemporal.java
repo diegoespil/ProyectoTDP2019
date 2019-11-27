@@ -5,6 +5,7 @@ import Entidad.Disparo.Disparo;
 import Entidad.Integrante.Enemigo.Enemigo;
 import Entidad.Integrante.Personaje.Personaje;
 import Entidad.Objeto.Objeto;
+import Entidad.Objeto.Temporal.*;
 
 public class VisitorObjetoTemporal extends Visitor {
 
@@ -13,7 +14,9 @@ public class VisitorObjetoTemporal extends Visitor {
 		// TODO Auto-generated constructor stub
 	}
 
-	public void visitPersonaje(Personaje a) { }
+	public void visitPersonaje(Personaje a) { 
+		((ObjetoTemporal)miEntidad).setAsignado(true);
+	}
 
 	public void visitEnemigo(Enemigo e) {
 		this.miEntidad.afectar(e);
