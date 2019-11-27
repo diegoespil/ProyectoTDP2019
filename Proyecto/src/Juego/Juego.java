@@ -169,7 +169,7 @@ public class Juego extends Thread{
 		Entidad siguiente = null;
 		System.out.println("Get posicion(): soy "+e);
 		System.out.println("Posicion siguiente a x: "+pos.x+" y: "+pos.y+" en direccion: "+dir);
-		System.out.println("Grilla en posicion "+grilla[pos.x][pos.y]);
+		//System.out.println("Grilla en posicion "+grilla[pos.x][pos.y]);
 		//System.out.println("Grilla en posicion siguiente"+grilla[pos.x][pos.y+dir]);
 		if(pos.y > 0 && pos.y<=12) {
 			System.out.println("Pos y entre 0 y 12");
@@ -189,7 +189,6 @@ public class Juego extends Thread{
 		if(aceptador.getVida()<=0)
 			eliminar(aceptador);
 	}
-	
 	
 	public synchronized boolean enRango(Integrante i,int dir) {
     	Point pos = i.getPos();
