@@ -139,5 +139,12 @@ public class Nivel1 extends Nivel {
 		else
 			return this.oleada.getSiguiente(enemigos,cant);
 	}
+
+
+	@Override
+	public void setOleada(Oleada oleada) {
+		this.oleada = oleada;
+		
+	}
 	
 }

@@ -88,12 +88,12 @@ public class Juego extends Thread{
 			gui.insertar(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
 			threadDisparo.insertarDisparo(disparo);
 		}*/
-		this.start();
+		
 		threadDisparo.iniciar();
 		threadEnemigos.start();
 		threadRango.start();
 		threadPersonaje.start();
-		
+		this.start();
 	}
 	
 	
@@ -135,10 +135,22 @@ public class Juego extends Thread{
 		
 	}
 	
+	public boolean hayEnemigos() {
+		return !this.threadEnemigos.getEnemigos().isEmpty();
+	}
+	
 	public void run() {
 		while (!fin) {
-			if (this.threadEnemigos.getEnemigos().isEmpty()) {
-				cargarEnemigos(nivel.getOleada(4));
+			if (!hayEnemigos()) {
+				Oleada oleada = nivel.getOleada(4);
+				if (oleada == null) { //termine el nivel
+					this.nivel = this.nivel.subirNivel();
+					if (this.nivel == null) { //termino el juego
+						fin = true;
+					} else
+						oleada = nivel.getOleada(4);
+				}
+				cargarEnemigos(oleada);
 			}
 		}
 	}

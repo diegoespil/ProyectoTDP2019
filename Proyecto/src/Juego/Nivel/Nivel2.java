@@ -17,6 +17,8 @@ import Creadores.CreardorEnemigo.CreadorRuso;
 import Entidad.Integrante.Enemigo.Enemigo;
 import Entidad.Objeto.ConVida.ObjetoConVida;
 import Juego.Juego;
+import Juego.Oleada.Oleada;
+import Juego.Oleada.Oleada1;
 
 public class Nivel2 extends Nivel {
 
@@ -74,44 +76,32 @@ public class Nivel2 extends Nivel {
 					switch (arr[i]) {
 						case "rata": {CreadorEntidad rata = new CreadorRata();
 										Enemigo e = (Enemigo) rata.crear();
-										if (linea == 1) this.oleada1.add(e);
-										else if (linea == 2) this.oleada2.add(e);
-										else this.oleada3.add(e);
+										this.enemigos.add(e);
 										break;
 									}
 						case "ruso": {CreadorEntidad ruso = new CreadorRuso();
 										Enemigo e = (Enemigo) ruso.crear();
-										if (linea == 1) this.oleada1.add(e);
-										else if (linea == 2) this.oleada2.add(e);
-										else this.oleada3.add(e);
+										this.enemigos.add(e);
 										break;
 									}
 						case "perro": {CreadorEntidad perro = new CreadorPerro();
 										Enemigo e = (Enemigo) perro.crear();
-										if (linea == 1) this.oleada1.add(e);
-										else if (linea == 2) this.oleada2.add(e);
-										else this.oleada3.add(e);
+										this.enemigos.add(e);
 										break;
 									}
 						case "demogorgon": {CreadorEntidad demogorgon = new CreadorDemogorgon();
 											Enemigo e = (Enemigo) demogorgon.crear();
-											if (linea == 1) this.oleada1.add(e);
-											else if (linea == 2) this.oleada2.add(e);
-											else this.oleada3.add(e);
+											this.enemigos.add(e);
 											break;
 					}
 						case "mindflayer": {CreadorEntidad mindflayer = new CreadorMindflayer();
 											Enemigo e = (Enemigo) mindflayer.crear();
-											if (linea == 1) this.oleada1.add(e);
-											else if (linea == 2) this.oleada2.add(e);
-											else this.oleada3.add(e);
+											this.enemigos.add(e);
 											break;
 					}
 						case "poseido": {CreadorEntidad poseido = new CreadorPoseido();
 										Enemigo e = (Enemigo) poseido.crear();
-										if (linea == 1) this.oleada1.add(e);
-										else if (linea == 2) this.oleada2.add(e);
-										else this.oleada3.add(e);
+										this.enemigos.add(e);
 										break;
 										}
 					}
@@ -133,6 +123,21 @@ public class Nivel2 extends Nivel {
 	public Nivel subirNivel() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public Oleada getOleada(int cant) {
+		if (this.oleada == null)
+			return new Oleada1(enemigos,cant);
+		else
+			return this.oleada.getSiguiente(enemigos,cant);
+	}
+
+
+	@Override
+	public void setOleada(Oleada oleada) {
+		this.oleada = oleada;
+		
 	}
 
 }

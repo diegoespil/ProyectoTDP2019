@@ -24,6 +24,7 @@ public abstract class Nivel {
 	
 	public abstract Oleada getOleada(int cant);
 	
+	public abstract void setOleada(Oleada oleada);
 	
 	public Vector<Objeto> getObjetos(){
 		return this.objetos;
