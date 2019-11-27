@@ -161,7 +161,7 @@ public class Juego extends Thread{
 		return siguiente;
 	}
 	public void mover(Entidad e, int dir){
-		if (e != null) gui.update(e.getLabel(),+dir);
+		if (e != null) gui.updateLabel(e.getLabel(),+dir);
 	}
 	public void aceptarVisitor(Entidad aceptador, Entidad visitante){
 		aceptador.accept(visitante.getVisitor());
@@ -295,6 +295,7 @@ public class Juego extends Thread{
 		if(nueva != null ) {
 			monedas = monedas - shop.finalizarCompra();
 			shop.quitarProximo();
+			gui.updateContadores(puntaje, monedas);
 			grilla[x][y] = nueva;
 			nueva.setPosicion(x, y);
 			gui.insertar(nueva.getLabel(), x*60, y*60);
@@ -325,11 +326,13 @@ public class Juego extends Thread{
 	
 	public void eliminarEnemigo(Enemigo e){
 		puntaje += e.getPuntaje();
+		monedas += e.getMonedas();
 		e.setVida(0);
 		int x =(int) e.getPos().getX();
 		int y =(int) e.getPos().getY();
 		grilla[x][y] = null;
 		gui.quitarLabel(e.getLabel());
+		gui.updateContadores(puntaje, monedas);
 	}
 	
 	public Vector<Integrante> getPersonajes(){

@@ -29,6 +29,8 @@ public class miVentanaJuego extends JFrame{
 	public static final int ALTO = 480;
 	private JPanel menu;
 	private imagenfondo panel;
+	private JLabel lblMonedas;
+	private JLabel lblPuntaje;
 	private Juego juego;
 
 	/**
@@ -68,6 +70,17 @@ public class miVentanaJuego extends JFrame{
 		juego = new Juego(this);
 		iniciarObstaculos();
 		
+		//Inserta los contadores de Monedas y Puntaje.
+		lblMonedas = new JLabel("Monedas: "+juego.getMonedas());
+		lblMonedas.setForeground(Color.WHITE);
+		lblMonedas.setBounds(616, 0, 168, 29);
+		menu.add(lblMonedas);
+		
+		lblPuntaje = new JLabel("Puntaje: 0");
+		lblPuntaje.setForeground(Color.WHITE);
+		lblPuntaje.setBounds(616, 40, 168, 29);
+		menu.add(lblPuntaje);
+		
 		//Establece el fondo de la ciudad dde fondo.
 		JLabel fondoCiudad = new JLabel("");
 		fondoCiudad.setIcon(new ImageIcon(cielo.getImage().getScaledInstance(800, 127, Image.SCALE_SMOOTH)));
@@ -97,6 +110,7 @@ public class miVentanaJuego extends JFrame{
 		});
 		btnVolver.setBounds(0, 609, 132, 54);
 		menu.add(btnVolver);
+		
 		panel.addMouseListener(new MouseListener() {
 			
 		public void mouseClicked(MouseEvent e) {
@@ -156,14 +170,17 @@ public class miVentanaJuego extends JFrame{
 		panel.repaint();
 	}
 
-	public void update(JLabel label, int dir){
+	public void updateLabel(JLabel label, int dir){
 		label.setBounds(label.getX()+dir,label.getY(),label.getWidth(), label.getHeight());
 		panel.repaint();
+	}
+	public void updateContadores(int pts, int mnd){
+		lblPuntaje.setText("Puntaje: "+pts);
+		lblMonedas.setText("Monedas: "+mnd);
 	}
 	public void insertar(JLabel label, int x, int y){
 		label.setBounds(y, x, label.getWidth(), label.getHeight());
 		panel.add(label);
 		panel.repaint();
 	}
-
 }
