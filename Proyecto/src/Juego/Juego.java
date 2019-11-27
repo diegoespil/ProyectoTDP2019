@@ -24,6 +24,7 @@ import Entidad.Objeto.ConVida.Auto;
 import Gui.miVentanaJuego;
 import Juego.Nivel.Nivel;
 import Juego.Nivel.Nivel1;
+import Juego.Oleada.Oleada;
 import Tienda.Tienda;
 
 public class Juego extends Thread{
@@ -42,8 +43,10 @@ public class Juego extends Thread{
 	private ThreadDisparo threadDisparo;
 	private ThreadPersonaje threadPersonaje;
 	private Vector<Integrante> personajes;
+	private boolean fin;
 
 	public Juego(miVentanaJuego gui) {
+		this.fin = false;
 		this.nivel = new Nivel1(this);
 		this.monedas = 20000;
 		this.gui = gui;
@@ -53,7 +56,7 @@ public class Juego extends Thread{
 		threadEnemigos = new ThreadEnemigos(this);
 		threadPersonaje = new ThreadPersonaje(this);
 		threadRango = new ThreadRango(this, threadEnemigos,threadPersonaje); //nuevo
-		cargarEnemigos();
+		cargarEnemigos(nivel.getOleada(4));
 		//cargarObjetos();
 		personajes = new Vector<Integrante>();
 		try {
@@ -85,7 +88,7 @@ public class Juego extends Thread{
 			gui.insertar(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
 			threadDisparo.insertarDisparo(disparo);
 		}*/
-	
+		this.start();
 		threadDisparo.iniciar();
 		threadEnemigos.start();
 		threadRango.start();
@@ -93,11 +96,14 @@ public class Juego extends Thread{
 		
 	}
 	
-	public void cargarEnemigos() {
-		int cont = 2;
-		Vector<Enemigo> enemigos = nivel.getOleada1();
+	
+	
+	public void cargarEnemigos(Oleada oleada) {
+		int cont = 0;
+		Vector<Enemigo> enemigos = oleada.getEnemigos();
+		System.out.println("Cantidad de enemigos en oleada: "+enemigos.size());
 		for(Enemigo e : enemigos) {
-			e.setPosicion(cont, 12);
+			e.setPosicion(cont*2, 12);
 			insertar(e);
 			threadEnemigos.insertarEnemigo(e);
 			cont++;
@@ -130,8 +136,10 @@ public class Juego extends Thread{
 	}
 	
 	public void run() {
-		while (true) {
-			
+		while (!fin) {
+			if (this.threadEnemigos.getEnemigos().isEmpty()) {
+				cargarEnemigos(nivel.getOleada(4));
+			}
 		}
 	}
 
@@ -140,8 +148,8 @@ public class Juego extends Thread{
 		Entidad siguiente = null;
 		System.out.println("Get posicion(): soy "+e);
 		System.out.println("Posicion siguiente a x: "+pos.x+" y: "+pos.y+" en direccion: "+dir);
-		System.out.println("Grilla en posicion "+grilla[pos.x][pos.y]);
-		System.out.println("Grilla en posicion siguiente"+grilla[pos.x][pos.y+dir]);
+		//System.out.println("Grilla en posicion "+grilla[pos.x][pos.y]);
+		//System.out.println("Grilla en posicion siguiente"+grilla[pos.x][pos.y+dir]);
 		if(pos.y > 0 && pos.y<=12) {
 			System.out.println("Pos y entre 0 y 12");
 			System.out.println("Antes de setear siguiente: "+siguiente);
