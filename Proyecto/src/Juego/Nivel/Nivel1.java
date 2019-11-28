@@ -10,6 +10,7 @@ import java.util.Vector;
 
 import Creadores.CreadorConVida.CreadorAuto;
 import Creadores.CreadorEntidad.CreadorEntidad;
+import Creadores.CreadorTemporal.CreadorAttaqueX2;
 import Creadores.CreardorEnemigo.CreadorDemogorgon;
 import Creadores.CreardorEnemigo.CreadorMindflayer;
 import Creadores.CreardorEnemigo.CreadorPerro;
@@ -20,6 +21,7 @@ import Entidad.Integrante.Enemigo.*;
 import Entidad.Objeto.Objeto;
 import Entidad.Objeto.ConVida.Auto;
 import Entidad.Objeto.ConVida.ObjetoConVida;
+import Entidad.Objeto.Temporal.AttaqueX2;
 import Gui.miVentanaJuego;
 import Juego.Juego;
 import Juego.Oleada.Oleada;
@@ -88,6 +90,9 @@ public class Nivel1 extends Nivel {
 						case "rata": {CreadorEntidad rata = new CreadorRata();
 										Enemigo e = (Enemigo) rata.crear();
 										enemigos.add(e);
+										CreadorEntidad creador = new CreadorAttaqueX2();
+										AttaqueX2 attaque = (AttaqueX2) creador.crear() ;
+										e.asignarPowerup(attaque);
 										break;
 									}
 						case "ruso": {CreadorEntidad ruso = new CreadorRuso();

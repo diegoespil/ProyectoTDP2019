@@ -102,20 +102,6 @@ public class Juego extends Thread{
 		this.start();
 	}
 	
-	
-	
-	public void cargarEnemigos(Oleada oleada) {
-		int cont = 0;
-		Vector<Enemigo> enemigos = oleada.getEnemigos();
-		System.out.println("Cantidad de enemigos en oleada: "+enemigos.size());
-	
-		powerupguardado = null;
-		
-		CreadorAttaqueX2 creador = new CreadorAttaqueX2();
-		power = (AttaqueX2) creador.crear() ;
-		insertarEnemigo2(power);
-	}
-	
 	public void guardarPowerup(ObjetoTemporal o, Point p) {
 		System.out.println("---------------------------------------------------");
 		System.out.println(o.toString());
@@ -134,9 +120,9 @@ public class Juego extends Thread{
 		}
 	}
 	
-	public void cargarEnemigos() {
-		int cont = 2;
-		Vector<Enemigo> enemigos = nivel.getOleada1();
+	public void cargarEnemigos(Oleada oleada) {
+		int cont = 0;
+		Vector<Enemigo> enemigos = oleada.getEnemigos();
 		for(Enemigo e : enemigos) {
 			e.setPosicion(cont*2, 12);
 			insertar(e);
