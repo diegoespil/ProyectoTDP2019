@@ -65,8 +65,9 @@ public class Nivel2 extends Nivel {
 
 	private void initEnemigos() {
 		try{
+			System.out.println("initEnemigos nivel 2");
 			String cadena;
-			File file = new File("src//Juego//Nivel//Nivel1");
+			File file = new File("src//Juego//Nivel//Nivel2");
 			FileReader f = new FileReader(file.getAbsolutePath());
 			BufferedReader b = new BufferedReader(f);
 			int linea = 1;
@@ -77,6 +78,7 @@ public class Nivel2 extends Nivel {
 						case "rata": {CreadorEntidad rata = new CreadorRata();
 										Enemigo e = (Enemigo) rata.crear();
 										this.enemigos.add(e);
+										System.out.println("Nivel 2: agrego rata");
 										break;
 									}
 						case "ruso": {CreadorEntidad ruso = new CreadorRuso();

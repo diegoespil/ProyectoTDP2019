@@ -40,6 +40,7 @@ public class Juego extends Thread{
 	private JLabel shoot;
 	private Entidad [][] grilla;
 	private Nivel nivel;
+	private Oleada oleada;
 	private Tienda shop;
 	private ThreadEnemigos threadEnemigos;
 	private ThreadRango threadRango; //nuevo
@@ -61,8 +62,9 @@ public class Juego extends Thread{
 		threadEnemigos = new ThreadEnemigos(this);
 		threadPersonaje = new ThreadPersonaje(this);
 		threadRango = new ThreadRango(this, threadEnemigos,threadPersonaje);
-		cargarEnemigos(nivel.getOleada(4));
-		//cargarEnemigos();
+		this.oleada = nivel.getOleada(4);
+		nivel.setOleada(oleada);
+		cargarEnemigos(oleada);
 		//cargarObjetos();
 		personajes = new Vector<Integrante>();
 		try {
@@ -70,31 +72,7 @@ public class Juego extends Thread{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//insertarEnemigo2();
-		
-		//threadPersonaje = new ThreadPersonaje(this);
-		//threadPersonaje.start();
-		threadDisparo = new ThreadDisparo(this);
-		
-
-		//for(int i = 0; i<4 ;i++){
-		
-		/*Disparo disparo = new DisparoPersonaje(4,1,1000,1);
-		gui.insertar(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
-		threadDisparo.insertarDisparo(disparo); */
-		/*for(int i = 0; i<6 ;i++){
-			Disparo disparo = new DisparoPersonaje(i,1,10,1);
-			gui.insertar(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
-			threadDisparo.insertarDisparo(disparo);
-		}
-		
-		/*
-		for(int i = 0; i<4 ;i++){
-			Disparo disparo = new DisparoEnemigo(i,12,10,1);
-			gui.insertar(disparo.getLabel(),disparo.getPos().x*60,disparo.getPos().y*60);
-			threadDisparo.insertarDisparo(disparo);
-		}*/
-		
+		threadDisparo = new ThreadDisparo(this);		
 		threadDisparo.iniciar();
 		threadEnemigos.start();
 		threadRango.start();
@@ -163,14 +141,23 @@ public class Juego extends Thread{
 	
 	public void run() {
 		while (!fin) {
+			try {
+				this.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			if (!hayEnemigos()) {
 				Oleada oleada = nivel.getOleada(4);
+				nivel.setOleada(oleada);
 				if (oleada == null) { //termine el nivel
 					this.nivel = this.nivel.subirNivel();
 					if (this.nivel == null) { //termino el juego
 						fin = true;
-					} else
+					} else {
+						this.nivel.setOleada(null);
 						oleada = nivel.getOleada(4);
+					}
 				}
 				cargarEnemigos(oleada);
 			}
