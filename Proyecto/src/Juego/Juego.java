@@ -25,6 +25,7 @@ import Entidad.Integrante.State.Normal;
 import Entidad.Objeto.Objeto;
 import Entidad.Objeto.ConVida.Auto;
 import Entidad.Objeto.Temporal.PowerupEnMapa.AtaqueX2;
+import Entidad.Objeto.Temporal.PowerupEnMapa.PowerupEnMapa;
 import Entidad.Objeto.Temporal.Fuego;
 import Entidad.Objeto.Temporal.ObjetoTemporal;
 import Gui.miVentanaJuego;
@@ -53,7 +54,7 @@ public class Juego extends Thread{
 	private Vector<Integrante> personajes;
 	private boolean fin;
 	private AtaqueX2 power;
-	private ObjetoTemporal powerupguardado;
+	private PowerupEnMapa powerupguardado;
 
 	public Juego(miVentanaJuego gui) {
 		this.fin = false;
@@ -95,7 +96,7 @@ public class Juego extends Thread{
 	
 	public void levantarPowerup(){
 		CreadorAtaqueX2 ca = new CreadorAtaqueX2(); 
-		powerupguardado = (ObjetoTemporal) ca.crear();
+		powerupguardado = (PowerupEnMapa) ca.crear();
 		//borrar reporte, es solo para testear imprimiendo por consola
 		String reporte;
 		if (powerupguardado == null) reporte = "nulo";
@@ -114,6 +115,9 @@ public class Juego extends Thread{
 		if(powerupguardado != null){
 			aceptarVisitor(e,powerupguardado);
 			System.out.println("asignarPowerup() envio visitor");
+			if(powerupguardado.getAsignado()){
+				powerupguardado = null;
+			}
 		}
 		
 	}
