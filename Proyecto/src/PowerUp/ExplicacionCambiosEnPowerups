@@ -16,6 +16,7 @@ AtaqueX2.activar(i) -> crea Timer, activa new AtaqueDuplicado(i,duracion), lo de
  
  
  *** acá antes se usaba Integrante.asignarPowerup, que ya no está más 
+ Aparte, ahora se puede levantar el powerup del mapa con el click izquierdo también
  
  Nota: 
  Ahora hay 2 clases distinguidas que modelan los powerup 
