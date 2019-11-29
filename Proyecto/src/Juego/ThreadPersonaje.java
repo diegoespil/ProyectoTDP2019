@@ -2,10 +2,6 @@ package Juego;
 
 import java.util.Iterator;
 import java.util.Vector;
-
-import Entidad.Entidad;
-import Entidad.Integrante.Integrante;
-import Entidad.Integrante.Enemigo.Enemigo;
 import Entidad.Integrante.Personaje.Personaje;
 
 public class ThreadPersonaje extends Thread{
@@ -14,7 +10,6 @@ public class ThreadPersonaje extends Thread{
 	private Vector<Personaje> personajes;
 	private Vector<Personaje> personajesAInsertar;
 	private Vector<Personaje> eliminados;
-	private volatile int cont;
 	private boolean suspend;
 
 	public ThreadPersonaje(Juego j) {
@@ -22,7 +17,6 @@ public class ThreadPersonaje extends Thread{
 		personajes = new Vector<Personaje>();
 		eliminados = new Vector<Personaje>();
 		personajesAInsertar = new Vector<Personaje>();
-		cont = 0;
 		suspend = false;
 	}
 
@@ -47,22 +41,6 @@ public class ThreadPersonaje extends Thread{
 					eliminados.add(personaje);
 					juego.eliminar(personaje);
 				}
-				/*	else{
-						if(cont<60){
-							if (juego.canMove(e,0) ){
-								cont++;
-							}
-							try {
-								Thread.sleep(25);
-							} catch (InterruptedException e1) {
-								e1.printStackTrace();
-							}
-							
-						}
-						else{
-							juego.actualizarGrilla(e,0);
-							cont = 0;
-						}*/
 				try {
 					this.sleep(150);
 				} catch (InterruptedException e) {

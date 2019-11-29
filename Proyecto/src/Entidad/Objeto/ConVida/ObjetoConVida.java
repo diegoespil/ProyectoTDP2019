@@ -10,6 +10,7 @@ public abstract class ObjetoConVida extends Objeto {
 
 	public ObjetoConVida(int x, int y, int vida) {
 		super(x, y,vida);
+		transitable = false;
 		miVisitor = new VisitorObjetosVida(this);
 	}
 	

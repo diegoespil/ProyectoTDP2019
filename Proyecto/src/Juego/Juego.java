@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import Creadores.CreadorConVida.CreadorAuto;
 import Creadores.CreadorEntidad.CreadorEntidad;
 import Creadores.CreadorTemporal.CreadorAtaqueX2;
+import Creadores.CreadorTemporal.CreadorFuego;
 import Creadores.CreardorEnemigo.CreadorPoseido;
 import Creadores.CreardorEnemigo.CreadorRuso;
 import Entidad.Entidad;
@@ -21,8 +22,10 @@ import Entidad.Integrante.Enemigo.Enemigo;
 import Entidad.Integrante.Personaje.Personaje;
 import Entidad.Integrante.State.Ataque;
 import Entidad.Integrante.State.Normal;
+import Entidad.Objeto.Objeto;
 import Entidad.Objeto.ConVida.Auto;
 import Entidad.Objeto.Temporal.PowerupEnMapa.AtaqueX2;
+import Entidad.Objeto.Temporal.Fuego;
 import Entidad.Objeto.Temporal.ObjetoTemporal;
 import Gui.miVentanaJuego;
 import Juego.Nivel.Nivel;
@@ -46,6 +49,7 @@ public class Juego extends Thread{
 	private ThreadRango threadRango; //nuevo
 	private ThreadDisparo threadDisparo;
 	private ThreadPersonaje threadPersonaje;
+	private ThreadObjetos threadObjetos;
 	private Vector<Integrante> personajes;
 	private boolean fin;
 	private AtaqueX2 power;
@@ -61,6 +65,7 @@ public class Juego extends Thread{
 		grilla = new Entidad[8][14];
 		threadEnemigos = new ThreadEnemigos(this);
 		threadPersonaje = new ThreadPersonaje(this);
+		threadObjetos = new ThreadObjetos(this);
 		threadRango = new ThreadRango(this, threadEnemigos,threadPersonaje);
 		this.oleada = nivel.getOleada(4);
 		nivel.setOleada(oleada);
@@ -72,6 +77,14 @@ public class Juego extends Thread{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		//prueba
+		CreadorFuego cf = new CreadorFuego();
+		Fuego fuego = (Fuego) cf.crear();
+		fuego.setPosicion(0, 9);
+		gui.insertar(fuego.getLabel(), fuego.getPos().x*60, fuego.getPos().y*60);
+		threadObjetos.insertarObjeto(fuego);
+		threadObjetos.start();
+		//prueba
 		threadDisparo = new ThreadDisparo(this);		
 		threadDisparo.iniciar();
 		threadEnemigos.start();
@@ -195,8 +208,8 @@ public class Juego extends Thread{
 	public void aceptarVisitor(Entidad aceptador, Entidad visitante){
 		if(aceptador != null && visitante != null){
 			aceptador.accept(visitante.getVisitor());
-			if(aceptador.getVida()<=0)
-				eliminar(aceptador);
+			//if(aceptador.getVida()<=0)
+			//	eliminar(aceptador);
 		}
 	}
 	
@@ -262,7 +275,16 @@ public class Juego extends Thread{
 		}
 		//else //System.out.println("hay nulo");
 		return grilla[x][y] != null;
-		
+	}
+	
+	public Entidad getEntidad(int x, int y){
+		Entidad ent = null;
+		try{
+			ent = grilla[x][y];
+		}catch (ArrayIndexOutOfBoundsException e){
+			ent = null;
+		}
+		return ent;
 	}
 
 	public void getObstaculos() throws FileNotFoundException, IOException {
@@ -286,22 +308,25 @@ public class Juego extends Thread{
 							break;
 			}*/
 			case "auto" : {
-				Entidad a = creador.crear();
+				Objeto a = (Objeto) creador.crear();
 				a.setPosicion(fila, i);
 				insertar(a);
+				threadObjetos.insertarObjeto(a);
 				break;
 			}
 			case "auto2" : {
-				Entidad a = creador.crear();
+				Objeto a = (Objeto) creador.crear();
 				a.setPosicion(fila, i);
 				insertar(a);
+				threadObjetos.insertarObjeto(a);
 				break;
 
             }
 			case "auto3" : {
-				Entidad a = creador.crear();
+				Objeto a = (Objeto) creador.crear();
 				a.setPosicion(fila, i);
 				insertar(a);
+				threadObjetos.insertarObjeto(a);
 			}
 			}
 		}

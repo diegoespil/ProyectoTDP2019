@@ -19,10 +19,10 @@ public class Fuego extends ObjetoTemporal {
 		this.setLabel(label);
 	}
 
-	@Override
 	public void afectar(Entidad e) {
-		// TODO Auto-generated method stub
-		
+		e.setVida(0);
+		System.out.println("murio quemado");
+		this.setVida(0);
 	}
 
 }

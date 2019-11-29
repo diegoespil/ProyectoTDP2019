@@ -12,6 +12,7 @@ public abstract class ObjetoTemporal extends Objeto {
 	public ObjetoTemporal(int x, int y,int tiempo) {
 		super(x, y,Integer.MAX_VALUE);
 		this.tiempo = tiempo;
+		transitable = true;
 		miVisitor = new VisitorObjetoTemporal(this);
 	}
 	
