@@ -1,4 +1,4 @@
-package Entidad.Objeto.Temporal;
+package Entidad.Objeto.Temporal.PowerupEnMapa;
 
 import java.awt.Color;
 
@@ -6,8 +6,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
 import Entidad.Entidad;
+import Entidad.Integrante.Integrante;
 
-public class Curacion extends ObjetoTemporal {
+public class Curacion extends PowerupEnMapa {
 
 	public Curacion(int x,int y,int tiempo) {
 		super(x,y,tiempo);
@@ -19,8 +20,8 @@ public class Curacion extends ObjetoTemporal {
 		this.setLabel(label);
 	}
 	
-	public void afectar(Entidad e) {
-		
+	public void activar(Integrante i) {
+		//falta
 	}
 
 

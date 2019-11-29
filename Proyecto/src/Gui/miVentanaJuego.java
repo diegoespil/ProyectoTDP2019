@@ -117,28 +117,32 @@ public class miVentanaJuego extends JFrame{
 			int x,y;
 			if(e.getClickCount()== 1){
 				if(e.getButton()==MouseEvent.BUTTON1){
-					x = (e.getX()/60);
-					y = (e.getY()/60);
-					System.out.println("posicion de insercion (x,y):"+x+";"+y+" posicion pixeles "+e.getX()+";"+e.getY());
-					if(!juego.hayEntidad(y, x)) {
-						if(juego.esPersonaje())
-							juego.comprarPersonaje(y, x);
-						else
-							juego.comprarObjeto(y,x);
-						juego.reanudarJuego();
+					x = e.getX();
+					y = e.getY();
+					if (juego.comprando()){ //se clickeó para ubicar la compra
+						int grillaX = y/60;
+						int grillaY = x/60;
+						ubicarCompra(grillaX,grillaY);
 					}
-					else
-						System.out.println("En esa posicion hay");  
+					else{ //se clickeó para levantar un powerup
+						clickearPowerup(x,y);
+					}	
 				}
+				
 				if(e.getButton()==MouseEvent.BUTTON2){	
 					x = e.getX();
 					y = e.getY();
-					if(((panel.getComponentAt(x, y) != null) && (juego.hayEntidad(y/60, x/60) == false)) ) {
-						panel.remove(panel.getComponentAt(x, y));
-						panel.repaint();
+					if (juego.comprando()){ //se clickeó para ubicar la compra
+						int grillaX = y/60;
+						int grillaY = x/60;
+						ubicarCompra(grillaX,grillaY);
+					}
+					else{ //se clickeó para levantar un powerup
+						clickearPowerup(x,y);
 					}
 				}
-				if(e.getButton()==MouseEvent.BUTTON3){			
+				
+				if(e.getButton()==MouseEvent.BUTTON3){ //se está asignando un powerup a personaje			
 					x = (e.getX()/60);
 					y = (e.getY()/60);
 					if(juego.hayEntidad(y, x)) {
@@ -193,5 +197,24 @@ public class miVentanaJuego extends JFrame{
 		label.setBounds(y, x, label.getWidth(), label.getHeight());
 		panel.add(label);
 		panel.repaint();
+	}
+	public void ubicarCompra(int grillaX, int grillaY){
+		System.out.println("posicion de insercion (x,y):"+grillaX+";"+grillaY);
+		if(!juego.hayEntidad(grillaX, grillaY)) {
+			if(juego.esPersonaje())
+				juego.comprarPersonaje(grillaX, grillaY);
+			else
+				juego.comprarObjeto(grillaX,grillaY);
+			juego.reanudarJuego();
+		}
+		else
+			System.out.println("En esa posicion hay");  
+	}
+	public void clickearPowerup(int x, int y){
+		if(((panel.getComponentAt(x, y) != null) && (juego.hayEntidad(y/60, x/60) == false)) ) {
+			juego.levantarPowerup();
+			panel.remove(panel.getComponentAt(x, y));
+			panel.repaint();
+		}
 	}
 }

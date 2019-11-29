@@ -1,0 +1,29 @@
+ThreadEnemigos -> enemigo muerto -> juego.dropPremio(enemigo.getPremio)
+Juego.dropPremio -> asigna posicion a powerup, lo inserta en gui
+gui  -> clickearPowerup(x,y) -> borra label y juego.levantarPowerup
+Juego.levantarPowerup -> crea AtaqueX2 (con factory) y lo asigna a powerupguardado
+
+===================================================================================
+
+gui al hacer click derecho (button3) -> si hay entidad -> juego.asignarPowerup(x,y)
+juego.asignarPowerup(x,y) -> busca entidad en xy, le manda visitor de powerupguardado  ***
+VisitorPowerupEnMapa -> miEntidad.afectar(personaje), miEntidad.setAsignado(true)
+PowerupEnMapa -> afectar(e) -> activar(i) 
+AtaqueX2.activar(i) -> crea Timer, activa new AtaqueDuplicado(i,duracion), lo desactiva 5seg después
+ 
+ 
+ 
+ 
+ 
+ *** acá antes se usaba Integrante.asignarPowerup, que ya no está más 
+ 
+ Nota: 
+ Ahora hay 2 clases distinguidas que modelan los powerup 
+ La primera es PowerupEnMapa, que modela cuando es un ObjetoTemporal, esto es, 
+ cuando está suelto en el mapa y es clickeable para levantarlo.
+ AtaqueX2, que antes era ObjetoTemporal, es un PowerupEnMapa (subclase de ObjetoTemporal).
+ La otra es PowerUp, que modela la parte de modificarle los atributos al integrante, y hereda de
+ TimerTask para poder pedírsele que se desactive después de cierto tiempo.
+ Antes PowerUp estaba como subclase de State, pero lo cambié porque al final no terminó 
+ teniendo nada que ver con el uso del patrón, ya que el integrante nunca delega métodos al 
+ PowerUp. De paso, se evita la interferencia con los estados que hacen los cambios de imagen.

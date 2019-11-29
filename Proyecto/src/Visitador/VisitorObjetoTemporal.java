@@ -15,7 +15,6 @@ public class VisitorObjetoTemporal extends Visitor {
 	}
 
 	public void visitPersonaje(Personaje a) { 
-		((ObjetoTemporal)miEntidad).setAsignado(true);
 	}
 
 	public void visitEnemigo(Enemigo e) {

@@ -9,7 +9,7 @@ import java.util.Vector;
 import javax.swing.JLabel;
 import Creadores.CreadorConVida.CreadorAuto;
 import Creadores.CreadorEntidad.CreadorEntidad;
-import Creadores.CreadorTemporal.CreadorAttaqueX2;
+import Creadores.CreadorTemporal.CreadorAtaqueX2;
 import Creadores.CreardorEnemigo.CreadorPoseido;
 import Creadores.CreardorEnemigo.CreadorRuso;
 import Entidad.Entidad;
@@ -22,7 +22,7 @@ import Entidad.Integrante.Personaje.Personaje;
 import Entidad.Integrante.State.Ataque;
 import Entidad.Integrante.State.Normal;
 import Entidad.Objeto.ConVida.Auto;
-import Entidad.Objeto.Temporal.AttaqueX2;
+import Entidad.Objeto.Temporal.PowerupEnMapa.AtaqueX2;
 import Entidad.Objeto.Temporal.ObjetoTemporal;
 import Gui.miVentanaJuego;
 import Juego.Nivel.Nivel;
@@ -47,7 +47,7 @@ public class Juego extends Thread{
 	private ThreadPersonaje threadPersonaje;
 	private Vector<Integrante> personajes;
 	private boolean fin;
-	private AttaqueX2 power;
+	private AtaqueX2 power;
 	private ObjetoTemporal powerupguardado;
 
 	public Juego(miVentanaJuego gui) {
@@ -61,9 +61,12 @@ public class Juego extends Thread{
 		threadEnemigos = new ThreadEnemigos(this);
 		threadPersonaje = new ThreadPersonaje(this);
 		threadRango = new ThreadRango(this, threadEnemigos,threadPersonaje);
-		cargarEnemigos(nivel.getOleada(4));
-		//cargarEnemigos();
-		//cargarObjetos();
+		//cargarEnemigos(nivel.getOleada(4)); el que anda
+		CreadorAtaqueX2 cr = new CreadorAtaqueX2();
+		insertarEnemigo2( (ObjetoTemporal) cr.crear());
+		
+		
+		
 		personajes = new Vector<Integrante>();
 		try {
 			getObstaculos();
@@ -102,22 +105,29 @@ public class Juego extends Thread{
 		this.start();
 	}
 	
-	public void guardarPowerup(ObjetoTemporal o, Point p) {
-		System.out.println("---------------------------------------------------");
-		System.out.println(o.toString());
-		powerupguardado = o;
-		powerupguardado.setPosicion(p.x,p.y);
-		gui.insertar(powerupguardado.getLabel(), p.x*60, p.y*60);
+	public void levantarPowerup(){
+		CreadorAtaqueX2 ca = new CreadorAtaqueX2(); 
+		powerupguardado = (ObjetoTemporal) ca.crear();
+		//borrar reporte, es solo para testear imprimiendo por consola
+		String reporte;
+		if (powerupguardado == null) reporte = "nulo";
+		else reporte = powerupguardado.toString();
+		System.out.println("powerup guardado: "+reporte);
+	}
+	
+	public void dropPremio(ObjetoTemporal o, Point p) {
+		o.setPosicion(p.x,p.y);
+		gui.insertar(o.getLabel(), p.x*60, p.y*60);
 		
 	}
 	
 	public void asignarPowerup(int x, int y) {
 		Entidad e = grilla[y][x];
-		aceptarVisitor(e,powerupguardado);
-		if(powerupguardado.getAsignado()) {
-			((Integrante)e).asignarPowerup(powerupguardado);
-			powerupguardado = null;	
+		if(powerupguardado != null){
+			aceptarVisitor(e,powerupguardado);
+			System.out.println("asignarPowerup() envio visitor");
 		}
+		
 	}
 	
 	public void cargarEnemigos(Oleada oleada) {
@@ -133,12 +143,12 @@ public class Juego extends Thread{
 	}
 
 	public synchronized void actualizarGrilla(Entidad e,int dir){
-		System.out.println("Actualizar grilla");
-		System.out.println("Entidad "+e+" pos "+e.getPos());
+		//System.out.println("Actualizar grilla");
+		//System.out.println("Entidad "+e+" pos "+e.getPos());
 		Point pos = e.getPos();
 		int oldX = pos.x;
 		int oldY = pos.y;
-		//System.out.println("pos "+pos.x+" "+pos.y);
+		////System.out.println("pos "+pos.x+" "+pos.y);
 		if(pos.y > 0 && pos.y<=12){
 			int newX = pos.x;
 			int newY = pos.y+dir;
@@ -153,6 +163,7 @@ public class Juego extends Thread{
 		int newX = pos.x;
 		int newY = pos.y+dir;
 		if(newY >= 13) e.setLlego(true);
+		if(newY == 0) e.setLlego(true);
 		else e.setPosicion(newX, newY);
 		
 	}
@@ -180,52 +191,54 @@ public class Juego extends Thread{
 	public Entidad getSiguiente(Entidad e, int dir){
 		Point pos = e.getPos();
 		Entidad siguiente = null;
-		System.out.println("Get posicion(): soy "+e);
-		System.out.println("Posicion siguiente a x: "+pos.x+" y: "+pos.y+" en direccion: "+dir);
-		//System.out.println("Grilla en posicion "+grilla[pos.x][pos.y]);
-		//System.out.println("Grilla en posicion siguiente"+grilla[pos.x][pos.y+dir]);
+		//System.out.println("Get posicion(): soy "+e);
+		//System.out.println("Posicion siguiente a x: "+pos.x+" y: "+pos.y+" en direccion: "+dir);
+		////System.out.println("Grilla en posicion "+grilla[pos.x][pos.y]);
+		////System.out.println("Grilla en posicion siguiente"+grilla[pos.x][pos.y+dir]);
 		if(pos.y > 0 && pos.y<=12) {
-			System.out.println("Pos y entre 0 y 12");
-			System.out.println("Antes de setear siguiente: "+siguiente);
+			//System.out.println("Pos y entre 0 y 12");
+			//System.out.println("Antes de setear siguiente: "+siguiente);
 			siguiente = grilla[pos.x][pos.y+dir];
-			System.out.println("despues de setear siguiente: "+grilla[pos.x][pos.y+dir]);
-			System.out.println("Despues de setear siguiente: "+siguiente);
+			//System.out.println("despues de setear siguiente: "+grilla[pos.x][pos.y+dir]);
+			//System.out.println("Despues de setear siguiente: "+siguiente);
 		}
-		System.out.println("Posicion siguiente tiene "+siguiente);
+		//System.out.println("Posicion siguiente tiene "+siguiente);
 		return siguiente;
 	}
 	public void mover(Entidad e, int dir){
 		if (e != null) gui.updateLabel(e.getLabel(),+dir);
 	}
 	public void aceptarVisitor(Entidad aceptador, Entidad visitante){
-		aceptador.accept(visitante.getVisitor());
-		if(aceptador.getVida()<=0)
-			eliminar(aceptador);
+		if(aceptador != null && visitante != null){
+			aceptador.accept(visitante.getVisitor());
+			if(aceptador.getVida()<=0)
+				eliminar(aceptador);
+		}
 	}
 	
 	public synchronized boolean enRango(Integrante i,int dir) {
     	Point pos = i.getPos();
 		int j = i.getAlcance();
 		
-		//System.out.println("Soy: "+i.toString());
-		for(int k= 1;k<=j && pos.y+(k*dir)>0 && pos.y+(k*dir)<=12;k++) {
-			//System.out.println("En rango: pos y "+(pos.y+(k*dir)));
+		////System.out.println("Soy: "+i.toString());
+		for(int k= 1;k<=j && pos.y+(k*dir)>=0 && pos.y+(k*dir)<=12;k++) {
+			////System.out.println("En rango: pos y "+(pos.y+(k*dir)));
 			Entidad siguiente = grilla[pos.x][pos.y+(k*dir)];
 			if(siguiente != null) {
 				aceptarVisitor(siguiente,i);
-				System.out.println("la vida del siguiente es: "+siguiente.getVida());
-				//System.out.println("revis�o rango");
+				//System.out.println("la vida del siguiente es: "+siguiente.getVida());
+				////System.out.println("revis�o rango");
 				Disparo disparo = i.getDisparo();
-				//if(disparo != null) System.out.println("tengo disparo");
-				//else System.out.println("disparo es nulo");
+				//if(disparo != null) //System.out.println("tengo disparo");
+				//else //System.out.println("disparo es nulo");
 				if(disparo != null){
 					i.setState(new Ataque(i));
 					i.getState().disparar();
 					gui.insertar(disparo.getLabel(),disparo.getPos().x*60+30,disparo.getPos().y*60+30);
 					threadDisparo.insertarDisparo(disparo);					
-					//System.out.println("disparo insertado
-					//System.out.println("Personaje "+i+"posicion x "+pos.x+"y "+pos.y);
-					//System.out.println("disparo insertado");
+					////System.out.println("disparo insertado
+					////System.out.println("Personaje "+i+"posicion x "+pos.x+"y "+pos.y);
+					////System.out.println("disparo insertado");
 				}
 				return true;
 			}
@@ -261,9 +274,9 @@ public class Juego extends Thread{
 	public boolean hayEntidad(int x,int y) {
 		Entidad ent =  grilla[x][y];
 		if (ent!=null){
-			System.out.println(ent);
+			//System.out.println(ent);
 		}
-		//else System.out.println("hay nulo");
+		//else //System.out.println("hay nulo");
 		return grilla[x][y] != null;
 		
 	}
@@ -318,12 +331,12 @@ public class Juego extends Thread{
 	}
 	
 	public void insertarEnemigo2(ObjetoTemporal pw){
-		CreadorPoseido cp = new CreadorPoseido();
+		//CreadorPoseido cp = new CreadorPoseido();
 		
-		//CreadorRuso cp = new CreadorRuso();
+		CreadorRuso cp = new CreadorRuso();
 		Enemigo e = cp.crear();
 		e.setPosicion(1, 12);
-		e.asignarPowerup(pw);
+		e.setPremio(pw);
 		threadEnemigos.insertarEnemigo(e);
 		insertar(e);
 		//this.enemigo = e;
@@ -340,7 +353,7 @@ public class Juego extends Thread{
 			gui.insertar(nueva.getLabel(), x*60, y*60);
 			personajes.add((Integrante)nueva);
 			this.threadPersonaje.insertarPersonaje((Personaje) nueva);
-			System.out.println("Inserte personaje en x y "+x+" "+y);
+			//System.out.println("Inserte personaje en x y "+x+" "+y);
 		}
 	}
 	
@@ -358,6 +371,9 @@ public class Juego extends Thread{
 	
 	public boolean esPersonaje() {
 		return shop.getEsPersonaje();
+	}
+	public boolean comprando(){
+		return shop.getProximo() != null;
 	}
 	
 	public void insertarDisparo(Disparo d){

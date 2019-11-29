@@ -26,7 +26,7 @@ public class ThreadRango extends Thread{
 	
 	public void run() {
 		while(true){
-			System.out.println("while true ThreadRango");
+			//System.out.println("while true ThreadRango");
 			synchronized(this) {
 				while(suspend)
 					try {

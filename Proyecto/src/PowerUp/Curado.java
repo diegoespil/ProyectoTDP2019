@@ -1,4 +1,4 @@
-package Entidad.Integrante.State;
+package PowerUp;
 
 import Entidad.Integrante.Integrante;
 import Entidad.Objeto.Temporal.ObjetoTemporal;

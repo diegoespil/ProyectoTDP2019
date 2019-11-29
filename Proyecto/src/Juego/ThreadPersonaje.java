@@ -39,11 +39,11 @@ public class ThreadPersonaje extends Thread{
 			}
 			Iterator<Personaje> p = personajes.iterator();
 			while(p.hasNext()) {
-				System.out.println("Estoy en ThreadPersonaje");
-				Personaje personaje = p.next();System.out.println("Posicion de personaje: "+personaje.getPos());
-				System.out.println("Vida de personaje: "+personaje.getVida());
+				//System.out.println("Estoy en ThreadPersonaje");
+				Personaje personaje = p.next();//System.out.println("Posicion de personaje: "+personaje.getPos());
+				//System.out.println("Vida de personaje: "+personaje.getVida());
 				if (personaje.getVida()<=0){
-					System.out.println("Personaje muerto");
+					//System.out.println("Personaje muerto");
 					eliminados.add(personaje);
 					juego.eliminar(personaje);
 				}
@@ -89,12 +89,12 @@ public class ThreadPersonaje extends Thread{
 	}
 	
 	public void suspended() {		
-		System.out.println("Suspended Personaje");
+		//System.out.println("Suspended Personaje");
 		suspend = true;
 	}
 	
 	synchronized void resumen() {
-		System.out.println("Resumen Personaje");
+		//System.out.println("Resumen Personaje");
 		suspend = false;
 		notify();
 	}

@@ -1,5 +1,9 @@
 package Entidad.Integrante;
 
+import java.awt.Color;
+
+import javax.swing.BorderFactory;
+
 import Entidad.Entidad;
 import Entidad.Disparo.Disparo;
 import Entidad.Integrante.State.Ataque;
@@ -54,11 +58,5 @@ public abstract class Integrante extends Entidad{
 	public void setState(State s) {
 		estado = s;
 	}
-	
-	public void asignarPowerup(ObjetoTemporal p) {
-		powerup = p;
-		powerup.activar(this);
-	}
-	
 	
 }

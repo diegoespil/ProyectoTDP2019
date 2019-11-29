@@ -1,18 +1,17 @@
-package Entidad.Objeto.Temporal;
+package Entidad.Objeto.Temporal.PowerupEnMapa;
 
 import java.awt.Color;
+import java.util.Timer;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-
-import Entidad.Entidad;
 import Entidad.Integrante.Integrante;
-import Entidad.Integrante.State.AtaqueDuplicado;
-import Entidad.Objeto.Temporal.ObjetoTemporal;
+import PowerUp.AtaqueDuplicado;
+import PowerUp.PowerUp;
 
-public class AttaqueX2 extends ObjetoTemporal {
+public class AtaqueX2 extends PowerupEnMapa {
 	
-	public AttaqueX2(int x, int y, int tiempo){
+	public AtaqueX2(int x, int y, int tiempo){
 		super(x,y,tiempo);
 		JLabel label = new JLabel();
 		label.setBounds(0, 0, 60, 60);
@@ -21,12 +20,13 @@ public class AttaqueX2 extends ObjetoTemporal {
 		label.setBorder(BorderFactory.createEtchedBorder(Color.WHITE, Color.WHITE));
 		this.setLabel(label);
 	}
-
-	public void afectar(Entidad e) { }
 	
 	public void activar(Integrante i) {
-		i.setState(new AtaqueDuplicado(i));
-		i.getState().activarPowerup(this);
+		Timer t = new Timer();
+		PowerUp atqx2 = new AtaqueDuplicado(i,5);
+		int duracion_ms = atqx2.getDuracion()*1000;
+		atqx2.activar();
+		t.schedule(atqx2, duracion_ms);
 	}
 
 }

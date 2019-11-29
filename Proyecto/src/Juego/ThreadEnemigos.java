@@ -36,13 +36,13 @@ public class ThreadEnemigos extends Thread{
 			}
 			Iterator<Enemigo> lista = enemigos.iterator();
 			while(lista.hasNext()){
-				System.out.println("Estoy en ThreadEnemigos");
+				//System.out.println("Estoy en ThreadEnemigos");
 				Enemigo enemigo = lista.next();
-				System.out.println("Vida de "+enemigo+": "+enemigo.getVida());
-				System.out.println("Posicion de "+enemigo+": "+enemigo.getPos());
+				//System.out.println("Vida de "+enemigo+": "+enemigo.getVida());
+				//System.out.println("Posicion de "+enemigo+": "+enemigo.getPos());
 				if ((enemigo.getVida()<=0)){
-					if (enemigo.getPowerUp()!=null)
-						juego.guardarPowerup(enemigo.getPowerUp(),enemigo.getPos());
+					if (enemigo.getPremio()!=null)
+						juego.dropPremio(enemigo.getPremio(),enemigo.getPos());
 					juego.eliminarEnemigo(enemigo);	
 					eliminados.add(enemigo);
 				}
@@ -51,9 +51,9 @@ public class ThreadEnemigos extends Thread{
 					//juego.enRango(enemigo,-1);
 					Entidad sig = juego.getSiguiente(enemigo,-1);
 					if(sig != null){ //solo para debuguear
-						System.out.println("Para "+enemigo.toString()+": sig es "+sig.toString());
+						//System.out.println("Para "+enemigo.toString()+": sig es "+sig.toString());
 					}
-					else System.out.println("Para "+enemigo.toString()+": sig es nulo");
+					else //System.out.println("Para "+enemigo.toString()+": sig es nulo");
 					if(cont<60) {
 						//Entidad sig = juego.getSiguiente(enemigo,-1);
 						if (sig == null){
@@ -67,7 +67,7 @@ public class ThreadEnemigos extends Thread{
 						
 						if (sig == null){
 							juego.actualizarGrilla(enemigo,-1);
-							System.out.println("Avanza enemigo ");
+							//System.out.println("Avanza enemigo ");
 						}
 						//juego.enRango(enemigo,-1);
 						enemigo.setContPasos(0);
