@@ -8,7 +8,9 @@ import Entidad.Integrante.Enemigo.Enemigo;
 public class Oleada2 extends Oleada {
 
 	public Oleada2(Vector<Enemigo> enemigos,int cant) {
+		
 		super(enemigos,cant);
+		System.out.println("Oleada 2");
 		// TODO Auto-generated constructor stub
 	}
 
