@@ -101,4 +101,8 @@ public class ThreadEnemigos extends Thread{
 		suspend = false;
 		notify();
 	}
+	
+	synchronized void removeAll() {
+		enemigos.removeAllElements();
+	}
 }

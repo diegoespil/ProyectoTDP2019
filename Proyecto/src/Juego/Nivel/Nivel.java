@@ -34,4 +34,5 @@ public abstract class Nivel {
 	
 	public abstract Nivel subirNivel();
 	
+	
 }

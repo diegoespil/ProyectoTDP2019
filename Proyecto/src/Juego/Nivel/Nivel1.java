@@ -17,6 +17,7 @@ import Creadores.CreardorEnemigo.CreadorPerro;
 import Creadores.CreardorEnemigo.CreadorPoseido;
 import Creadores.CreardorEnemigo.CreadorRata;
 import Creadores.CreardorEnemigo.CreadorRuso;
+import Entidad.Entidad;
 import Entidad.Integrante.Enemigo.*;
 import Entidad.Objeto.Objeto;
 import Entidad.Objeto.ConVida.Auto;
@@ -28,15 +29,18 @@ import Juego.Oleada.Oleada;
 import Juego.Oleada.Oleada1;
 
 public class Nivel1 extends Nivel {
-
+	
+	protected Nivel nivelSiguiente;
+	
 	public Nivel1(Juego j) {
 		super(j);
+		nivelSiguiente = new Nivel2(this.juego);
 	}
 	
 
 	public Nivel subirNivel() {
 		
-		return new Nivel2(this.juego);
+		return nivelSiguiente;
 	}
 
 	
@@ -46,34 +50,51 @@ public class Nivel1 extends Nivel {
 	}
 
 	private void initObjetos() {
-		String cadena;
-		FileReader f;
 		try {
-			f = new FileReader("Archivo//Mapa1.txt");
-			BufferedReader b = new BufferedReader(f);
-			int fila = 0;
-			while ((cadena = b.readLine()) != null) {
-				String arr[] = cadena.split(",");
-				for (int i = 0; i < arr.length; i++) {
-					switch(arr[i]) {
-						case "auto" : { CreadorEntidad auto = new CreadorAuto();
-										ObjetoConVida objeto = (ObjetoConVida)auto.crear();
-										this.objetos.add(objeto);
-										break;
-						}						
-					}
-				}
-				fila++;
-			}
-			b.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			getObstaculos();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	}
+	
+	private void getObstaculos() throws FileNotFoundException, IOException {
+		String cadena;
+		FileReader f = new FileReader("Archivo//Mapa1.txt");
+		BufferedReader b = new BufferedReader(f);
+		int fila = 0;
+		while ((cadena = b.readLine()) != null) {
+			procesarLinea(cadena, fila);
+			fila++;
+		}
+		b.close();
+	}
+
+	private void procesarLinea(String cadena, int fila) {
+		String arr[] = cadena.split(",");
+		CreadorEntidad creador = new CreadorAuto();
+		for (int i = 0; i < arr.length; i++) {
+			switch(arr[i]) {
+			case "auto" : {
+				ObjetoConVida a = (ObjetoConVida) creador.crear();
+				a.setPosicion(fila, i);
+				objetos.add(a);
+				break;
+			}
+			case "auto2" : {
+				ObjetoConVida a = (ObjetoConVida) creador.crear();
+				a.setPosicion(fila, i);
+				objetos.add(a);
+				break;
+
+            }
+			case "auto3" : {
+				ObjetoConVida a = (ObjetoConVida) creador.crear();
+				a.setPosicion(fila, i);
+				objetos.add(a);
+				break;
+			}
+			}
+		}
 	}
 
 	private void initEnemigos() {
@@ -136,7 +157,6 @@ public class Nivel1 extends Nivel {
 		
 	}
 
-
 	@Override
 	public Oleada getOleada(int cant) {
 		if (this.oleada == null)
@@ -151,5 +171,6 @@ public class Nivel1 extends Nivel {
 		this.oleada = oleada;
 		
 	}
+
 	
 }

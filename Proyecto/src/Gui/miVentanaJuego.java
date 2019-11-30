@@ -1,23 +1,18 @@
 package Gui;
 
 import java.awt.Color;
-
 import java.awt.EventQueue;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
-
 import Juego.Juego;
 import Entidad.Entidad;
 
@@ -119,12 +114,12 @@ public class miVentanaJuego extends JFrame{
 				if(e.getButton()==MouseEvent.BUTTON1){
 					x = e.getX();
 					y = e.getY();
-					if (juego.comprando()){ //se clickeó para ubicar la compra
+					if (juego.comprando()){ //se clickeï¿½ para ubicar la compra
 						int grillaX = y/60;
 						int grillaY = x/60;
 						ubicarCompra(grillaX,grillaY);
 					}
-					else{ //se clickeó para levantar un powerup
+					else{ //se clickeï¿½ para levantar un powerup
 						clickearPowerup(x,y);
 					}	
 				}
@@ -132,17 +127,17 @@ public class miVentanaJuego extends JFrame{
 				if(e.getButton()==MouseEvent.BUTTON2){	
 					x = e.getX();
 					y = e.getY();
-					if (juego.comprando()){ //se clickeó para ubicar la compra
+					if (juego.comprando()){ //se clickeï¿½ para ubicar la compra
 						int grillaX = y/60;
 						int grillaY = x/60;
 						ubicarCompra(grillaX,grillaY);
 					}
-					else{ //se clickeó para levantar un powerup
+					else{ //se clickeï¿½ para levantar un powerup
 						clickearPowerup(x,y);
 					}
 				}
 				
-				if(e.getButton()==MouseEvent.BUTTON3){ //se está asignando un powerup a personaje			
+				if(e.getButton()==MouseEvent.BUTTON3){ //se estï¿½ asignando un powerup a personaje			
 					x = (e.getX()/60);
 					y = (e.getY()/60);
 					if(juego.hayEntidad(y, x)) {
@@ -217,4 +212,25 @@ public class miVentanaJuego extends JFrame{
 			panel.repaint();
 		}
 	}
+	
+	public void ganoNivel() {
+		JOptionPane.showMessageDialog(null, "A ganado el nivel");
+		panel.removeAll();
+		panel.repaint();
+	}
+	
+	public void finalizoPartida(String mensaje) {
+		int resp = JOptionPane.showConfirmDialog(null, "Usted a "+mensaje+"\n Â¿Desea jugar de nuevo?", "Finalizo la partida", JOptionPane.YES_NO_OPTION, JOptionPane.ERROR_MESSAGE);
+		if(resp == 0)
+			jugarDevuelta();
+		else
+			System.exit(0);
+	}
+	
+	public void jugarDevuelta() {
+		this.dispose();
+		miVentanaJuego.main(null);
+		
+	}
+
 }

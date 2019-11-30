@@ -1,5 +1,4 @@
 package Juego;
-
 import java.util.Iterator;
 import java.util.Vector;
 import Entidad.Integrante.Personaje.Personaje;
@@ -75,5 +74,10 @@ public class ThreadPersonaje extends Thread{
 		//System.out.println("Resumen Personaje");
 		suspend = false;
 		notify();
+	}
+	
+	synchronized void removeAll() {
+		for(Personaje p_elim: eliminados)
+			personajes.remove(p_elim);
 	}
 }

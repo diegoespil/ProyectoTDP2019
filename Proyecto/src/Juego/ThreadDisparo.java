@@ -1,6 +1,5 @@
 package Juego;
 
-import java.util.Iterator;
 import java.util.Vector;
 
 import Entidad.Entidad;
@@ -13,14 +12,12 @@ public class ThreadDisparo extends Thread{
 	private Vector<Disparo>  disparos;
 	private Vector<Disparo> eliminados;
 	private boolean suspend;
-	//private volatile int cont;
 
 	public ThreadDisparo(Juego j) {
 		this.juego = j;
 		disparos = new Vector<Disparo>();
 		eliminados = new Vector<Disparo>();
 		suspend = false;
-		//cont = 0;
 	}
 
 	public void run() {
@@ -91,5 +88,9 @@ public class ThreadDisparo extends Thread{
 	synchronized void resumen() {
 		suspend = false;
 		notify();
+	}
+	
+	synchronized void removeAll() {
+		disparos.removeAllElements();
 	}
 }
