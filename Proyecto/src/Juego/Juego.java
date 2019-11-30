@@ -3,12 +3,7 @@ package Juego;
 import java.awt.Point;
 import java.util.Vector;
 import Creadores.CreadorTemporal.CreadorAtaqueX2;
-<<<<<<< HEAD
-=======
 import Creadores.CreadorTemporal.CreadorFuego;
-import Creadores.CreardorEnemigo.CreadorPoseido;
-import Creadores.CreardorEnemigo.CreadorRuso;
->>>>>>> da9a54a68d57df2b0f9fa4cf32d110bfbe3c1226
 import Entidad.Entidad;
 import Entidad.Disparo.Disparo;
 import Entidad.Integrante.Integrante;
@@ -17,13 +12,9 @@ import Entidad.Integrante.Personaje.Personaje;
 import Entidad.Integrante.State.Ataque;
 import Entidad.Integrante.State.Normal;
 import Entidad.Objeto.Objeto;
-<<<<<<< HEAD
-=======
-import Entidad.Objeto.ConVida.Auto;
 import Entidad.Objeto.Temporal.PowerupEnMapa.AtaqueX2;
 import Entidad.Objeto.Temporal.PowerupEnMapa.PowerupEnMapa;
 import Entidad.Objeto.Temporal.Fuego;
->>>>>>> da9a54a68d57df2b0f9fa4cf32d110bfbe3c1226
 import Entidad.Objeto.Temporal.ObjetoTemporal;
 import Gui.miVentanaJuego;
 import Juego.Nivel.Nivel;
@@ -45,19 +36,11 @@ public class Juego extends Thread{
 	private ThreadRango threadRango;
 	private ThreadDisparo threadDisparo;
 	private ThreadPersonaje threadPersonaje;
-<<<<<<< HEAD
-	//private Vector<Integrante> personajes;
-	private boolean fin;
-	private ObjetoTemporal powerupguardado;
-	
-=======
 	private ThreadObjetos threadObjetos;
-	private Vector<Integrante> personajes;
 	private boolean fin;
-	private AtaqueX2 power;
 	private PowerupEnMapa powerupguardado;
-
->>>>>>> da9a54a68d57df2b0f9fa4cf32d110bfbe3c1226
+	
+	
 	public Juego(miVentanaJuego gui) {
 		this.fin = false;
 		this.nivel = new Nivel1(this);
@@ -73,26 +56,14 @@ public class Juego extends Thread{
 		this.oleada = nivel.getOleada(4);
 		nivel.setOleada(oleada);
 		cargarObjetos();
-		cargarEnemigos(oleada);
-<<<<<<< HEAD
-		//personajes = new Vector<Integrante>();
-=======
-		//cargarObjetos();
-		personajes = new Vector<Integrante>();
-		try {
-			getObstaculos();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		//prueba
-		CreadorFuego cf = new CreadorFuego();
+		//prueba fuego
+		cargarEnemigos(oleada);CreadorFuego cf = new CreadorFuego();
 		Fuego fuego = (Fuego) cf.crear();
 		fuego.setPosicion(0, 9);
 		gui.insertar(fuego.getLabel(), fuego.getPos().x*60, fuego.getPos().y*60);
 		threadObjetos.insertarObjeto(fuego);
 		threadObjetos.start();
 		//prueba
->>>>>>> da9a54a68d57df2b0f9fa4cf32d110bfbe3c1226
 		threadDisparo = new ThreadDisparo(this);		
 		threadDisparo.iniciar();
 		threadEnemigos.start();
@@ -141,8 +112,10 @@ public class Juego extends Thread{
 	
 	public void cargarObjetos() {
 		Vector<Objeto> objetos = nivel.getObjetos();
-		for(Objeto o : objetos)
+		for(Objeto o : objetos){
 			insertar(o);
+		    threadObjetos.insertarObjeto(o);
+		}
 	}
 
 	public synchronized void actualizarGrilla(Entidad e,int dir){
@@ -293,8 +266,6 @@ public class Juego extends Thread{
 	
 	public boolean hayEntidad(int x,int y) {
 		return grilla[x][y] != null;
-<<<<<<< HEAD
-=======
 	}
 	
 	public Entidad getEntidad(int x, int y){
@@ -305,52 +276,6 @@ public class Juego extends Thread{
 			ent = null;
 		}
 		return ent;
-	}
-
-	public void getObstaculos() throws FileNotFoundException, IOException {
-		String cadena;
-		FileReader f = new FileReader("Archivo//Mapa1.txt");
-		BufferedReader b = new BufferedReader(f);
-		int fila = 0;
-		while ((cadena = b.readLine()) != null) {
-			procesarLinea(cadena, fila);
-			fila++;
-		}
-		b.close();
-	}
-
-	private void procesarLinea(String cadena, int fila) {
-		String arr[] = cadena.split(",");
-		CreadorEntidad creador = new CreadorAuto();
-		for (int i = 0; i < arr.length; i++) {
-			switch(arr[i]) {
-			/*case "fuego" : { grilla[fila][i] = new Fuego(fila,i,10);
-							break;
-			}*/
-			case "auto" : {
-				Objeto a = (Objeto) creador.crear();
-				a.setPosicion(fila, i);
-				insertar(a);
-				threadObjetos.insertarObjeto(a);
-				break;
-			}
-			case "auto2" : {
-				Objeto a = (Objeto) creador.crear();
-				a.setPosicion(fila, i);
-				insertar(a);
-				threadObjetos.insertarObjeto(a);
-				break;
-
-            }
-			case "auto3" : {
-				Objeto a = (Objeto) creador.crear();
-				a.setPosicion(fila, i);
-				insertar(a);
-				threadObjetos.insertarObjeto(a);
-			}
-			}
-		}
->>>>>>> da9a54a68d57df2b0f9fa4cf32d110bfbe3c1226
 	}
 
 	/*

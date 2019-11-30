@@ -1,6 +1,5 @@
 package Juego;
 
-import java.util.Iterator;
 import java.util.Vector;
 
 import Entidad.Integrante.Enemigo.Enemigo;
